@@ -2,7 +2,7 @@
 title: 计算机知识树
 date: 2019-05-13 14:42:09
 ---
-
+[课程资源](https://github.com/Developer-Y/cs-video-courses)
 # DS
 - Algorithm
   - Greedy
@@ -169,9 +169,22 @@ date: 2019-05-13 14:42:09
       - 唯一索引
       - 主键索引
       - 聚集索引
+      - 联合索引：将多个列组合在一起创建索引，可以覆盖多个列。（也叫复合索引，组合索引）, 需遵循最左匹配原则
+      - 外键索引：只有InnoDB类型的表才可以使用外键索引，保证数据的一致性、完整性、和实现级联操作（基本不用）。
+      - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
   - truncate删除表中数据，再插入时自增长id又从1开始
   - MySQL
     - show engines
+    - select CURRENT_DATE();
+    - set profiling = 1; show profiles; show profile for query 临时表ID
+    - show status
+    - show processlist
+    - explain select * from a;
+    - int(20)中20的含义，是指显示字符的长度，不影响内部存储，只是当定义了ZEROFILL时，前面补多少个 0
+    - 触发器
+      - Before/After intert
+      - Before/After update
+      - Before/After delete
 - 事务
   - isolation级别
     - read uncommitted（读取未提交数据）
@@ -216,6 +229,9 @@ date: 2019-05-13 14:42:09
     - read ahead
     - 采用clustered方式，按pk顺序存放，缺省默认pk：6 byte的RowId
     - 面向OLTP
+    - 可存储在ibdata*的共享表空间，也可以存放于独立的.ibd文件的独立表空间
+      - 共享表空间：某一个数据库的所有的表数据，索引文件全部放在一个文件中，默认这个共享表空间的文件路径在data目录下。 默认的文件名为:ibdata1 初始化为10M。可以将表空间分成多个文件存放到各个磁盘上（表空间文件大小不受表大小的限制，如一个表可以分布在不同的文件上）。数据和文件放在一起方便管理。但是删起来碎片不好清理。
+      - 独立表空间：每一个表都将会生成以独立的文件方式来进行存储，每一个表都有一个.frm表描述文件，还有一个.ibd文件。 其中这个文件包括了单独一个表的数据内容以及索引内容，默认情况下它的存储位置也是在表的位置之中。表可能太大
   - BERKLEY
     - 支持事务处理和外来键
   - NDB集群引擎（share nothing）
@@ -444,6 +460,20 @@ date: 2019-05-13 14:42:09
 - JVM
   - [GC](https://fanjingdan012.github.io/2019/04/10/GC/)
   - [JMM](https://fanjingdan012.github.io/2019/04/10/GC/Memory.png)
+    - used
+    - committed
+    - max
+    -initial
+  - tools
+    - jconsole
+    - jmap
+    - jstat
+    - jcmd
+    - jvisualVM
+    - jmx
+      - jmx client
+      - jmx bean, program
+    - jdb
   - class加载
     - class结构
       - Magic 0xCAFEBABE
@@ -777,9 +807,19 @@ date: 2019-05-13 14:42:09
       - Claude Shannon提出用Confusion和Deffusion来构造Substitution-Permutation network（SPN）
       - Feistel cipher实现了SPN
     - AES：DES的改进版
+      - [加密模式](https://www.cnblogs.com/starwolf/p/3365834.html)
+        - ECB (Electonic Code Book)
+        - CBC (Cipher Block Chaining)
+        - CTR (Counter)
+        - CFB (Cipher Feed Back)
+        - OFB (Output Feed Back)
+        - [AES-GCM](https://www.jianshu.com/p/29b1ef3f84dc) 
+
   - 非对称Asymmetric
     - RSA
       - [原理解释](https://github.com/fanjingdan012/JavaDetails/blob/master/security/src/main/java/crypt/RSAImpl.java)
+      - [数学原理解释](https://cnodejs.org/topic/5bb9c31e15e4fd1923f48d0b)
+      - [密钥存储格式](http://github.tiankonguse.com/blog/2017/07/01/ASN1-SRA.html)
       - 攻击方式
         - 暴力头尾+中间
         - 共模攻击：不同public key加密同一个plainText，因为`C=plainMsg^e mod n`，根据"中国剩余定理"可以算出plainText，但不能得到private key，[CTF sample](https://github.com/fanjingdan012/JavaDetails/blob/master/security/src/test/java/crypt/RSAImplTest.java)
@@ -847,5 +887,11 @@ date: 2019-05-13 14:42:09
     - 小色差
   - xml攻击
   - reverse shell
+  - pentest
+    - tools
+      - ZAP
+        - active scan
+        - passive scan
 
 # Linux
+
