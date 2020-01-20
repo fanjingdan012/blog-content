@@ -22,15 +22,15 @@ date: 2019-05-14 17:29:01
 | ------------- |
 | [收入费用和利润](index/income-cost-profit.jpg)        | 
 | [资产减值](index/impairment-of-assets.jpg)        |
-| [借款费用TODO]
-| [政府补助TODO]
-| [外币折算TODO]
-| [所得税]
-| [每股收益]
+| [借款费用](index/fee4loan.png)|
+| [政府补助](index/gov-grants.png)|
+| [外币折算TODO] |
+| [所得税] |
+| [每股收益] |
 
 [或有事项](index/probable.png)
 [非货币性资产交换TODO]()
-[债务重组TODO]
+[债务重组](index/debt-restructuring.png)
 [租赁TODO]
 [持有待售的非流动性资产、处置组合终止经营]
 [财务报告TODO]
