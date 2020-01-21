@@ -330,7 +330,21 @@ date: 2019-05-13 14:42:09
     - 任务执行
       - 创建线程
       - Executor框架（生产者消费者）
-        - 分支主题
+        - ThreadPool
+          - interface 
+          ```
+          public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue)
+          ```
+          - fixed
+          - workStealingPool
+          - singleThreadExecutor
+          - cached
+          - scheduled
+          - unconfigurableExecutorService
       - 分支主题
   - 活跃性危险
     - 死锁
@@ -338,7 +352,7 @@ date: 2019-05-13 14:42:09
     - 丢失信号
     - 活锁
   - 性能
-    - amdahl定律
+    - amdahl定律:processors数对speed up的影响关系
     - 开销
       - 上下文切换
       - 内存同步
@@ -431,8 +445,13 @@ date: 2019-05-13 14:42:09
   - montebank
   - pact
 - Docker
-  - 3W1H Docker技术
   - Docker命令
+    - docker images
+    - docker ps
+    - docker run
+    - docker search
+    - docker logs
+    - docker cp
   - 镜像 容器 仓库
 - etcd
 - BASE（反ACID）
@@ -490,6 +509,19 @@ date: 2019-05-13 14:42:09
 - lambda表达式
   - stream API
   - stream 原理 TODO
+
+# C
+- 存储类
+  - auto 默认
+  - register 存在寄存器里
+  - static 在程序生命周期内一直不销毁，不创建
+  - extern 对所有程序文件可见的全局变量的引用
+- 指针
+  - 普通指针 `int *p`
+  - 函数指针 `int (* p)(int, int) = & max; //max 是个函数`
+    - 调用： `d=p(a,b);`
+
+
 
 # Spring
 - Core
@@ -567,8 +599,21 @@ date: 2019-05-13 14:42:09
       - Channel管道
       - Buffer
       - Selector
-      - Netty
-    - AIO(NIO2)
+      - Netty 应用了零拷贝技术(Zero-Copy) linux2.1 sendfile(socket, file, len)
+      - [io multiplexing](https://devarea.com/linux-io-multiplexing-select-vs-poll-vs-epoll/#.XhQ5tUf7RaQ) 用户需要自己从kernel copy 到user，会阻塞
+        - [详解](https://segmentfault.com/a/1190000003063859#item-3-11) 在 select/poll中，进程只有在调用一定的方法后，内核才对所有监视的文件描述符进行扫描，而epoll事先通过epoll_ctl()来注册一 个文件描述符，一旦基于某个文件描述符就绪时，内核会采用类似callback的回调机制，迅速激活这个文件描述符，当进程调用epoll_wait() 时便得到通知。(此处去掉了遍历文件描述符，而是通过监听回调的的机制。这正是epoll的魅力所在。)
+        - epoll
+          - epoll_create: `int epoll_create(int size)`
+          - epoll_ctl 添加，删除，更改 :`int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)`
+          - epoll_wait: `int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout)`
+          - 模式
+            - level trigger（默认），收听到可以不立即处理
+            - edge trigger，必须立即处理，否则以后收不到新消息
+        - select
+          - `int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);`
+        - poll
+          - `int poll (struct pollfd *fds, unsigned int nfds, int timeout);`
+    - AIO(NIO2) 直接实现从kernel copy到user
   - test
     - mockito
       - 实现原理
@@ -658,6 +703,18 @@ date: 2019-05-13 14:42:09
   - Map/Reduce
   - Hive
 - Spark
+  - components
+    - core
+    - sql
+    - streaming
+    - MLlib
+    - GraphX
+  - RDD(resilient弹性 distributed dataset)
+    - 分区partitions
+    - 一个函数计算每个分区
+    - 分区之间有依赖
+    - 可选：对于键值对有一个partitioner（e.g.hash partitioner）
+    - 可选：每一个分区有一串优先位置
 
 # [网络](https://fanjingdan012.github.io/2019/05/09/Net)
 - 五层协议
@@ -673,6 +730,8 @@ date: 2019-05-13 14:42:09
   - TCP/UDP
   - 应用层
     - DNS等
+- web hook 就是个回调函数，允许在收到某消息时顺便做xx事
+
 
 # 软件过程
 - 瀑布
@@ -753,6 +812,10 @@ date: 2019-05-13 14:42:09
   - rabbitmq
   - rocketmq
   - kafka
+    - NIO
+    - Zero-Copy
+    - 磁盘顺序读写
+    - Queue极致使用
 - docker
 - Nginx
 - Zookeeper
@@ -835,6 +898,8 @@ date: 2019-05-13 14:42:09
         - SHA-384
         - SHA-512
       - RIPEMD-160
+  - Key
+    - PBKDF1/PBKDF2 (Password-Based Key Derivation Function)
 - 编码
   - ascii
   - Base64, Base32, Base16
@@ -869,6 +934,8 @@ date: 2019-05-13 14:42:09
 - Authorization：这个用户是不是允许访问这些资源，他是什么role，role含有哪些权限
 
 - OWASP&CTF
+  - [web-hacking-101](https://wizardforcel.gitbooks.io/web-hacking-101/content/)
+    - 
   - C语言
     - buffer overflow
       - 命令行输入0x0：Ctrl+Shift+2
@@ -893,5 +960,5 @@ date: 2019-05-13 14:42:09
         - active scan
         - passive scan
 
-# Linux
 
+# Linux
