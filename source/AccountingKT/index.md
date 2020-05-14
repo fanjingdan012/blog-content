@@ -12,7 +12,7 @@ date: 2019-05-14 17:29:01
 | [固定资产](index/fixed-asset.jpg)        |      |
 | [无形资产](index/intangible-asset.jpg)        | |
 | [投资性房地产](index/investment-property.jpg)       | [所有者权益](index/equity.jpg)      |
-| [长期股权投资,合并财务报表](index/long-term-stock.jpg)       | [股份支付](index/stock-pay.png)     |
+| [长期股权投资,企业合并,合并财务报表](index/long-term-stock.jpg)       | [股份支付](index/stock-pay.png)     |
 
 
 

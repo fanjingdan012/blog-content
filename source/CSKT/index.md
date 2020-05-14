@@ -219,6 +219,10 @@ date: 2019-05-13 14:42:09
   - HEAP
     - HEAP允许只驻留在内存里的临时表格。快，但不稳定，在数据行被删除的时候，HEAP也不会浪费大量的空间。HEAP表格在你需要使用SELECT表达式来选择和操控数据的时候非常有用。要记住，在用完表格之后就删除表格。
   - INNODB
+    - 默认:
+      - 隔离级别：可重复读
+      - innodb_locks_unsafe_for_binlog=OFF
+      - 采用gap locking
     - 支持事务处理和外来键
     - 行锁设计
     - 支持非锁定读（Oracle也支持），即读不会锁
@@ -331,7 +335,7 @@ date: 2019-05-13 14:42:09
       - 创建线程
       - Executor框架（生产者消费者）
         - ThreadPool
-          - interface 
+          - interface
           ```
           public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
@@ -339,10 +343,10 @@ date: 2019-05-13 14:42:09
                               TimeUnit unit,
                               BlockingQueue<Runnable> workQueue)
           ```
-          - fixed
+          - fixed: corePoolSize = maximumPoolSize
           - workStealingPool
-          - singleThreadExecutor
-          - cached
+          - singleThreadExecutor: = fixed(1)
+          - cached: corePoolSize = (0,Integer.MAX, 60,s)
           - scheduled
           - unconfigurableExecutorService
       - 分支主题
@@ -384,6 +388,7 @@ date: 2019-05-13 14:42:09
       ```
       while (抢锁(lock) == 没抢到) {}
       ```
+    - 记录锁（Record Locks）/Gap Locks：锁定某一个范围内的索引，但不包括记录本身/间隙锁定（Next-Key Locks）：锁定一个范围内的索引，并且锁定记录本身   Next-Key Locks = Record Locks + Gap Locks
     - 条件Condition
 - 海量数据
   - hash切分
@@ -426,7 +431,11 @@ date: 2019-05-13 14:42:09
     - 强一致性：更新后，后续读取都得到新值
     - 弱一致性：更新后，可能读到老值。但经过“不一致时间窗口”期后，读取都是新值
       - 最终一致性：属于弱一致性，保证最终所有的访问都是最后更新的值。
-        - 因果一致性。如果进程A通知进程B它已更新了一个数据项，那么进程B的后续访问将返回更新后的值，且一次写入将保证取代前一次写入。与进程A无因果关系的进程C的访问遵守一般的最终一致性规则。\n“读己之所写（read-your-writes）”一致性。当进程A自己更新一个数据项之后，它总是访问到更新过的值，绝不会看到旧值。这是因果一致性模型的一个特例。\n会话（Session）一致性。这是上一个模型的实用版本，它把访问存储系统的进程放到会话的上下文中。只要会话还存在，系统就保证“读己之所写”一致性。如果由于某些失败情形令会话终止，就要建立新的会话，而且系统的保证不会延续到新的会话。\n单调（Monotonic）读一致性。如果进程已经看到过数据对象的某个值，那么任何后续访问都不会返回在那个值之前的值。\n单调写一致性。系统保证来自同一个进程的写操作顺序执行。要是系统不能保证这种程度的一致性，就非常难以编程了。
+        - 因果一致性。如果进程A通知进程B它已更新了一个数据项，那么进程B的后续访问将返回更新后的值，且一次写入将保证取代前一次写入。与进程A无因果关系的进程C的访问遵守一般的最终一致性规则。
+        - “读己之所写（read-your-writes）”一致性。当进程A自己更新一个数据项之后，它总是访问到更新过的值，绝不会看到旧值。这是因果一致性模型的一个特例。
+        - 会话（Session）一致性。这是上一个模型的实用版本，它把访问存储系统的进程放到会话的上下文中。只要会话还存在，系统就保证“读己之所写”一致性。如果由于某些失败情形令会话终止，就要建立新的会话，而且系统的保证不会延续到新的会话。
+        - 单调（Monotonic）读一致性。如果进程已经看到过数据对象的某个值，那么任何后续访问都不会返回在那个值之前的值。
+        - 单调写一致性。系统保证来自同一个进程的写操作顺序执行。要是系统不能保证这种程度的一致性，就非常难以编程了。
   - 可用性(Availability)
   - 分区容忍性(Partition tolerance)
   - 应用
@@ -799,13 +808,13 @@ date: 2019-05-13 14:42:09
       - masterauth somepwd(in slave)
       - bind 127.0.0.1/protected-mode yes(两个要配合，一般不要改，如果该一定要设置protected-mode yes不要在公网暴露)
     - [哨兵Sentinel](https://redis.io/topics/sentinel)
-      - 每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令 
-      - 如果一个实例（instance）距离最后一次有效回复 PING 命令的时间超过 down-after-milliseconds 选项所指定的值， 则这个实例会被 Sentinel 标记为主观下线。 
-      - 如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master的确进入了主观下线状态。 
-      - 当有足够数量的 Sentinel（大于等于配置文件指定的值）在指定的时间范围内确认Master的确进入了主观下线状态， 则Master会被标记为客观下线 
-      - 在一般情况下， 每个 Sentinel 会以每 10 秒一次的频率向它已知的所有Master，Slave发送 INFO 命令 
-      - 当Master被 Sentinel 标记为客观下线时，Sentinel 向下线的 Master 的所有 Slave 发送 INFO 命令的频率会从 10 秒一次改为每秒一次 
-      - 若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。 
+      - 每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令
+      - 如果一个实例（instance）距离最后一次有效回复 PING 命令的时间超过 down-after-milliseconds 选项所指定的值， 则这个实例会被 Sentinel 标记为主观下线。
+      - 如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master的确进入了主观下线状态。
+      - 当有足够数量的 Sentinel（大于等于配置文件指定的值）在指定的时间范围内确认Master的确进入了主观下线状态， 则Master会被标记为客观下线
+      - 在一般情况下， 每个 Sentinel 会以每 10 秒一次的频率向它已知的所有Master，Slave发送 INFO 命令
+      - 当Master被 Sentinel 标记为客观下线时，Sentinel 向下线的 Master 的所有 Slave 发送 INFO 命令的频率会从 10 秒一次改为每秒一次
+      - 若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。
       - 若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
   - memcached
     - 缓存击穿
@@ -877,7 +886,7 @@ date: 2019-05-13 14:42:09
         - CTR (Counter)
         - CFB (Cipher Feed Back)
         - OFB (Output Feed Back)
-        - [AES-GCM](https://www.jianshu.com/p/29b1ef3f84dc) 
+        - [AES-GCM](https://www.jianshu.com/p/29b1ef3f84dc)
 
   - 非对称Asymmetric
     - RSA
@@ -936,7 +945,7 @@ date: 2019-05-13 14:42:09
 
 - OWASP&CTF
   - [web-hacking-101](https://wizardforcel.gitbooks.io/web-hacking-101/content/)
-    - 
+    -
   - C语言
     - buffer overflow
       - 命令行输入0x0：Ctrl+Shift+2
