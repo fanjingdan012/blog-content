@@ -299,6 +299,10 @@ date: 2019-05-13 14:42:09
   - 3NF：2NF+非键属性都只和候选键有相关性，也就是说非键属性之间应该是独立无关的
   - BCNF：3NF+主属性不能被非主属性决定
 - MySQL
+- ER Mapping
+  - Hibernate
+    - N+1问题
+  - Mybatis
 
 # CS
 - [内存](https://fanjingdan012.github.io/2018/04/11/Memory-Hierachy/)
