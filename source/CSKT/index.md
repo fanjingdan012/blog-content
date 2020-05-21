@@ -149,11 +149,47 @@ date: 2019-05-13 14:42:09
         - `dijkstra(Vertex start,Vertex end)` return shortest path length，这里代码就只返回一个目标点
         - 就是维护一张vertex，cost，path（从哪个点走）的表，从start开始，遍历其他每个点，把知道的cost填进去，再看从其他点出发所有可到达的点的cost有没有更低的，不断循环直到所有点遍历完。
         - [动画](https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html)
-      - weight可以负的
-        - SPP
+      - weight可以负的:不能求出最短路径:因为负权环可以无限制的降低总花费。
+        - Bellman-Ford（动态规划）可以判断有无负权回路（若有，则不存在最短路），时效性较好，时间复杂度O（VE）
+          - step1:初始化dist(i),除了初始点的值为0，其余都为infinit（表示无穷大，不可到达）,pred表示经过的前一个顶点
+          - step2:执行n-1（n等于图中点的个数）次松弛计算：dist(j)=min( dist(i)+weight(i,j),dist(j) )
+          - step3:再重复操作一次，如国dist(j) > distdist(i)+weight(i,j)表示途中存在从源点可达的权为负的回路。
+          ```java
+          int[] dist=new int[n];
+          int[] pre=new int[n];
+          
+          public void Bellman_Ford(){
+            //初始化
+            for(int i=1;i<n-1;i++){
+              dist[i]=infinit; //TODO
+            }//end for
+              
+            dist[s]=0 //起始点的值  
+            
+            for (int i=1;i<=n-1;i++){
+              for(int j=1;j<=edgenum; j++){
+                if(dist(i)+weight(i,j) <dist(j) ){
+                dist(j)=dist(i)+weight(i,j);
+                pred(j)=i;
+              }//end if
+              }//end for
+            }//end for
+            
+            //
+            for(int j=1;j<=edgenum;j++){
+              if(dist(i)+weight(i,j)<dist()j )
+                return "有负权回路，不存在最短路径";
+            }//end for
+            
+          }//e
+          ```
+      - A*算法
+        - 作为启发式搜索算法中的一种，这是一种在图形平面上，有多个节点的路径，求出最低通过成本的算法。常用于游戏中的NPC的移动计算，或线上游戏的BOT的移动计算上。该算法像Dijkstra算法一样，可以找到一条最短路径；也像BFS一样，进行启发式的搜索。详细见http://blog.csdn.net/v_JULY_v/article/details/6093380
     - All pairs shortest path
       - dijkstra 用n遍
       - Floyd算法（动态规划）
+    - 次最短路径
+      - 将最短路径中边在图中去掉，然后再求一次最小生成树
 
 # 数据库
 - SQL
