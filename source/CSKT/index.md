@@ -429,7 +429,7 @@ date: 2019-05-13 14:42:09
       while (抢锁(lock) == 没抢到) {}
       ```
     - 记录锁（Record Locks）/Gap Locks：锁定某一个范围内的索引，但不包括记录本身/间隙锁定（Next-Key Locks）：锁定一个范围内的索引，并且锁定记录本身   Next-Key Locks = Record Locks + Gap Locks
-    - 条件Condition
+    - 条件Condition, [sample code](https://github.com/fanjingdan012/JavaDetails/blob/master/concurrency/src/main/java/core/PrintABC10.java)
 - 海量数据
   - hash切分
   - 位图
