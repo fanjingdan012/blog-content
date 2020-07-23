@@ -210,6 +210,7 @@ date: 2019-05-13 14:42:09
       - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
   - truncate删除表中数据，再插入时自增长id又从1开始
   - MySQL
+    - 一张表最多16个索引
     - show engines
     - select CURRENT_DATE();
     - set profiling = 1; show profiles; show profile for query 临时表ID
@@ -523,6 +524,10 @@ date: 2019-05-13 14:42:09
   - Eureka
   - Ribbon
 - 分布式缓存
+- RPC
+- RMI Remote Method Invocation
+- JMS Java Message Service
+- CORBA Common Object Request Broker Architecture
 
 # Java
 - JVM
@@ -542,6 +547,7 @@ date: 2019-05-13 14:42:09
       - jmx client
       - jmx bean, program
     - jdb
+    - jps查看java进程
   - class加载
     - class结构
       - Magic 0xCAFEBABE
@@ -558,6 +564,15 @@ date: 2019-05-13 14:42:09
 - lambda表达式
   - stream API
   - stream 原理 TODO
+- HashMap
+  - 7和8区别
+    - 7用头插，8尾插
+    - 7用链表，8红黑树+链表
+  - resize
+    - 负载因子 Default=0.75  
+- cache
+  - Guava： google cache
+  - ehcache
 
 # C
 - 存储类
@@ -616,6 +631,7 @@ date: 2019-05-13 14:42:09
     - 注意点
       - [代理对象不能获取Annotation](https://blog.csdn.net/frightingforambition/article/details/78842306)
   - [Transactional](https://czwer.github.io/2018/05/31/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%8E%9F%E7%90%86/)
+    - 建立连接，开启事务，执行方法，提交or回滚
     - Propogation
       - Use Current Transaction
         - Currently No Transaction
@@ -869,6 +885,8 @@ date: 2019-05-13 14:42:09
 - docker
 - Nginx
 - Zookeeper
+  - 原理
+    - Observer模式
   - Client API
   - 应用场景
     - 数据发布订阅
@@ -878,6 +896,7 @@ date: 2019-05-13 14:42:09
   - 集群
     - Zab协议
     - 集群数据同步机制
+    - leader follower
 - Tomcat
 
 # Security安全

@@ -26,18 +26,20 @@ date: 2019-05-14 17:29:01
 | [政府补助](index/gov-grants.png)|
 | [外币折算](index/foreign-currency.png) |
 | [所得税](index/income-tax.png) |
-| [每股收益TODO] |
+| [每股收益TODO]() |
 
-[或有事项](index/probable.png)
+
 [非货币性资产交换TODO]()
 [债务重组](index/debt-restructuring.png)
 [租赁](index/rent.png)
-[持有待售的非流动性资产、处置组合终止经营TODO]
-[财务报告TODO]
+[持有待售的非流动性资产、处置组合终止经营](index/hold-to-sale.png)
 [FMV计量TODO]
 [政府及民间非营利组织会计TODO]
+
+[财务报告TODO]
+[或有事项](index/probable.png)
 [会计政策、会计估计变更和差错更正TODO]
-[B/S日后事项TODO]
+[B/S日后事项](index/bs-after.png)
 # [财务管理](https://fanjingdan012.github.io/2019/05/14/Corporate-Finance/)
 # 审计
 审计基本原理、审计测试流程、各类交易和账户余额的审计、对特殊事项的考虑、完成审计工作与出具审计报告、企业内部控制审计、质量控制和职业道德
