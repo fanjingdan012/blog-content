@@ -157,15 +157,15 @@ date: 2019-05-13 14:42:09
           ```java
           int[] dist=new int[n];
           int[] pre=new int[n];
-          
+
           public void Bellman_Ford(){
             //初始化
             for(int i=1;i<n-1;i++){
               dist[i]=infinit; //TODO
             }//end for
-              
-            dist[s]=0 //起始点的值  
-            
+
+            dist[s]=0 //起始点的值
+
             for (int i=1;i<=n-1;i++){
               for(int j=1;j<=edgenum; j++){
                 if(dist(i)+weight(i,j) <dist(j) ){
@@ -174,22 +174,23 @@ date: 2019-05-13 14:42:09
               }//end if
               }//end for
             }//end for
-            
+
             //
             for(int j=1;j<=edgenum;j++){
               if(dist(i)+weight(i,j)<dist()j )
                 return "有负权回路，不存在最短路径";
             }//end for
-            
+
           }//e
           ```
-      - A*算法
-        - 作为启发式搜索算法中的一种，这是一种在图形平面上，有多个节点的路径，求出最低通过成本的算法。常用于游戏中的NPC的移动计算，或线上游戏的BOT的移动计算上。该算法像Dijkstra算法一样，可以找到一条最短路径；也像BFS一样，进行启发式的搜索。详细见http://blog.csdn.net/v_JULY_v/article/details/6093380
+      - A星算法
+        - 作为启发式搜索算法中的一种，这是一种在图形平面上，有多个节点的路径，求出最低通过成本的算法。常用于游戏中的NPC的移动计算，或线上游戏的BOT的移动计算上。该算法像Dijkstra算法一样，可以找到一条最短路径；也像BFS一样，进行启发式的搜索。详细见[blog](http://blog.csdn.net/v_JULY_v/article/details/6093380)
     - All pairs shortest path
       - dijkstra 用n遍
       - Floyd算法（动态规划）
     - 次最短路径
       - 将最短路径中边在图中去掉，然后再求一次最小生成树
+
 
 # 数据库
 - SQL
@@ -209,7 +210,7 @@ date: 2019-05-13 14:42:09
       - 外键索引：只有InnoDB类型的表才可以使用外键索引，保证数据的一致性、完整性、和实现级联操作（基本不用）。
       - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
   - truncate删除表中数据，再插入时自增长id又从1开始
-  - MySQL
+  - [MySQL](https://dev.mysql.com/downloads/)
     - 一张表最多16个索引
     - show engines
     - select CURRENT_DATE();
@@ -335,15 +336,41 @@ date: 2019-05-13 14:42:09
   - 2NF：1NF+实体的属性完全依赖于主关键字（如果依赖一部分，就要分离开来）
   - 3NF：2NF+非键属性都只和候选键有相关性，也就是说非键属性之间应该是独立无关的
   - BCNF：3NF+主属性不能被非主属性决定
-- MySQL
 - ER Mapping
   - Hibernate
     - N+1问题
   - Mybatis
+  - JPA
+    - CascadeType
+      - ALL
+      - PERSIST，MERGE，REMOVE，REFRESH
+        - CRUD连着一起做
+      - DETACH
+        - 删自己的时候如果自己是别人的外键引用也脱离这个引用义无反顾的删掉
+    - FetchType
+      - LAZY
+      - EAGER
+  - Mybatis
+    - 四大对象
+      - Executor
+      - StatementHandler
+      - ParameterHandler
+      - resultHandler
+    - SqlSession顶层接口
+    - 配置文件源码
+	- mycat
 
 # CS
+- 架构
+  - SMP（对称多处理器）架构
+    - register+L+ALU作为一个core，公用bus+memory
+  - 非对称多处理器（高端）
+    - cpu有自己memory，没有bus
 - [内存](https://fanjingdan012.github.io/2018/04/11/Memory-Hierachy/)
 - 线程
+- 汇编指令
+  - CAS compare and swap
+
 - 并发
   - 对象的共享
     - 可见性
@@ -369,7 +396,8 @@ date: 2019-05-13 14:42:09
         - CyclicBarrier
         - BrokenBarrierException
         - Volatile
-          - Memory Barriers，汇编lock指令（缓存一致性机制）：一个处理器的缓存回写到内存会导致其他处理器的缓存无效
+          - Memory Barriers，汇编lock指令（缓存一致性机制）：一个处理器的缓存回写到内存会通过“Cache一致性流量”告诉别的cpu,导致其他处理器的缓存无效
+            - 总线风暴
       - Phaser（jdk7）
       - 阻塞队列和生产者消费者模型
     - 任务执行
@@ -377,7 +405,7 @@ date: 2019-05-13 14:42:09
       - Executor框架（生产者消费者）
         - ThreadPool
           - interface
-          ```
+          ```java
           public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
@@ -431,6 +459,31 @@ date: 2019-05-13 14:42:09
       ```
     - 记录锁（Record Locks）/Gap Locks：锁定某一个范围内的索引，但不包括记录本身/间隙锁定（Next-Key Locks）：锁定一个范围内的索引，并且锁定记录本身   Next-Key Locks = Record Locks + Gap Locks
     - 条件Condition, [sample code](https://github.com/fanjingdan012/JavaDetails/blob/master/concurrency/src/main/java/core/PrintABC10.java)
+  - synchronized关键字
+    - 用法
+      - 实例方法上
+        - code
+        ```java
+        public synchronized void method() {
+            System.out.println("synchronized method");
+        }
+        ```
+        - 原理
+          - 常量池中多了 ACC_SYNCHRONIZED 标示符，当方法调用时，调用指令将会检查方法的 ACC_SYNCHRONIZED flag，如果设置了，执行线程将获取monitor，执行，释放monitor
+      - 静态方法上
+      - 对象实例
+        - code
+        ```java
+        public void method() {
+            synchronized (this) {
+              System.out.println("synchronized this");
+            }
+        }
+        ```
+      - 原理
+        - 前后加monitorenter和monitorexit指令
+        - monitor进入数有个计数，进入+1，其他线程等变0即可获取
+
 - 海量数据
   - hash切分
   - 位图
@@ -490,11 +543,11 @@ date: 2019-05-13 14:42:09
     - 如果A和B是两个微服务，A和B的数据库是一样的，要做数据同步，A和B之间断网了，做不了同步，那么就只能
       - 牺牲C，返回一个旧数据
       - 牺牲A，不给返回
-- Kubernetes
+- [Kubernetes](https://kubernetes.io/)
 - 测试
   - montebank
   - pact
-- Docker
+- [Docker](https://www.docker.com/)
   - Docker命令
     - docker images
     - docker ps
@@ -525,6 +578,10 @@ date: 2019-05-13 14:42:09
   - Ribbon
 - 分布式缓存
 - RPC
+  - Dubbo
+    - 例子
+    - 源码阅读
+  - GRPC
 - RMI Remote Method Invocation
 - JMS Java Message Service
 - CORBA Common Object Request Broker Architecture
@@ -569,10 +626,49 @@ date: 2019-05-13 14:42:09
     - 7用头插，8尾插
     - 7用链表，8红黑树+链表
   - resize
-    - 负载因子 Default=0.75  
+    - 负载因子 Default=0.75
 - cache
   - Guava： google cache
   - ehcache
+- [IO](https://fanjingdan012.github.io/2019/05/07/csapp-IO)
+  - read/write
+    - copy:硬盘—>内核buf—>用户buf—>socket相关缓冲区—>协议引擎
+    - Zero-Copy
+      - linux2.1 sendfile(socket, file, len)已经减少了内核buf—>用户buf—>socket相关缓冲区copy
+      - linux2.4之后，fd结果被改变，sendfile实现了更简单的方式，再次减少了一次copy操作。
+  - BIO
+  - 伪异步IO：就是普通BIO加个线程池
+  - NIO
+    - Reactor模式
+    - Channel管道
+    - Buffer
+    - Selector
+    - Netty 应用了零拷贝技术(Zero-Copy)
+    - [io multiplexing](https://devarea.com/linux-io-multiplexing-select-vs-poll-vs-epoll/#.XhQ5tUf7RaQ) 用户需要自己从kernel copy 到user，会阻塞
+      - [详解](https://segmentfault.com/a/1190000003063859#item-3-11) 在 select/poll中，进程只有在调用一定的方法后，内核才对所有监视的文件描述符进行扫描，而epoll事先通过epoll_ctl()来注册一 个文件描述符，一旦基于某个文件描述符就绪时，内核会采用类似callback的回调机制，迅速激活这个文件描述符，当进程调用epoll_wait() 时便得到通知。(此处去掉了遍历文件描述符，而是通过监听回调的的机制。这正是epoll的魅力所在。)
+      - epoll
+        - epoll_create: `int epoll_create(int size)`
+        - epoll_ctl 添加，删除，更改 :`int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)`
+        - epoll_wait: `int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout)`
+        - 模式
+          - level trigger（默认），收听到可以不立即处理
+          - edge trigger，必须立即处理，否则以后收不到新消息
+      - select
+        - `int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);`
+      - poll
+        - `int poll (struct pollfd *fds, unsigned int nfds, int timeout);`
+  - AIO(NIO2) 直接实现从kernel copy到user
+- test
+  - mockito
+    - 实现原理
+  - powermock
+- 热部署
+  - JRebel
+- IDE
+  - [idea](https://www.jetbrains.com/idea/)
+- 包管理
+  - [maven](https://maven.apache.org/download.cgi)
+  - [gradle](https://gradle.org/releases/)
 
 # C
 - 存储类
@@ -656,56 +752,6 @@ date: 2019-05-13 14:42:09
 - Spring boot
 - MVC
   - [手写简化逻辑的代码](https://github.com/fanjingdan012/simple-spring-mvc)
-  - [IO](https://fanjingdan012.github.io/2019/05/07/csapp-IO)
-    - BIO
-    - 伪异步IO：就是普通BIO加个线程池
-    - NIO
-      - Reactor模式
-      - Channel管道
-      - Buffer
-      - Selector
-      - Netty 应用了零拷贝技术(Zero-Copy) linux2.1 sendfile(socket, file, len)
-      - [io multiplexing](https://devarea.com/linux-io-multiplexing-select-vs-poll-vs-epoll/#.XhQ5tUf7RaQ) 用户需要自己从kernel copy 到user，会阻塞
-        - [详解](https://segmentfault.com/a/1190000003063859#item-3-11) 在 select/poll中，进程只有在调用一定的方法后，内核才对所有监视的文件描述符进行扫描，而epoll事先通过epoll_ctl()来注册一 个文件描述符，一旦基于某个文件描述符就绪时，内核会采用类似callback的回调机制，迅速激活这个文件描述符，当进程调用epoll_wait() 时便得到通知。(此处去掉了遍历文件描述符，而是通过监听回调的的机制。这正是epoll的魅力所在。)
-        - epoll
-          - epoll_create: `int epoll_create(int size)`
-          - epoll_ctl 添加，删除，更改 :`int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)`
-          - epoll_wait: `int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout)`
-          - 模式
-            - level trigger（默认），收听到可以不立即处理
-            - edge trigger，必须立即处理，否则以后收不到新消息
-        - select
-          - `int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);`
-        - poll
-          - `int poll (struct pollfd *fds, unsigned int nfds, int timeout);`
-    - AIO(NIO2) 直接实现从kernel copy到user
-  - test
-    - mockito
-      - 实现原理
-    - powermock
-  - JPA
-    - CascadeType
-      - ALL
-      - PERSIST，MERGE，REMOVE，REFRESH
-        - CRUD连着一起做
-      - DETACH
-        - 删自己的时候如果自己是别人的外键引用也脱离这个引用义无反顾的删掉
-    - FetchType
-      - LAZY
-      - EAGER
-  - Mybatis
-    - 四大对象
-      - Executor
-      - StatementHandler
-      - ParameterHandler
-      - resultHandler
-    - SqlSession顶层接口
-    - 配置文件源码
-  - Dubbo
-    - Zookeeper
-    - 例子
-    - 源码阅读
-  - Concurrent
 
 # 软件工程
   - 软件设计原则
@@ -757,7 +803,7 @@ date: 2019-05-13 14:42:09
 - 分类
 
 # 大数据
-- Hadoop
+- [Hadoop](https://hadoop.apache.org/)
   - HBase
     - HRegion
     - HMaster
@@ -768,7 +814,7 @@ date: 2019-05-13 14:42:09
     - Client
   - Map/Reduce
   - Hive
-- Spark
+- [Spark](https://spark.apache.org/downloads.html)
   - components
     - core
     - sql
@@ -797,7 +843,8 @@ date: 2019-05-13 14:42:09
   - 应用层
     - DNS等
 - web hook 就是个回调函数，允许在收到某消息时顺便做xx事
-
+- http2
+  - 支持multiplexing
 
 # 软件过程
 - 瀑布
@@ -814,7 +861,7 @@ date: 2019-05-13 14:42:09
 
 # 中间件
 - 内存数据库
-  - redis
+  - [redis](https://redis.io/)
     - 连接：`redis-cli -a <password>`
     - 数据结构
       - [cheat sheet](https://gist.github.com/LeCoupa/1596b8f359ad8812c7271b5322c30946)
@@ -877,14 +924,55 @@ date: 2019-05-13 14:42:09
 - mq
   - rabbitmq
   - rocketmq
-  - kafka
+  - [kafka](http://kafka.apache.org/quickstart)
+    - 概念
+      - producer
+      - consumer
+      - topic: queue,目录,一个topic可有多个partition
+      - partition:信道
+      - broker:一个kafka server节点，集群有多个server
+    - [消息保证机制](http://kafka.apache.org/documentation/#semantics)
+      - at most once
+        - 读完消息之后先commit然后再处理消息，在这种模式下comsumer在commit后还没有来得及处理就crash了，下次重新开始工作之后无法读到刚刚已提交而未处理的消息，这就对应了At most once。
+      - at least once
+        - 读完消息之后先处理消息然后再commit，如果在消息处理之后commit之前crash，下次重新开始工作的时候刚刚处理未提交commit消息，但是实际上该消息已经被处理过，这就对应了At least once。
+      - exactly once
+        - 需要offset来帮助实现，通用的方式是将offset和操作输出输出到同一个地方，但是对于high API来说，offset是保存在zk中的，无法输出到同一个地方，lower API是自己维护offset的，可以将它存在同一个地方，一般存在HDFS。
+    - 保证数据不丢失
+      - broker
+        - acks=all : 所有副本都写入成功并确认。
+        - retries = 一个合理值。
+        - min.insync.replicas=2 消息至少要被写入到这么多副本才算成功。
+        - unclean.leader.election.enable=false 关闭unclean leader选举，即不允许非ISR中的副本被选举为leader，以避免数据丢失。
+      - consumer如果保证数据得不丢失
+        - enable.auto.commit=false 关闭自动提交offset。
     - NIO
-    - Zero-Copy
+      - Zero-Copy
     - 磁盘顺序读写
+      - linux 优化
+        - read-ahead
+        - write-behind
+      - 每一个partition（topic）一个文件，然后append，consumer根据自己保存的offset读取
+    - memory mapped files
+      - 用操作系统的Page来实现文件到物理内存的直接映射
+      - 参数producer.type来控制是不是主动flush
+        - sync
+        - async
     - Queue极致使用
-- docker
-- Nginx
-- Zookeeper
+    - 批量压缩（减少io大小）
+      - 多个消息一起压缩
+      - log也保持压缩
+      - 消费者解压缩
+      - 压缩协议
+        - Gzip
+        - Snappy
+    - 书
+      - [Apache Kafka源码剖析](https://book.douban.com/subject/27038473/)
+      - Kafka权威指南.pdf
+      - Apache kafka实战.pdf
+    - [源码](https://github.com/apache/kafka)
+- [Nginx](https://www.nginx.com/)
+- [Zookeeper](https://zookeeper.apache.org/releases.html)
   - 原理
     - Observer模式
   - Client API
@@ -897,7 +985,8 @@ date: 2019-05-13 14:42:09
     - Zab协议
     - 集群数据同步机制
     - leader follower
-- Tomcat
+- [Tomcat](http://tomcat.apache.org/)
+
 
 # Security安全
 - 密码学
