@@ -196,7 +196,7 @@ date: 2019-05-13 14:42:09
 - SQL
   - [index](https://fanjingdan012.github.io/2019/05/21/B-Tree-B-plus-Tree-and-B-star-Tree/)
     - index种类
-      - Hash
+      - Hash 等值查询
       - Linear index(memory or disk)就是一串key/pointer,key是顺序排列的，pointer指向具体记录
       - tree
         - B(Balance) tree
@@ -206,9 +206,13 @@ date: 2019-05-13 14:42:09
       - 唯一索引
       - 主键索引
       - 聚集索引
+      - 非聚集索引
+        - 多扫描一次 减少回表
       - 联合索引：将多个列组合在一起创建索引，可以覆盖多个列。（也叫复合索引，组合索引）, 需遵循最左匹配原则
       - 外键索引：只有InnoDB类型的表才可以使用外键索引，保证数据的一致性、完整性、和实现级联操作（基本不用）。
       - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
+      - 覆盖索引 包含主键索引值
+
   - truncate删除表中数据，再插入时自增长id又从1开始
   - [MySQL](https://dev.mysql.com/downloads/)
     - 一张表最多16个索引
@@ -226,12 +230,18 @@ date: 2019-05-13 14:42:09
 - 事务
   - isolation级别
     - read uncommitted（读取未提交数据）
+      - 没有view概念，都是读最新的
     - read committed（可以读取其他事务提交的数据）---大多数数据库默认的隔离级别
+      - 不同的read view，每次读取提前生成一个
       - 问题：不可重复读
     - repeatable read（可重读）---MySQL默认的隔离级别
+      - 同一个read view，第一次生成一个
       - 问题：幻读
     - serializable（串行化）
       - 问题：其他线程会挂起
+  - rollback log
+    - 没更早的read view删除
+      - 5.5之前回滚段删了文件也不会变小
 - 特性：ACID
   - Atomicity原子性
   - Consistency一致性
@@ -271,7 +281,7 @@ date: 2019-05-13 14:42:09
     - read ahead
     - 采用clustered方式，按pk顺序存放，缺省默认pk：6 byte的RowId
     - 面向OLTP
-    - 可存储在ibdata*的共享表空间，也可以存放于独立的.ibd文件的独立表空间
+    - 可存储在ibdata星的共享表空间，也可以存放于独立的.ibd文件的独立表空间
       - 共享表空间：某一个数据库的所有的表数据，索引文件全部放在一个文件中，默认这个共享表空间的文件路径在data目录下。 默认的文件名为:ibdata1 初始化为10M。可以将表空间分成多个文件存放到各个磁盘上（表空间文件大小不受表大小的限制，如一个表可以分布在不同的文件上）。数据和文件放在一起方便管理。但是删起来碎片不好清理。
       - 独立表空间：每一个表都将会生成以独立的文件方式来进行存储，每一个表都有一个.frm表描述文件，还有一个.ibd文件。 其中这个文件包括了单独一个表的数据内容以及索引内容，默认情况下它的存储位置也是在表的位置之中。表可能太大
   - BERKLEY
@@ -329,7 +339,38 @@ date: 2019-05-13 14:42:09
         - 就是自己写代码更新数据，可能老数据被访问到
       - 资源保护
         - 用hystrix
-
+- MVCC
+  - 版本链
+    - 聚集索引中有两个隐藏列：trx_id roll_pointer
+  - 序列化
+    - 加锁
+- 锁
+  - 全局锁
+    - 全库逻辑备份
+  - 表锁
+    - lock table read/write
+  - 行锁
+    - 死锁
+      - 超时时间
+        - innodb_lock_wait_timeout
+      - 死锁机制 rollback
+        - innodb_deadlock_detect
+    - 热点行
+      - 死锁消耗CPU
+        - 临时关闭
+      - 控制并发度
+      - 分治
+  - 间隙锁
+  - 读写锁
+    - 读
+      - lock in share mode
+      - for update
+      - 行锁
+    - 写
+  - innodb如何加锁
+    - Record lock： 对索引项加锁
+    - Gap lock：对索引项间隙加锁
+    - Next-Key：前两种组合，对记录和前面的间隙加锁
 
 - 范式
   - 1NF：每column存一个值
@@ -359,6 +400,38 @@ date: 2019-05-13 14:42:09
     - SqlSession顶层接口
     - 配置文件源码
 	- mycat
+- sql调优
+  - 预发跑sql explain
+  - 排除缓存 sql nocache
+  - 看一下行数对不对，不对用analyze table t矫正
+  - 添加索引，（索引也不一定是最优的） force index强制走索引，不推荐用
+  - 存在回表的情况
+  - 覆盖索引避免回表，不要*
+    - 主键索引
+  - 联合索引 不能无限建 高频场景
+  - 最左前缀原则，按照索引定义的字段顺序写sql
+  - 合理安排联合索引的顺序
+  - mysql 5.6之后索引下推 减少回表次数 不需要多个回表 一边遍历，一边判断
+- log
+  - undo log
+  - redo log
+  - binlog
+  - 两段式提交redo准备binglog提交
+- count1星
+  - mvcc影响
+- 主备延迟
+  - 强制走主
+  - sleep
+- join
+  - 驱动表
+- id用完
+  - bigint
+  - row_id没设置主键的时候
+  - thread_id
+- 常见命令
+  - show processlist
+  - innodb_f
+  - sync_binlog x_commit 
 
 # CS
 - 架构
@@ -396,8 +469,22 @@ date: 2019-05-13 14:42:09
         - CyclicBarrier
         - BrokenBarrierException
         - Volatile
-          - Memory Barriers，汇编lock指令（缓存一致性机制）：一个处理器的缓存回写到内存会通过“Cache一致性流量”告诉别的cpu,导致其他处理器的缓存无效
-            - 总线风暴
+          - MESI
+            - M(Modified) 这行数据有效，数据被修改了，和内存中的数据不一致，数据只存在于本Cache中。
+            - E(Exclusive)  这行数据有效，数据和内存中的数据一致，数据只存在于本Cache中。
+            - S(Shared) 这行数据有效，数据和内存中的数据一致，数据存在于很多Cache中。
+            - I(Invalid)  这行数据无效
+            - Memory Barriers，汇编lock指令（缓存一致性机制）：一个处理器的缓存回写到内存会通过“Cache一致性流量”告诉别的cpu,导致其他处理器的缓存无效
+              - 一直嗅探cas导致总线风暴
+          - 可见性
+            - 嗅探机制（cpu嗅探总线） 强制失效
+          - 有序性
+            - 禁止指令重排序
+              - lock前缀指令 Memory Barriers
+            - happens-before 写before读
+            - as-if-serial
+          - 跳出死循环
+          - AtomicInteger
       - Phaser（jdk7）
       - 阻塞队列和生产者消费者模型
     - 任务执行
@@ -410,7 +497,9 @@ date: 2019-05-13 14:42:09
                               int maximumPoolSize,
                               long keepAliveTime,
                               TimeUnit unit,
-                              BlockingQueue<Runnable> workQueue)
+                              BlockingQueue<Runnable> workQueue, //AQS实现
+                              ThreadFactory threadFactory, //注意指定名称
+                              RejectedEcecutionHandler handler)
           ```
           - fixed: corePoolSize = maximumPoolSize
           - workStealingPool
@@ -418,6 +507,42 @@ date: 2019-05-13 14:42:09
           - cached: corePoolSize = (0,Integer.MAX, 60,s)
           - scheduled
           - unconfigurableExecutorService
+          - 缓冲队列
+            - LinkedBlockingQueue（）或者（int i）
+              - 无界 当心内存溢出
+              - FIFO
+            - ArrayBlockingQueue(int i)
+              - 有界
+              - 加锁保证安全，一直死循环阻塞 队列不满就唤醒
+              - 入队
+                - 阻塞调用方式put(e)或offer(e,timeout,unit)
+                - 阻塞调用时，唤醒条件为超时或队列满，因此，要求出队时，要发起唤醒操作
+                - 进队成功后，执行notEmpty.signal()唤起被阻塞的出队线程
+                - 在执行存储操作时，建议offer添加，可以及时获取boolean判断，put要考虑阻塞情况（出队慢于入队），资源占用
+            - SynchronizedQueue（）对其的操作必须是放和取交替完成。
+            - PriorityBlockingQueue（）或者（int i）, 类似于LinkedBlockingQueue，但是其所含对象的排序不是FIFO，而是依据对象的自然顺序或者构造函数的Comparator决定
+          - 工厂方法
+          - 拒绝策略
+            - 抛异常 AbortPolicy
+            - 丢弃 DiscardPolicy
+            - 调用方来跑 CallerRunsPolicy
+            - 丢弃最早提交的 DiscardOldestPolicy
+          - 使用hash表维护线程引用
+          - submit
+            - 使用future获取任务执行结果
+          - 应用
+            - 商品详情界面
+            - 批处理
+          - 执行过程
+            - 核心线程->任务存入队列->最大线程没满，则创建线程执行任务->拒绝策略
+          - 运行状态
+            - volatile 状态码
+              - running
+              - shutdown
+              - stop
+              - terminated
+                - 所有线程销毁
+            - corePoolSize maximumPoolSize largestPoolSize
       - 分支主题
   - 活跃性危险
     - 死锁
@@ -444,21 +569,120 @@ date: 2019-05-13 14:42:09
   - 测试
   - 锁
     - 公平锁/非公平锁:先申请的先拿到/!
-    - 可重入锁:外层拿到的锁内层自动拥有
+    - 可重入锁:外层拿到的锁内层自动拥有，每次拿锁，锁计数器+1
     - 独享锁/共享锁：ReentrantLock、ReadWriteLock的Write/ReadWriteLock的Read
     - 互斥锁/读写锁：ReentrantLock/ReadWriteLock
     - 乐观锁/悲观锁：CAS/Lock
     - 分段锁
-    - 锁的状态：偏向锁/轻量级锁/重量级锁
-      - 偏向锁是指一段同步代码一直被一个线程所访问，那么该线程会自动获取锁。降低获取锁的代价。
-      - 轻量级锁是指当锁是偏向锁的时候，被另一个线程所访问，偏向锁就会升级为轻量级锁，其他线程会通过自旋的形式尝试获取锁，不会阻塞，提高性能。
-      - 重量级锁是指当锁为轻量级锁的时候，另一个线程虽然是自旋，但自旋不会一直持续下去，当自旋一定次数的时候，还没有获取到锁，就会进入阻塞，该锁膨胀为重量级锁。重量级锁会让其他申请的线程进入阻塞，性能降低。
-    - 自旋锁spinlock：循环，减少Context Switch，但是消耗CPU
-      ```
-      while (抢锁(lock) == 没抢到) {}
-      ```
+    - 锁膨胀
+      - 无锁：monitor锁标志位=01
+      - 偏向锁：是指一段同步代码一直被一个线程所访问，那么该线程会自动获取锁。降低获取锁的代价。
+        - mark word中有线程信息cas比较。
+      - 轻量级锁：是指当锁是偏向锁的时候，被另一个线程所访问，偏向锁就会升级为轻量级锁，其他线程会通过自旋的形式尝试获取锁，不会阻塞，提高性能。
+        - 在stack里开辟叫Lock record 的地方，复制过来一份mark word，用cas尝试修改锁对象头的区域
+      - 自旋锁spinlock：循环，减少Context Switch，但是消耗CPU
+        ```
+        while (抢锁(lock) == 没抢到) {}
+        ```
+      - 重量级锁：是指当锁为轻量级锁的时候，另一个线程虽然是自旋，但自旋不会一直持续下去，当自旋一定次数的时候，还没有获取到锁，就会进入阻塞，该锁膨胀为重量级锁。重量级锁会让其他申请的线程进入阻塞，性能降低。
+    
     - 记录锁（Record Locks）/Gap Locks：锁定某一个范围内的索引，但不包括记录本身/间隙锁定（Next-Key Locks）：锁定一个范围内的索引，并且锁定记录本身   Next-Key Locks = Record Locks + Gap Locks
     - 条件Condition, [sample code](https://github.com/fanjingdan012/JavaDetails/blob/master/concurrency/src/main/java/core/PrintABC10.java)
+    - 重锁
+      - user/kernal切换
+  - ReentrantLock
+    - NonfairSync
+      - tryAcquire
+      - acquireQueued
+      - CAS
+    - FairSync
+      - hasQueuedPredecessors
+      - 如果是当前持有锁的线程，可重入
+    - [AQS：AbstractQueuedSynchronizer](https://zhuanlan.zhihu.com/p/97317561)
+      - lock
+        ```java
+        final void lock() {
+            if (compareAndSetState(0, 1))
+                setExclusiveOwnerThread(Thread.currentThread());
+            else
+                acquire(1);
+        }
+        public final void acquire(int arg) {
+            if (!tryAcquire(arg) &&
+                acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+                selfInterrupt();
+        }
+        ```
+        - 先快速获取锁，当前没有线程执行的时候直接获取锁
+        - 尝试获取锁，当没有线程执行或是当前线程占用锁，可以直接获取锁
+        - 将当前线程包装为node放入同步队列，设置为尾节点
+        - 前一个节点如果为头节点，再次尝试获取一次锁
+        - 将前一个有效节点设置为SIGNAL
+        - 然后阻塞直到被唤醒
+      - unlock
+        ```java
+        public final boolean release(int arg) {
+            if (tryRelease(arg)) {
+                Node h = head;
+                if (h != null && h.waitStatus != 0)
+                    unparkSuccessor(h);
+                return true;
+            }
+            return false;
+        }
+        private void unparkSuccessor(Node node) {
+            int ws = node.waitStatus;
+            if (ws < 0)
+                compareAndSetWaitStatus(node, ws, 0);
+            Node s = node.next;
+            //看下一个
+            if (s == null || s.waitStatus > 0) {
+                s = null;
+                //下一个没有或取消，就尾部往前找，∴不公平
+                //公平锁中，在tryAcquire时会判断之前是否有等待的节点hasQueuedPredecessors(),如果有就不会再去获取锁了,因此能保证顺序执行。
+                for (Node t = tail; t != null && t != node; t = t.prev)
+                    if (t.waitStatus <= 0)
+                        s = t;
+            }
+            if (s != null)
+                LockSupport.unpark(s.thread);
+        }
+        ```
+      - volatile state
+        - 0：无锁
+        - 1：有锁
+        - 通过CAS设置 `boolean compareAndSetState(int expect, int update)`
+        - 也解决CountDownLatch的计数问题
+      - 入队 出队
+      - Node
+        - SHARED EXCLUSIVE
+          - ReentrantLock synchronized 用EXCLUSIVE
+          - ReentrantReadWriteLock read用SHARED
+        - waitStatus： CAS设置
+          - 0:初始状态
+          - CANCELLED（1）：取消状态，当线程不再希望获取锁时，设置为取消状态
+          - SIGNAL（-1）：当前节点的后继者处于等待状态，当前节点的线程如果释放或取消了同步状态，通知后继节点
+          - CONDITION（-2）：等待队列的等待状态，当调用signal()时，进入同步队列
+          - PROPAGATE（-3）：共享模式，同步状态的获取的可传播状态
+      - 头Node设计
+      - 共享和独享的实现
+      - CAS
+        - 缺点
+          - cpu开销
+          - 只能保证一个共享变量原子操作
+            - AtomicReference
+          - ABA
+            - 解决：标志位 时间戳
+  - StampedLock
+  - ReentrantReadWriteLock
+    - AQS
+      - SHARED获取
+        - 尝试获取共享锁，如果当前是共享锁或无锁，设置共享锁的state,获取锁
+        - 如果当前是写锁，进入等待流程
+        - 入队，加入等待队列的末尾，成为tail节点
+        - 判断当前节点的前一个节点是不是头节点，如果是的话尝试获取锁，如果获取到了就执行
+        - 获取不到或前一个节点不是头节点就代表该线程需要暂时等待，直到被叫醒为止。设置前一个节点为SIGNAL状态，然后进入等待
+        - 如果可以获取到锁，设置头节点并进入共享锁节点传播流程
   - synchronized关键字
     - 用法
       - 实例方法上
@@ -472,17 +696,37 @@ date: 2019-05-13 14:42:09
           - 常量池中多了 ACC_SYNCHRONIZED 标示符，当方法调用时，调用指令将会检查方法的 ACC_SYNCHRONIZED flag，如果设置了，执行线程将获取monitor，执行，释放monitor
       - 静态方法上
       - 对象实例
+        - 对象头
+          - mark word（对象的hashCode，分代年龄和锁标志位信息）
+          - Klass Point (对象指向它的类元数据的指针，虚拟通过这个指针来确定这个对象是哪个类的实例)
+          - Monitor
+            - EntryList
+            - Owner（指向Monitor对象拥有者线程）
+            - WaitSet
+      - 代码块上
         - code
-        ```java
-        public void method() {
-            synchronized (this) {
-              System.out.println("synchronized this");
-            }
-        }
-        ```
-      - 原理
-        - 前后加monitorenter和monitorexit指令
-        - monitor进入数有个计数，进入+1，其他线程等变0即可获取
+          ```java
+          public void method() {
+              synchronized (this) {
+                System.out.println("synchronized this");
+              }
+          }
+          ```
+        - 原理
+          - 前后加monitorenter和monitorexit指令
+          - monitor进入数有个计数，进入+1，其他线程等变0即可获取
+      - 特性保证
+        - 有序性
+          - as-if-serial
+          - happens- before
+        - 可见性
+          - 内存强制刷新
+        - 原子性
+          - 单一线程持有
+        - 可重入性
+          - 计数器
+      - synchronzied 锁升级不可逆
+
 
 - 海量数据
   - hash切分
@@ -595,6 +839,7 @@ date: 2019-05-13 14:42:09
     - max
     -initial
   - tools
+    - jprof
     - jconsole
     - jmap
     - jstat
@@ -617,6 +862,33 @@ date: 2019-05-13 14:42:09
       - Fields
       - Methods
       - Class attributes
+    - 过程
+      - 加载 生成一个class对象
+      - 验证
+        - 文件格式
+        - 元数据
+        - 字节码
+        - 符号引用
+      - 准备
+        - 默认值
+        - static分配内存
+      - 解析
+        - 解析具体类信息 引用等
+      - 初始化
+        - 先加载父类
+      - 使用
+      - 卸载
+    - 加载方式
+      - main
+      - Class.forName
+      - ClassLoader.loadClass
+    - 类加载器
+      - App ClassLoader
+      - Extention ClassLoader
+      - Bootstrap ClassLoader
+    - 双亲委派原则
+      - 可以避免重复加载
+      - 安全
 - concurrent 包
 - lambda表达式
   - stream API
@@ -637,6 +909,7 @@ date: 2019-05-13 14:42:09
       - linux2.1 sendfile(socket, file, len)已经减少了内核buf—>用户buf—>socket相关缓冲区copy
       - linux2.4之后，fd结果被改变，sendfile实现了更简单的方式，再次减少了一次copy操作。
   - BIO
+    - 每个请求过来开一个线程阻塞
   - 伪异步IO：就是普通BIO加个线程池
   - NIO
     - Reactor模式
@@ -657,6 +930,12 @@ date: 2019-05-13 14:42:09
         - `int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);`
       - poll
         - `int poll (struct pollfd *fds, unsigned int nfds, int timeout);`
+    - Netty执行
+      - 初始化channel
+      - 注册channel到selector 任务队列
+      - 轮询accept事件 建立channel连接
+      - 注册channel到selector接收方
+      - 轮询写事件开线程处理 任务队列
   - AIO(NIO2) 直接实现从kernel copy到user
 - test
   - mockito
@@ -669,6 +948,14 @@ date: 2019-05-13 14:42:09
 - 包管理
   - [maven](https://maven.apache.org/download.cgi)
   - [gradle](https://gradle.org/releases/)
+- OOM排查
+  - MAT
+  - help dump
+- CPU 100% 排查
+  - topc -c
+  - top -Hp pid
+  - jstack 进制转换
+  - cat
 
 # C
 - 存储类
@@ -688,12 +975,32 @@ date: 2019-05-13 14:42:09
   - IOC
     - 控制的什么被反转了？就是：获得依赖对象的方式反转了。
     - [Bean的生命周期](https://czwer.github.io/2018/05/27/%E8%BF%91%E7%9C%8BBean%E5%AE%9E%E4%BE%8B%E7%94%9F%E6%88%90/)
-      - Spring容器从XML中发现一个Bean的定义，然后初始化创建它们，使用依赖注入，Spring将这个Bean中需要的属性进行导入。
-      - 如果这个Bean实现 BeanNameAware 接口, 工厂将调用setBeanName() 传递Bean的ID。
-      - 如果bean实现BeanFactoryAware，工厂将调用 setBeanFactory(), 将自己的实例传给它。
-      - 如果这个bean有 BeanPostProcessors 关联，他们的postProcessBeforeInitialization()方法将被调用。
-      - 如果这个Bean有一个初始init方法，它将被调用。
-      - 最后，如果有关联对象 BeanPostProcessors ，postProcessAfterInitialization()方法将被调用。
+      - 扫描类 invokeBeanFactoryPostProcessors
+      - 封装beanDef
+      - 放到map
+      - 遍历map
+      - 验证
+      - 得到class
+      - 推断构造方法
+        - 推断注入模型
+        - 默认
+      - 得到构造方法
+      - 反射 实例化对象
+      - 后置处理器合并beanDef
+      - 判断是否允许循环依赖
+      - 提前暴露bean工厂对象
+      - 填充属性 自动注入
+      - 执行部分aware接口
+        - 如果这个Bean实现 BeanNameAware 接口, 工厂将调用setBeanName() 传递Bean的ID。
+        - 如果bean实现BeanFactoryAware，工厂将调用 setBeanFactory(), 将自己的实例传给它。
+      - 继续执行部分aware接口 生命周期回调方法
+        - 如果这个bean有 BeanPostProcessors 关联，他们的postProcessBeforeInitialization()方法将被调用。
+        - 如果这个Bean有一个初始init方法，它将被调用。
+        - 如果有关联对象 BeanPostProcessors ，postProcessAfterInitialization()方法将被调用。
+      - 完成代理AOP
+      - 实例化为bean
+      - 放到单例池
+      - 销毁
     - Bean的作用域scope(内嵌作用域不同的bean：因为动态代理)
       - singleton(default)
       - prototype
@@ -701,13 +1008,29 @@ date: 2019-05-13 14:42:09
       - request
       - application
       - websocket
+    - 循环依赖
+      - 情况
+        - 属性注入可以破解
+        - 构造器不行 三级缓存没存自己 因二级缓存之后去加载B了
+      - 三级缓存
+        - 去单例池找
+        - 判断是不是正在被创建的
+        - 判断是否支持循环依赖
+        - 二级缓存 放到 三级缓存
+        - 干掉二级缓存 GC
+        - 下次再来直接三级缓存拿
+      - 缓存 存放
+        - 一级缓存 单例Bean
+        - 二级缓存 工厂 产生bean
+        - 三级缓存 半成品
   - AOP
     - 静态代理
       - AspectJ
+      - 实现类
     - 动态代理
       - CGLib
         - [ASM](https://www.ibm.com/developerworks/cn/java/j-lo-asm30/index.html) 
-      - JDK Proxy:必须有interface
+      - JDK Proxy:实现interface java反射机制生成代理接口匿名类 调用具体方法的时候调用invokeHandler
       - SpringAOP=CGLib+JDK+AspectJ Annotations
         - 是interface就用JDK
     - Compile time weave
@@ -727,6 +1050,10 @@ date: 2019-05-13 14:42:09
     - 注意点
       - [代理对象不能获取Annotation](https://blog.csdn.net/frightingforambition/article/details/78842306)
   - [Transactional](https://czwer.github.io/2018/05/31/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E5%8E%9F%E7%90%86/)
+    - 采用不同连接器
+    - 用AOP新建立一个连接 共享连接
+    - ThreadLocal当前事务
+    - 前提是关闭AutoCommit
     - 建立连接，开启事务，执行方法，提交or回滚
     - Propogation
       - Use Current Transaction
