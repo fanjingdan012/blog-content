@@ -431,7 +431,7 @@ date: 2019-05-13 14:42:09
 - 常见命令
   - show processlist
   - innodb_f
-  - sync_binlog x_commit 
+  - sync_binlog x_commit
 
 # CS
 - 架构
@@ -585,7 +585,7 @@ date: 2019-05-13 14:42:09
         while (抢锁(lock) == 没抢到) {}
         ```
       - 重量级锁：是指当锁为轻量级锁的时候，另一个线程虽然是自旋，但自旋不会一直持续下去，当自旋一定次数的时候，还没有获取到锁，就会进入阻塞，该锁膨胀为重量级锁。重量级锁会让其他申请的线程进入阻塞，性能降低。
-    
+
     - 记录锁（Record Locks）/Gap Locks：锁定某一个范围内的索引，但不包括记录本身/间隙锁定（Next-Key Locks）：锁定一个范围内的索引，并且锁定记录本身   Next-Key Locks = Record Locks + Gap Locks
     - 条件Condition, [sample code](https://github.com/fanjingdan012/JavaDetails/blob/master/concurrency/src/main/java/core/PrintABC10.java)
     - 重锁
@@ -827,8 +827,11 @@ date: 2019-05-13 14:42:09
     - 源码阅读
   - GRPC
 - RMI Remote Method Invocation
+- DWR Direct Web Remoting
 - JMS Java Message Service
 - CORBA Common Object Request Broker Architecture
+
+
 
 # Java
 - JVM
@@ -956,6 +959,11 @@ date: 2019-05-13 14:42:09
   - top -Hp pid
   - jstack 进制转换
   - cat
+- 框架
+  - Spring
+  - JBoss
+    - 基于JMX(Java Management Extensions)
+  - EJB Enterprise Java Bean
 
 # C
 - 存储类
@@ -1246,6 +1254,9 @@ date: 2019-05-13 14:42:09
       - 当Master被 Sentinel 标记为客观下线时，Sentinel 向下线的 Master 的所有 Slave 发送 INFO 命令的频率会从 10 秒一次改为每秒一次
       - 若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。
       - 若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
+	- 应用
+	  - 存翻译
+	  - 存Session
   - memcached
     - 缓存击穿
 - mq
