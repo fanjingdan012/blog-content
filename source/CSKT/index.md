@@ -266,7 +266,7 @@ date: 2019-05-13 14:42:09
     - 单表大小：4GB（5.0以前），256TB（5.0以后）
   - HEAP
     - HEAP允许只驻留在内存里的临时表格。快，但不稳定，在数据行被删除的时候，HEAP也不会浪费大量的空间。HEAP表格在你需要使用SELECT表达式来选择和操控数据的时候非常有用。要记住，在用完表格之后就删除表格。
-  - INNODB
+  - INNODB：MV-2PL锁+Delta version管理+Vacuum GC+Logical Index
     - 默认:
       - 隔离级别：可重复读
       - innodb_locks_unsafe_for_binlog=OFF
@@ -300,6 +300,11 @@ date: 2019-05-13 14:42:09
     - 支持事务
     - BLOB优化
   - Merge CSV Sphinx Infobright
+  - HANA: MV-2PL锁+Time-travel version管理+Hybrid GC+Logical Index
+  - Oracle: 同Innodb
+  - MS sql server Hekaton: MV-OCC锁+Append-Only version管理+Cooperative GC+Physical Index
+  - Postgres: MV-2PL/TO锁+Append-Only version管理+Vacuum GC+Physical Index
+  - TUM Hyper
 - 缓存
   - 缓存穿透
     - 就是attacker一直查询不存在的数据导致cache miss，就要一直去DB拿，导致DB压力太大挂掉
@@ -344,6 +349,22 @@ date: 2019-05-13 14:42:09
     - 聚集索引中有两个隐藏列：trx_id roll_pointer
   - 序列化
     - 加锁
+  - Concurrency Control Protocol
+    - Timestamping Ordering(MV-TO)
+    - Optimistic Concurrency Control(MV-OCC)
+    - Two-Phase Locking(MV-2PL)
+  - Version Storage
+    - Append-Only Storage
+      - 只有主表
+    - Time-Travel Storage
+      - 主表+time-travel table(全量)
+    - Delta Storage
+      - 主表+Delta Storage Segment(只有Delta部分)
+  - GC
+    - Tuple-level
+    - Transaction-level
+  - Index
+
 - 锁
   - 全局锁
     - 全库逻辑备份
@@ -380,6 +401,8 @@ date: 2019-05-13 14:42:09
 - ER Mapping
   - Hibernate
     - N+1问题
+    - SqlQuery是 sql查询
+    - NativeQuery是hibernate 配置中方言的类型来查询
   - Mybatis
   - JPA
     - CascadeType
@@ -800,6 +823,11 @@ date: 2019-05-13 14:42:09
     - docker logs
     - docker cp
   - 镜像 容器 仓库
+  - 四种网络模式
+    - bridge 桥接模式
+    - host 模式
+    - container 模式
+    - none 模式
 - etcd
 - BASE（反ACID）
   - 牺牲高一致性，获得可用性或可靠性
@@ -944,6 +972,12 @@ date: 2019-05-13 14:42:09
   - mockito
     - 实现原理
   - powermock
+  - TestNG
+    - group
+      - `@Test(groups = { "functest", "checkintest" })`
+        - 方法上
+        - 类上
+      - testng.xml
 - 热部署
   - JRebel
 - IDE
@@ -951,6 +985,7 @@ date: 2019-05-13 14:42:09
 - 包管理
   - [maven](https://maven.apache.org/download.cgi)
   - [gradle](https://gradle.org/releases/)
+  - [ant](https://ant.apache.org/)
 - OOM排查
   - MAT
   - help dump
@@ -964,6 +999,39 @@ date: 2019-05-13 14:42:09
   - JBoss
     - 基于JMX(Java Management Extensions)
   - EJB Enterprise Java Bean
+- 杂
+  - jndi(Java Naming and Directory Interface):J2EE 组件在运行时间接地查找其他组件、资源或服务的通用机制
+    - 应用：配数据库
+      ```xml
+      <?xml version="1.0" encoding="UTF-8"?>
+      <datasources>
+      <local-tx-datasource>
+          <jndi-name>MySqlDS</jndi-name>
+          <connection-url>jdbc:mysql://localhost:3306/lw</connection-url>
+          <driver-class>com.mysql.jdbc.Driver</driver-class>
+          <user-name>root</user-name>
+          <password>rootpassword</password>
+      <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter</exception-sorter-class-name>
+          <metadata>
+             <type-mapping>mySQL</type-mapping>
+          </metadata>
+      </local-tx-datasource>
+      </datasources>
+      ```
+      ```java
+      Connection conn=null;
+      try{
+          Context ctx=new InitialContext();
+          Object datasourceRef=ctx.lookup("java:MySqlDS");
+          //引用数据源
+          DataSource ds=(Datasource)datasourceRef;
+          conn=ds.getConnection();
+          /* 使用conn进行数据库SQL操作 */
+          c.close();
+      }
+      catch(Exception e){e.printStackTrace();}
+      finally {if(conn!=null){try{ conn.close();}catch(SQLException e){}}}
+      ```
 
 # C
 - 存储类
@@ -1021,16 +1089,54 @@ date: 2019-05-13 14:42:09
         - 属性注入可以破解
         - 构造器不行 三级缓存没存自己 因二级缓存之后去加载B了
       - 三级缓存
-        - 去单例池找
-        - 判断是不是正在被创建的
-        - 判断是否支持循环依赖
-        - 二级缓存 放到 三级缓存
-        - 干掉二级缓存 GC
-        - 下次再来直接三级缓存拿
-      - 缓存 存放
-        - 一级缓存 单例Bean
-        - 二级缓存 工厂 产生bean
-        - 三级缓存 半成品
+        ```java
+        @Nullable
+        protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+          //1. 去1单例池找 6. 下次再来直接拿
+          Object singletonObject = this.singletonObjects.get(beanName);
+          //2. 判断是不是正在被创建的
+          if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+            synchronized (this.singletonObjects) {
+              //3. 是的话，2早期提前暴露的对象缓存拿出来，返回
+              singletonObject = this.earlySingletonObjects.get(beanName);
+              //4. 如果早期都没有，就看是否支持去工厂拿，默认true
+              if (singletonObject == null && allowEarlyReference) {
+                //4. 支持的话，3工厂 放到 2早期
+                ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+                if (singletonFactory != null) {
+                  singletonObject = singletonFactory.getObject();
+                  this.earlySingletonObjects.put(beanName, singletonObject);
+                  //5. 干掉工厂 GC
+                  this.singletonFactories.remove(beanName);
+                }
+              }
+            }
+          }
+          return singletonObject;
+        }
+        ```
+        - 缓存 存放`DefaultSingletonBeanRegistry.java`
+          ```java
+          /** Cache of singleton objects: bean name --> bean instance 一级缓存 单例缓存池*/
+          private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(256);
+
+          /** Cache of singleton factories: bean name --> ObjectFactory 三级缓存：单例对象工厂缓存*/
+          private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<String, ObjectFactory<?>>(16);
+
+          /** Cache of early singleton objects: bean name --> bean instance 二级缓存 早期提前暴露的对象缓存*/
+          //是一个不完整的对象，属性还没有值，没有被初始化。
+          private final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>(16);
+
+          /** Names of beans that are currently in creation. */
+          // 这个缓存也十分重要：它表示bean创建过程中都会在里面呆着~
+          // 它在Bean开始创建时放值，创建完成时会将其移出~
+          private final Set<String> singletonsCurrentlyInCreation = Collections.newSetFromMap(new ConcurrentHashMap<>(16));
+
+          /** Names of beans that have already been created at least once. */
+          // 当这个Bean被创建完成后，会标记为这个 注意：这里是set集合 不会重复
+          // 至少被创建了一次的  都会放进这里~~~~
+          private final Set<String> alreadyCreated = Collections.newSetFromMap(new ConcurrentHashMap<>(256));
+          ```
   - AOP
     - 静态代理
       - AspectJ

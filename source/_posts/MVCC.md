@@ -10,6 +10,29 @@ categories: Computer Science
 - 支持time-travel query，即回溯版本
 
 [一定要看的论文](https://15721.courses.cs.cmu.edu/spring2019/papers/03-mvcc1/wu-vldb2017.pdf)
+
+# single-version scheme
+- DB2
+- Sybase
+
+# Concurrency Control Protocol
+## Timestamping Ordering(MV-TO)
+## Optimistic Concurrency Control(MV-OCC)
+## Two-Phase Locking(MV-2PL)
+
+# Version Storage
+## Append-Only Storage
+      - 只有主表
+## Time-Travel Storage
+      - 主表+time-travel table(全量)
+## Delta Storage
+      - 主表+Delta Storage Segment(只有Delta部分)
+# GC
+- 删掉aborted txn创建的版本
+
+## Tuple-level
+## Transaction-level
+# Index
 # MVCC应用
 - Oracle
 - Postgres
@@ -20,15 +43,3 @@ categories: Computer Science
 - NuoDB
 - HYRISE
 - HyPer
-
-# single-version scheme
-- DB2
-- Sybase
-
-# Concurrency Control Protocol
-
-# Version Storage
-
-# GC
-
-# Index
