@@ -1540,7 +1540,7 @@ date: 2019-05-13 14:42:09
   - 培根密码，AB表01替换字母
   - 摩尔斯电码
 - 综合案例
-  - [bitcoin]()
+  - [bitcoin](https://fanjingdan012.github.io/2019/10/17/Bitcoin/)
 - Identification：这个用户是谁
   - IdP
 
