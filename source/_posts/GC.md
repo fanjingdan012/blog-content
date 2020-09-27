@@ -100,6 +100,7 @@ GC就发生在Heap和Metaspace
   - `XX:+CMSClassUnloadingEnabled` 允许Class元数据回收
   - `XX:UseCMSInitiatingPermOccupancyFraction` 永久区占用率达到多少百分比启动CMS GC
   - `XX:UseCMSInitiatingOccupancyOnly` 只有达到阈值才进行CMS GC
+
 ## G1
 https://www.oracle.com/technetwork/articles/java/g1gc-1984535.html
 ![G1](https://fanjingdan012.github.io/2019/04/10/GC/G1.jpg)
@@ -118,3 +119,5 @@ Young GC + mixed GC（新生代，再加上部分老生代）＋ Full GC for G1 
   4. 筛选回收（Live Data Counting and Evacuation）
      筛选回收阶段首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间来制定回收计划，这个阶段其实也可以做到与用户程序一起并发执行，但是因为只回收一部分Region，时间是用户可控制的，而且停顿用户线程将大幅提高收集效率。
 
+## Epsilon：低开销垃圾回收器
+- 启动： `-XX:+UseEpsilonGC`
