@@ -212,16 +212,24 @@ date: 2019-05-13 14:42:09
       - 外键索引：只有InnoDB类型的表才可以使用外键索引，保证数据的一致性、完整性、和实现级联操作（基本不用）。
       - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
       - 覆盖索引 包含主键索引值
-
+    - In-Memory
+      - In-Memory T-Tree
+        -
+      - Latch-Free Bw-Tree
+      - B+ Tree Optimistic Latching
   - truncate删除表中数据，再插入时自增长id又从1开始
   - [MySQL](https://dev.mysql.com/downloads/)
     - 一张表最多16个索引
-    - show engines
-    - select CURRENT_DATE();
-    - set profiling = 1; show profiles; show profile for query 临时表ID
-    - show status
-    - show processlist
-    - explain select * from a;
+    - `mysqld`
+    - `mysql -uroot -p`
+    - `show databases;`
+    - `show tables;`
+    - `show engines;`
+    - `select CURRENT_DATE();`
+    - `set profiling = 1; show profiles; show profile for query` 临时表ID
+    - `show status`
+    - `show processlist`
+    - `explain select * from a;`
     - int(20)中20的含义，是指显示字符的长度，不影响内部存储，只是当定义了ZEROFILL时，前面补多少个 0
     - 触发器
       - Before/After intert
@@ -403,7 +411,6 @@ date: 2019-05-13 14:42:09
     - N+1问题
     - SqlQuery是 sql查询
     - NativeQuery是hibernate 配置中方言的类型来查询
-  - Mybatis
   - JPA
     - CascadeType
       - ALL
@@ -422,7 +429,13 @@ date: 2019-05-13 14:42:09
       - resultHandler
     - SqlSession顶层接口
     - 配置文件源码
-	- mycat
+  - mycat
+  - generator
+    - [how](https://juejin.im/post/6844903982582743048)
+    - mybatis-generator.xml
+    - maven plugin in pom
+    - run `mvn mybatis-generator:generate` will generate entity, mapper.java, mapper.xml
+    - must first create schema and tables
 - sql调优
   - 预发跑sql explain
   - 排除缓存 sql nocache
@@ -811,6 +824,23 @@ date: 2019-05-13 14:42:09
       - 牺牲C，返回一个旧数据
       - 牺牲A，不给返回
 - [Kubernetes](https://kubernetes.io/)
+  - kubectl
+    - kubectl get nodes
+    - kubectl run hw --image=karthequian/helloworld --port=80
+    - kubectl get deployments
+    - kubectl get rs
+    - kubectl get pods
+    - kubectl expose deployment hw --type=NodePort
+  - minukube
+    - kubestl get services
+    - minukube service hw
+    - kubestl get  all
+    - kubestl get  deploy/hw -o yaml
+    - service 和deploy yaml 可以合并
+    - kubestl  create -f hw-all.yml
+    - kubectl scale --replicas = 3 deploy/helloworld-deployment
+- CloudFoundry
+
 - 测试
   - montebank
   - pact
@@ -860,6 +890,7 @@ date: 2019-05-13 14:42:09
   - Dubbo
     - 例子
     - 源码阅读
+    - Service Provider Interface (SPI)
   - GRPC
 - RMI Remote Method Invocation
 - DWR Direct Web Remoting
@@ -1256,6 +1287,21 @@ date: 2019-05-13 14:42:09
   - [code](https://github.com/fanjingdan012/ai-learn/tree/master/rough-set)
 - 自然语言处理
 - 分类
+- 时间序列分析
+  - 时间序列基本规则法-周期因子法
+  - 线性回归-利用时间特征做线性回归
+  - 传统时序建模方法，ARMA/ARIMA等线性模型
+  - 时间序列分解，使用加法模型或乘法模型将原始序列拆分为4部分
+    - 4部分
+      - 长期趋势变动T
+      - 季节变动S(显式周期，固定幅度、长度的周期波动)
+      - 循环变动C(隐式周期，周期长不具严格规则的波动)
+      - 不规则变动I
+  - 特征工程着手，时间滑窗改变数据的组织方式，使用xgboost/LSTM模型/时间卷积网络等
+  - 转化为监督学习数据集，使用xgboot/LSTM模型/时间卷积网络/seq2seq(attention_based_model)
+  - Facebook-prophet，类似于STL分解思路
+  - 深度学习网络，结合CNN+RNN+Attention，作用各不相同互相配合
+  - 将时间序列转化为图像，再应用基于卷积神经网络的模型做分析
 
 # 大数据
 - [Hadoop](https://hadoop.apache.org/)
@@ -1740,3 +1786,59 @@ date: 2019-05-13 14:42:09
 - use brew install
 - sublime
   - alt+f3 = Command + Ctrl + G
+- intellij idea
+  - jump to line = Command + L
+- quick time
+  - 用option+J慢放 或者option+L快放，就是从1.1倍开始了,1.9倍有声音，2倍没有声音
+- [oh my zsh](https://ohmyz.sh/)
+  - `brew install zsh`
+  - `chsh -s /bin/zsh root`
+  - `$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+  - theme
+    - `vim ~/.zshrc`
+    - ZSH_THEME='risto'
+    - `source ~/.zshrc`
+- autojump
+  - `brew install autojump`
+  - `j <dirName>`
+- terminal 分屏复用
+  - [tmux](https://github.com/tmux/tmux/wiki)
+    - `brew install tmux`
+    - [dyld: Library not loaded: /usr/local/opt/libevent/lib/libevent-2.1.6.dylib](https://blog.csdn.net/arkzheng/article/details/79576652)
+    - Sessions
+      - Ctrl + b s: list all sessions
+      - Ctrl + b (: Move to previous session
+      - Ctrl + b ): Move to next session
+      - Ctrl + b $: Rename session
+      - Ctrl + b d: Detach from session
+    - Windows
+      - Ctrl + b c: Create window
+      - Ctrl + b ,: Rename current window
+      - Ctrl + b &: Close current window
+      - Ctrl + b p: Previous window
+    - Panes
+      - Ctrl + b ;: Toggle last active pane
+      - Ctrl + b %: Split pane vertically
+      - Ctrl + b ": Split pane horizontally
+      - Ctrl + b {: Move the current pane left
+      - Ctrl + b }: Move the current pane right
+      - Ctrl + b Spacebar: Toggle between pane layouts
+      - Ctrl + b o: Switch to next pane
+      - Ctrl + b q: Show pane numbers
+      - Ctrl + b q 0 ... 9: Switch/select pane by number
+      - Ctrl + b z: 当前窗格全屏显示，再使用一次会变回原来大小。
+      - Ctrl + b !: Convert pane into a window
+      - Ctrl + b arrow: 光标切换到其他窗格
+      - Ctrl + b Ctrl + arrow Resize current pane
+      - Ctrl + b x: Close current pane
+      - Ctrl + b Ctrl + o: 所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。
+      - Ctrl + b Alt + o: 所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。
+    - Help
+      - Ctrl + b ?
+- neovim
+  - `brew install neovim`
+
+# Windows
+- 查看pid ``````wmic process get name, processid|findstr 27284
+- 杀掉pid taskKill /F /pid 27284
+-

@@ -5,7 +5,7 @@ tags:
 categories: Markdown
 ---
 # Problem
-`hexo d` not working  
+`hexo d` not working
 try this in `_config.yml`
 ```
 deploy:
@@ -15,8 +15,7 @@ deploy:
 ```
 
 # Md sequence and flowchart
-## sequence
-follow https://github.com/bubkoo/hexo-filter-sequence 
+## [sequence](https://github.com/bubkoo/hexo-filter-sequence)
 ### code:
 ```
  Alice->Bob: Hello Bob, how are you?
@@ -30,8 +29,7 @@ Alice->Bob: Hello Bob, how are you?
 Note right of Bob: Bob thinks
 Bob-->Alice: I am good thanks!
 ```
-## flowchart
-follow https://github.com/bubkoo/hexo-filter-flowchart  
+## [flowchart](https://github.com/bubkoo/hexo-filter-flowchart)
 ### code:
 
 ```
@@ -43,7 +41,7 @@ follow https://github.com/bubkoo/hexo-filter-flowchart
   cond=>condition: Yes
   or No?|approved:>http://www.google.com
   c2=>condition: Good idea|rejected
-  io=>inputoutput: catch something...|request  
+  io=>inputoutput: catch something...|request
 
   st->op1(right)->cond
   cond(yes, right)->c2
@@ -71,3 +69,5 @@ cond(no)->sub1(left)->op1
 c2(yes)->io->e
 c2(no)->op2->e
 ```
+
+# [让 Hexo 搭建的博客支持 LaTeX](https://cps.ninja/2019/03/16/hexo-with-latex/)

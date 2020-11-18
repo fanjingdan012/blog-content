@@ -3,7 +3,7 @@ title: 会计学知识树
 date: 2019-05-14 17:29:01
 ---
 # 会计学
-[Reactjs做的账户表](https://fanjingdan012.github.io/js-learn/accounting.html)
+[Reactjs做的账户表](https://fanjingdan012.github.io/js-learn/ng.html)
 ## B/S
 | Balance Sheet        |        |
 | ------------- | -------    |
@@ -18,9 +18,9 @@ date: 2019-05-14 17:29:01
 
 
 ## IS
-| Income Statement        | 
+| Income Statement        |
 | ------------- |
-| [收入费用和利润](index/income-cost-profit.jpg)        | 
+| [收入费用和利润](index/income-cost-profit.jpg)        |
 | [资产减值](index/impairment-of-assets.jpg)        |
 | [借款费用](index/fee4loan.png)|
 | [政府补助](index/gov-grants.png)|
@@ -40,6 +40,184 @@ date: 2019-05-14 17:29:01
 [或有事项](index/probable.png)
 [会计政策、会计估计变更和差错更正TODO]
 [B/S日后事项](index/bs-after.png)
+
+## 会计科目表
+- 资产类
+  - 1001 库存现金  Cash on Hand
+  - 1002 银行存款  Cash in bank
+  - 1003 存放中央银行款项 银行专用 Deposit in the Central Bank
+  - 1011 存放同业 银行专用 Due from Placements with Banks and Other Financial Institutions
+  - 1015 其他货币资金  Other Monetary Capital
+  - 1021 结算备付金 证券专用 Deposit Reservation for Balance
+  - 1031 存出保证金 金融共用 Deposit for Recognizance
+  - 1051 拆出资金 金融共用 Lendings to Banks and Other Financial Institutions
+  - 1101 交易性金融资产  Transactional Monetary Capital
+  - 1111 买入返售金融资产 金融共用 Redemptory Monetary Capital for Sale
+  - 1121 应收票据  Notes Receivable
+  - 1122 应收账款  Accounts Receivable
+  - 1123 预付账款  Advance to suppliers
+  - 1131 应收股利  Dividend Receivable
+  - 1132 应收利息  Accrued Interest Receivable
+  - 1211 应收保户储金 保险专用 Receivable Deposit from the Insured
+  - 1221 应收代位追偿款 保险专用 Subrogation Receivables
+  - 1222 应收分保账款 保险专用 Reinsurance Accounts Receivable
+  - 1223 应收分保未到期责任准备金 保险专用 Receivable Deposit for Undue Duty of Reinsurance
+  - 1224 应收分保保险责任准备金 保险专用 Receivable Deposit for Duty of Reinsurance
+  - 1231 其他应收款  Other Receivable
+  - 1241 坏账准备  Provision for bad debts
+  - 1251 贴现资产 银行专用 Deposit of Capital Discounted
+  - 1301 贷款 银行和保险共用 Loans
+  - 1302 贷款损失准备 银行和保险共用 Loans Impairment Reserve
+  - 1311 代理兑付证券 银行和证券共用 Vicariously Cashed Securities
+  - 1321 代理业务资产  Capital in Vicarious Business
+  - 1401 材料采购  Procurement of Materials
+  - 1402 在途物资  Materials in Transit
+  - 1403 原材料  Raw Materials
+  - 1404 材料成本差异  Balance of Materials
+  - 1406 库存商品  Commodity Stocks
+  - 1407 发出商品  Goods in Transit
+  - 1410 商品进销差价  Difference between Purchase and Sales of Commodities
+  - 1411 委托加工物资  Materials for Consigned Processing
+  - 1412 包装物及低值易耗品  Wrappage and Easily Wornout Inexpensive Articles
+  - 1421 消耗性生物资产 农业专用 Consumptive Biological Assets
+  - 1431 周转材料 建造承包商专用 Revolving Materials
+  - 1441 贵金属 银行专用 Expensive Metals
+  - 1442 抵债资产 金融共用 Capital for Debt Payment
+  - 1451 损余物资 保险专用 Salvage Value Of Insured Properties
+  - 1461 存货跌价准备  Reserve For Stock Depreciation
+  - 1501 待摊费用  Unamortized Expenditures
+  - 1511 独立账户资产 保险专用 Capital in Independent Accounts
+  - 1521 持有至到期投资  Held-To-Maturity Investment
+  - 1522 持有至到期投资减值准备  Reserve for Held-To-Maturity Investment Impairment
+  - 1523 可供出售金融资产  Financial Assets Available for Sale
+  - 1524 长期股权投资  Long-term Equity Investment
+  - 1525 长期股权投资减值准备  Reserve for Long-term Equity Investment Impairment
+  - 1526 投资性房地产  Investment Real Estate
+  - 1531 长期应收款  Long-term Accounts Receivable
+  - 1541 未实现融资收益  Unrealized Financing Profits
+  - 1551 存出资本保证金 保险专用 Deposit for Capital Recognizance
+  - 1601 固定资产  Fixed assets
+  - 1602 累计折旧  Accumulative Depreciation
+  - 1603 固定资产减值准备  Provision for impairment of fixed assets
+  - 1604 在建工程  Construction in Process
+  - 1605 工程物资  Engineer Material
+  - 1606 固定资产清理  Disposal of Fixed Assets
+  - 1611 融资租赁资产 租赁专用 Financial Leasing Assets
+  - 1612 未担保余值 租赁专用 Unguaranteed Residual Value
+  - 1621 生产性生物资产 农业专用 Productive Biological Assets
+  - 1622 生产性生物资产累计折旧 农业专用 Accumulative Depreciation of Productive Biological Assets
+  - 1623 公益性生物资产 农业专用 Biological Assets for Commonweal
+  - 1631 油气资产 石油天然气开采专用 Oil and Gas Assets
+  - 1632 累计折耗 石油天然气开采专用 Accumulated Depletion
+  - 1701 无形资产  Intangible Assets
+  - 1702 累计摊销  Accumulated Amortization
+  - 1703 无形资产减值准备  Reserve for Intangible Assets Impairment
+  - 1711 商誉  Business Reputation
+  - 1801 长期待摊费用  Long-term Deferred Expenses
+  - 1811 递延所得税资产  Deferred Income Tax Assets
+  - 1901 待处理财产损溢  Profit & loss of assets pending disposal
+- 负债类
+  - 2001 短期借款  Short-term Borrowings
+  - 2002 存入保证金 金融共用 Deposit Received for Recognizance
+  - 2003 拆入资金 金融共用 Borrowings from Banks and Other Financial Institutions
+  - 2004 向中央银行借款 银行专用 Borrowings from the Central Bank
+  - 2011 同业存放 银行专用 Due to Placements with Banks and Other Financial Institutions
+  - 2012 吸收存款 银行专用 Savings Absorption
+  - 2021 贴现负债 银行专用 Liabilities of Capital Discounted
+  - 2101 交易性金融负债  Transactional Moneytary Liabilities
+  - 2111 卖出回购金融资产款 金融共用 Financial Assets Sold for Repurchase
+  - 2201 应付票据  Notes Payable
+  - 2202 应付账款  Accounts Payable
+  - 2205 预收账款  Advance from customers
+  - 2211 应付职工薪酬  Payroll Payable
+  - 2221 应交税费  Taxes Payable
+  - 2231 应付股利  Dividend Payable
+  - 2232 应付利息  Accrued Interest Payable
+  - 2241 其他应付款  Other Accounts Payable
+  - 2251 应付保户红利 保险专用 Dividend Payable for The Insured
+  - 2261 应付分保账款 保险专用 Dividend Payable for Reinsurance
+  - 2311 代理买卖证券款 证券专用 Receivings from Vicariously Traded Securities
+  - 2312 代理承销证券款 证券和银行共用 Receivings from Vicariously Sold Securities
+  - 2313 代理兑付证券款 证券和银行共用 Receivings from Vicariously Cashed Securities
+  - 2314 代理业务负债  Liabilities from Vicarious Business
+  - 2401 预提费用  Accrued expensess
+  - 2411 预计负债  Estimated Liabilities
+  - 2501 递延收益  Deferred Profits
+  - 2601 长期借款  Long-term loans
+  - 2602 长期债券  Long-term Bonds
+  - 2701 未到期责任准备金 保险专用 Deposit for Undue Duty of Reinsurance
+  - 2702 保险责任准备金 保险专用 Deposit for Duty of Reinsurance
+  - 2711 保户储金 保险专用 Deposit of the Insured
+  - 2721 独立账户负债 保险专用 Liabilities of Independent Accounts
+  - 2801 长期应付款  Long-term Payable
+  - 2802 未确认融资费用  Unsettled Financing Expenses
+  - 2811 专项应付款  Special Accounts Payable
+  - 2901 递延所得税负债  Deferred Income Tax Liabilities
+- 共同类
+  - 3001 清算资金往来 银行专用 Liquidation of Inter Bank Business
+  - 3002 外汇买卖 金融共用 Foreign Exchange Buy and Sale
+  - 3101 衍生工具  Derivative Tools
+  - 3201 套期工具  Arbitrage Tools
+  - 3202 被套期项目  Arbitraged Items
+- 所有者权益类
+  - 115 4001 实收资本  Paid-in Capital
+  - 116 4002 资本公积  Capital Reserve
+  - 117 4101 盈余公积  Surplus Reserve
+  - 118 4102 一般风险准备 金融共用 Generic Risk Reserve
+  - 119 4103 本年利润  Profit & loss summary
+  - 120 4104 利润分配  Distribution profit
+  - 121 4201 库存股  Treasury Share
+- 成本类
+  - 122 5001 生产成本  Production Costs
+  - 123 5101 制造费用  Manufacturing Expenditures
+  - 124 5201 劳务成本  Service Costs
+  - 125 5301 研发支出  Research and Development Expenditures
+  - 126 5401 工程施工 建造承包商专用 Engineering Constructon
+  - 127 5402 工程结算 建造承包商专用 Engineering Settlement
+  - 128 5403 机械作业 建造承包商专用 Mechanical Operations
+- 损益类
+  - 129 6001 主营业务收入  Sales revenue
+  - 130 6011 利息收入 金融共用 Interest Income
+  - 131 6021 手续费收入 金融共用 Commission Income
+  - 132 6031 保费收入 保险专用 Premium Income
+  - 133 6032 分保费收入 保险专用 Reinsurance Premium Income
+  - 134 6041 租赁收入 租赁专用 Leasehold Income
+  - 135 6051 其他业务收入  Revenues from other operationse
+  - 136 6061 汇兑损益 金融专用 Exchange Gain or Loss
+  - 137 6101 公允价值变动损益  Profit and Loss from Fair Value Changes
+  - 138 6111 投资收益  Income on Investment
+  - 139 6201 摊回保险责任准备金 保险专用 Amortized Deposit for Duty
+  - 140 6202 摊回赔付支出 保险专用 Amortized Compensation Expenses
+  - 141 6203 摊回分保费用 保险专用 Amortized Reinsurance Expenditures
+  - 142 6301 营业外收入  Non-operating profit
+  - 143 6401 主营业务成本  Cost of sales
+  - 144 6402 其他业务成本  Cost of other operations
+  - 145 6405 营业税金及附加  Business Tax and Surcharges
+  - 146 6411 利息支出 金融共用 Interest Expenses
+  - 147 6421 手续费支出 金融共用 Commission Expenses
+  - 148 6501 提取未到期责任准备金 保险专用 Appropriation of Deposit for Undue Duty
+  - 149 6502 提取保险责任准备金 保险专用 Appropriation of Deposit for Duty
+  - 150 6511 赔付支出 保险专用 Compensation Expenses
+  - 151 6521 保户红利支出 保险专用 Dividend Expenses for The Insured
+  - 152 6531 退保金 保险专用 Loan Value
+  - 153 6541 分出保费 保险专用 Reinsurance Premium
+  - 154 6542 分保费用 保险专用 Reinsurance Expenses
+  - 155 6601 销售费用  Marketing Costs
+  - 156 6602 管理费用  Managing Costs
+  - 157 6603 财务费用  Financing Costs
+  - 158 6604 勘探费用  Prospecting Costs
+  - 159 6701 资产减值损失  Assets Devaluation
+  - 160 6711 营业外支出  Non-operating expenses
+  - 161 6801 所得税  Income Tax
+  - 162 6901 以前年度损益调整  Prior period profit & loss adjustment
+
+## 实务
+- 有发票的进SR CGS
+  - 注意税
+  - 缴税的（教育费，城建税等），税单即发票
+  - 没银行转账回执的对面是 AP AR（往来）
+- 只有银行转账回执的 银行存款--AP AR
+
 # [财务管理](https://fanjingdan012.github.io/2019/05/14/Corporate-Finance/)
 # 审计
 审计基本原理、审计测试流程、各类交易和账户余额的审计、对特殊事项的考虑、完成审计工作与出具审计报告、企业内部控制审计、质量控制和职业道德
@@ -150,3 +328,69 @@ date: 2019-05-14 17:29:01
   - 宏观
 
 # 保险学
+# 散装知识
+- 经济周期
+  - Hodrick-Prescott filter
+  - 庞加莱－本迪克松定理(Poincaré-Bendixson)
+  - Wigner–Ville distribution
+  - 高斯函数
+    - 正态分布的密度函数
+    - 高斯核可以看成是与中心距离负相关的权重，是对连续高斯的离散近似
+    - 高斯滤波（平滑），即用某一尺寸的二维高斯核与图像进行卷积
+    - 𝜎越大，高斯函数越平滑，调大𝜎即提高了远处像素对中心像素的影响程度
+  - Gabor expansion
+  - ARIMA models
+  - Autocorrelation, also known as serial correlation
+    - is the correlation of a signal with a delayed copy of itself as a function of delay.
+  -  Rossler attractor
+- 全要素生产率
+  - 去掉物料、人工等主要投入后，教育，科技等等因素对生产率的影响，一个经济体的核心竞争力
+
+
+# 投资学
+- 导论
+  - 概念
+  - 投资过程
+  - 投资环境
+    - 交易机制
+      - 交易委托方式
+        - 远程终端
+        - 电脑自动委托
+        - 电话自动委托
+        - 柜台递单委托
+      - 价格形成机制
+        - 报价驱动的做市商制
+          -
+        - 指令驱动的竞价制
+          - 连续竞价制
+          - 集合竞价制
+        - 混合制
+      - 指令匹配原则
+      - 信息披露方式
+      - 市场稳定措施
+      - 其他选择性手段
+- 投资目标
+  - 风险与收益
+  - 理性
+  - 风险偏好
+- 投资策略
+  - 主动与被动
+  - 知情与非知情
+  - 行为金融
+- 资产价值分析
+  - 债券
+  - 股票
+  - 衍生品
+- 投资组合构建
+  - Tobin
+  - Markowiz
+  - CAPM
+  - APT
+  - ICAPM
+  - CCAPM
+  - BAMP
+- 投资业绩评价
+  - 单因素
+  - 多因素
+  - 择时能力
+  - 选股能力

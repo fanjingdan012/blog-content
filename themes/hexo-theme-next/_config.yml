@@ -84,7 +84,8 @@ menu:
   home: / || fa fa-home
   about: /about/ || user
   计算机知识树: /CSKT/ || fa fa-sitemap
-  会计学知识树: /AccountingKT/ || fa fa-sitemap
+  会计学知识树: /ngKT/ || fa fa-sitemap
+  数学知识树: /MathKT/ ||fa fa-sitemap
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
