@@ -4,6 +4,13 @@ date: 2018-07-26 16:13:14
 tags:
 categories: Markdown
 ---
+# Set up
+```sh
+hexo init
+cd themes
+git clone git@github.com:theme-next/hexo-theme-next.git
+```
+
 # Problem
 `hexo d` not working
 try this in `_config.yml`

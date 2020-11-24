@@ -1642,6 +1642,7 @@ date: 2019-05-13 14:42:09
       - 抓包工具
         - [wireshark](https://www.wireshark.org/download.html)
           - [从http数据包获取用户登陆信息](https://blog.csdn.net/wangqingchuan92/article/details/81095871)
+          - tshark wireshark 命令行版
       - Git 项目还原
         - [Git Hack](https://github.com/lijiejie/GitHack)
           - `python GitHack.py https://robokracy.com/.git `
@@ -1724,9 +1725,12 @@ date: 2019-05-13 14:42:09
     - `mv dir1 dir2`
     - `mkdir -p a/b/c/d`
     - `find . -iname 'abc'`
+    - `ls -R` 递归list子目录
+    - `egrep -r '@In|@Inject' . | cut -d: -f1 | uniq | grep '/src/main/java'`
+    - `find files/ -name "*.json" | xargs grep "xxx`
   - 网络
-    - `lsof -i :12345`
-      - list open files with port 12345
+    - `lsof -i :12345` list open files with port 12345
+    - `ifconfig|grep inet` 获取本机ip
   - 线程
     - `kill -9 <pid>`
   - `uname -a`  查看操作系统信息
@@ -1782,14 +1786,33 @@ date: 2019-05-13 14:42:09
 
 
 # MAC
-- lock screen = Command + Ctrl + Q
 - use brew install
+- 快捷键
+  - Command + Tab 切app
+  - lock screen = Command + Ctrl + Q
+  - Ctrl+B+Down 同app下窗口缩略
+  - Ctrl+B+Up 所有窗口缩略
+  - Ctrl+Left/Right: 切桌面
+  - Command+Left/Right: 切窗口
+  - Command+W: 关窗口
+  - 截图
+    - 截取全屏：Shift＋Command＋3
+      - 即可截取电脑全屏，图片自动保存在桌面
+    - 截图窗口：Shift+Command+4，然后按空格键
+      - 会出现十字架的坐标图标
+      - 将此坐标图标移动到需要截取的窗口上，然后按空格键；
+      - 按空格键后，会出现一个照相机的图标，单击鼠标，图片会自动保存在桌面。
+    - 截取任意窗口：Shift＋Command＋4
+      - 出现十字架的坐标图标；
+      - 拖动坐标图标，选取任意区域后释放鼠标，图片会自动保存在桌面。
 - sublime
   - alt+f3 = Command + Ctrl + G
+
 - intellij idea
   - jump to line = Command + L
 - quick time
   - 用option+J慢放 或者option+L快放，就是从1.1倍开始了,1.9倍有声音，2倍没有声音
+- [Alfred](https://www.alfredapp.com/)
 - [oh my zsh](https://ohmyz.sh/)
   - `brew install zsh`
   - `chsh -s /bin/zsh root`
@@ -1837,8 +1860,21 @@ date: 2019-05-13 14:42:09
       - Ctrl + b ?
 - neovim
   - `brew install neovim`
+  - ~/.config/nvim/init.vim
+  - highlight current word 用vim时，想高亮显示一个单词并查找的方发，将光标移动到所找单词
+    - shift + "*"  向下查找并高亮显示
+    - shift + "#"  向上查找并高亮显示
+    - "g" + "d"    高亮显示光标所属单词，"n" 查找！
+  - ctrl-v 列编辑模式
 
 # Windows
-- 查看pid ``````wmic process get name, processid|findstr 27284
-- 杀掉pid taskKill /F /pid 27284
--
+- 查看pid `wmic process get name, processid|findstr 27284`
+- 杀掉pid `taskKill /F /pid 27284`
+- Gvim
+  - Ctrl+Q  列编辑
+- sublime
+  - [多光标编辑快捷键](https://blog.csdn.net/lbx_15887055073/article/details/84560785)
+    - Ctrl+X：删除当前行
+    - Ctrl+K+K 从光标处开始删除代码至行尾。
+    - Ctrl+Shift+← 向左单位性地选中文本。
+    - Ctrl+Shift+→ 向右单位性地选中文本。
