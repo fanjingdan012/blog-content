@@ -1090,6 +1090,73 @@ date: 2019-05-13 14:42:09
 - python exit:
   - `exit()`
 
+# PHP
+- require vs include: require 没有会报错
+- [String](https://www.php.net/manual/zh/language.types.string.php)
+  - 单引号
+  - 双引号 会解析 \n \r等
+  - heredoc 语法结构
+    ```php
+    <?php
+    $str = <<<EOD
+        Example of string
+        spanning multiple lines
+        using heredoc syntax.
+        EOD;
+    class foo {
+        public $bar = <<<EOT
+        bar
+        EOT;
+        const BAR = <<<FOOBAR
+        Constant example
+        FOOBAR;
+    }
+    echo <<<EOT
+    My name is "$name". I am printing some $foo->foo.
+    Now, I am printing some {$foo->bar[1]}.
+    This should print a capital 'A': \x41
+    EOT;
+    ?>
+    echo <<<"FOOBAR"
+    Hello World!
+    FOOBAR;
+    ```
+  - nowdoc 语法结构（自 PHP 5.3.0 起）不象 heredoc 结构，nowdoc 结构可以用在任意的静态数据环境中，最典型的示例是用来初始化类的属性或常量
+    ```php
+    <?php
+    $str = <<<'EOD'
+    Example of string
+    spanning multiple lines
+    using nowdoc syntax.
+    EOD;
+
+    /* 含有变量的更复杂的示例 */
+    class foo
+    {
+        public $foo;
+        public $bar;
+
+        function foo()
+        {
+            $this->foo = 'Foo';
+            $this->bar = array('Bar1', 'Bar2', 'Bar3');
+        }
+    }
+
+    $foo = new foo();
+    $name = 'MyName';
+
+    echo <<<'EOT'
+    My name is "$name". I am printing some $foo->foo.
+    Now, I am printing some {$foo->bar[1]}.
+    This should not print a capital 'A': \x41
+    EOT;
+    ?>
+    ```
+  - 拼接用., +没用
+  - [字符串函数](https://www.php.net/manual/zh/ref.strings.php)
+    - substr ( string $string , int $start [, int $length ] ) : string
+      - [doc](https://www.php.net/manual/zh/function.substr.php)
 
 # Spring
 - Core
