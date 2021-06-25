@@ -1077,10 +1077,11 @@ date: 2019-05-13 14:42:09
     - 调用： `d=p(a,b);`
 
 # Python
-- anaconda
+- [anaconda](https://www.anaconda.com/products/individual)
   - `conda-env list`
 - python exit:
   - `exit()`
+- `pip install -r requirements.txt`
 
 # PHP
 - [online editor](https://www.jdoodle.com/php-online-editor/)
@@ -2055,6 +2056,7 @@ date: 2019-05-13 14:42:09
     - cmd+L for foucus on url
 - postman
   - [快捷键](https://www.cnblogs.com/qican/p/11699732.html)
+
 # Tools
 - [正则可视化](https://jex.im/regulex/)
 -
