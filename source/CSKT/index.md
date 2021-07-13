@@ -219,6 +219,7 @@ date: 2019-05-13 14:42:09
       - B+ Tree Optimistic Latching
   - truncate删除表中数据，再插入时自增长id又从1开始
   - [MySQL](https://dev.mysql.com/downloads/)
+    - `mysql -h localhost -u root -p123`
     - 一张表最多16个索引
     - `mysqld`
     - `mysql -uroot -p`
@@ -1889,7 +1890,8 @@ date: 2019-05-13 14:42:09
 
 
 # Linux
-- shell
+- shell script
+  - `set -o vi` 用vi方式编辑命令行
   - 目录文件
     - `cp -R dir1 dir2`
     - `mv dir1 dir2`
@@ -1898,6 +1900,9 @@ date: 2019-05-13 14:42:09
     - `ls -R` 递归list子目录
     - `egrep -r '@In|@Inject' . | cut -d: -f1 | uniq | grep '/src/main/java'`
     - `find files/ -name "*.json" | xargs grep "xxx`
+  - 打包
+    - `tar -cvf a.tar a`
+    - `tar -cvf a.zip a`
   - 网络
     - `lsof -i :12345` list open files with port 12345
     - `ifconfig|grep inet` 获取本机ip
@@ -1919,6 +1924,13 @@ date: 2019-05-13 14:42:09
       - count
         - `awk -F ',' ' {c[$1]++} END{ for (i in c) printf("%s\t%s\n",i,c[i]) }' data.csv`
         - `awk '{ print $1}' system-access.log.txt | sort | uniq -c | sort -nr | head -n 10`
+    - sed
+      - mac
+        - sed
+        - gsed
+          - 特定字符串后面加一行`gsed -i "/xxx/a\  xx\(group: 'com.fjd', name: 'ab-c', version: '\$\{com.fjd.test.version\}'\)\n  xxx(group: 'com.fjd', name: 'fjd-sample', version: '\$\{com.fjd.version\}')" dependencies.gradle`
+          - 文件最后加一行`gsed -i '$a\xxx' a.txt`
+          - 删掉特定字符行`gsed -i "/xxx/d" b1.json`
     - sort
       - `sort --field-separator='\t' --key=2,1`
 - 配置
@@ -1989,6 +2001,8 @@ date: 2019-05-13 14:42:09
       - 拖动坐标图标，选取任意区域后释放鼠标，图片会自动保存在桌面。
 - sublime
   - alt+f3 = Command + Ctrl + G
+  - 删掉所在行 command + shift + k
+  - 删掉此行光标后的 ctrl+k+k
 
 - intellij idea
   - jump to line = Command + L
