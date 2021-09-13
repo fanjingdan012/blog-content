@@ -25,6 +25,7 @@ tags:
 - `hashcat -a 3 -m 1400 2c59e74197a0558783111bdea47670bf1503f79d904108dec2db2dca7f2232f3 34?d?d?d?d?d?d?d?d?d8028`
 - `hashcat -a 3 -m 1400 2c59e74197a0558783111bdea47670bf1503f79d904108dec2db2dca7f2232f3 37?d?d?d?d?d?d?d?d?d8028`
 
+
 ## ntlm hash
 - 题目:`8846F7EAEE8FB117AD06BDD830B7586C`
 - `hashcat.exe -a 0 -m 1000  8846F7EAEE8FB117AD06BDD830B7586C    top1000.dict`
@@ -40,6 +41,8 @@ tags:
 - [zip hash 加星号](https://hashcat.net/forum/thread-7968.html)`$zip2$*0*3*0*f2424d6c3a08245a148c62c9f64544c1*2a1*f3*4f6bbca756cdaed98435148cd041c3f57d220f2c008cc4da2b5c7dc329ed667e093bda9d6f2dbdba96a096e05a63b2823c47bbafc741ea70f839c1c6d1f8f3563027c172a48db9805988e198adb58775c90d4ae7ccf985758e1c4caf866d143ef6ce38257de0abaf0e106d5c3c41db0e5c9c5d79837836136e53bb460095b86b4fbbc1c4a7dbcbef14837d48a3b0b1ae23eb6dd39889a2d9abc92fbe01a068c2ba4f1fd2b0d0f80e233dfc13c9436ca6bc8b1363229d49c10f8a43c7378b0849e8024c37d041e87db47aa88194e9e414e6b3a868d188d9af3e97d0d727640d547553a09341caa92de2d3ada1f5adabe21ea8aa*b379c66835c6f4a3e1dd*$/zip2$`
 - `combinator3 color1.dict country1.dict fruit1.dict >all.dict`
 - `hashcat.exe -a 0 -m 13600 a.hash   all.dict  --force`
+- combine
+  - hashcat -a 1 -m 0 example0.hash example.dict example.dict
 
 ## WPA
 - 题目:We were monitoring the wifis from outside the building and were able to run a death attack to sniff a wpa 4-way handshake on reconnection. Cracking wpa is tediously slow and an only wordlist attack didn't work, So we are trying to apply rules and everyone is taking a part of it. Your part of the wordlist is attached. The robokracy guys are lacking creativity so choose your ruleset accordingly.
@@ -47,3 +50,10 @@ tags:
 
 ## JWT
 - `hashcat -a 0 -m 16500 eyJhbGciOiJIUzI1NiJ9.eyIzNDM2MzQyMCI6NTc2ODc1NDd9.f1nXZ3V_Hrr6ee-AFCTLaHRnrkiKmio2t3JqwL32guY example.dict`
+
+## VeraCrypt
+- `hashcat -a 0 -m 13752 container korea.txt --self-test-disable`
+
+## MS word
+- https://docs.microsoft.com/en-us/openspecs/office_file_formats/ms-offcrypto/9e61da63-8ddb-4c0a-b25d-f85d990f44c8
+- `hashcat -a 3 -m 9600 -1 abcdefghijklmnopqrstuvwxyz0123456789 '$office$*2013*100000*256*16*9d3e8c8a1f9c2d786a867eba7241e947*5a8aa6d541a882bfac747a04f7b15854*308c5cd0640c7df5b5b6e8b03f221d481d29ea2b62025691d7870b5b4eb38bf7' '?1?1korea' --self-test-disable`

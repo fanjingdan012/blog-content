@@ -1659,6 +1659,10 @@ date: 2019-05-13 14:42:09
     - PBKDF1/PBKDF2 (Password-Based Key Derivation Function)
   - 攻击
     - [彩虹表](https://zh.wikipedia.org/wiki/%E5%BD%A9%E8%99%B9%E8%A1%A8)
+    - dictionary
+      - https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt
+      - https://github.com/danielmiessler/SecLists/tree/master/Passwords/Common-Credentials
+      - https://github.com/praetorian-inc/Hob0Rules.git
 - 编码
   - [ascii](https://www.systutorials.com/f/2013/ascii.txt)
   - Base64
@@ -1667,6 +1671,8 @@ date: 2019-05-13 14:42:09
   - Base16
   - 培根密码，AB表01替换字母
   - 摩尔斯电码
+  - [猪圈密码](https://blog.csdn.net/zmx2473162621/article/details/103949134/?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-1.control&spm=1001.2101.3001.4242)
+    - 圣堂武士密码(Templar Cipher)
 - 综合案例
   - [bitcoin](https://fanjingdan012.github.io/2019/10/17/Bitcoin/)
 - Identification：这个用户是谁
@@ -1691,6 +1697,7 @@ date: 2019-05-13 14:42:09
       - verify signature
         - 可以用hash:HMACSHA256
         - 可以用RSA签名
+      - [Flask-JWT](https://pythonhosted.org/Flask-JWT/)
   - OAuth2
     - 5角色，sample：某app集成wechat
       - 客户端（Client）某app在wechat的开发者中心注册的app
@@ -1769,15 +1776,25 @@ date: 2019-05-13 14:42:09
         - `().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals['linecache'].__dict__.values()[12].system('sudo find . -name "flash*" -exec /bin/bash ')` 利用find命令漏洞获取root权限
         - `cat flash_firmware`得到网站和密码信息
     - tools
+      - [mac](http://www.manongjc.com/detail/10-bzbhjtiwftgkvgh.html)
       - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
       - 抓包工具
         - [wireshark](https://www.wireshark.org/download.html)
           - [从http数据包获取用户登陆信息](https://blog.csdn.net/wangqingchuan92/article/details/81095871)
           - tshark wireshark 命令行版
+          - filter:
+            - http.request.method==GET
       - Git 项目还原
         - [Git Hack](https://github.com/lijiejie/GitHack)
           - `python GitHack.py https://robokracy.com/.git `
       - [xss平台](https://xss8.cc/xss.php)
+    - reverse engineering
+      - binwalk
+        - install
+          - mac: brew install binwalk
+        - binwalk xx.ov
+        - binwalk -e xx.ov
+          - jffs2 file system: https://github.com/sviehb/jefferson.git
   - C语言
     - buffer overflow
       - 命令行输入0x0：Ctrl+Shift+2
@@ -2003,6 +2020,7 @@ date: 2019-05-13 14:42:09
   - alt+f3 = Command + Ctrl + G
   - 删掉所在行 command + shift + k
   - 删掉此行光标后的 ctrl+k+k
+  - 选中左边到行首 command—+shift+←
 
 - intellij idea
   - jump to line = Command + L
@@ -2078,7 +2096,13 @@ date: 2019-05-13 14:42:09
     - shift + "*"  向下查找并高亮显示
     - shift + "#"  向上查找并高亮显示
     - "g" + "d"    高亮显示光标所属单词，"n" 查找！
+  - ctrl-A increase number
+  - ctrl-X decrease number
+  - generate series number `:put =range(11,15)`
   - ctrl-v 列编辑模式
+  - [vim 文本行逆序化](https://blog.csdn.net/cwcmcw/article/details/44876267)
+    - `:g/.*/mo0`
+    - `:g/^/mo0`
 - Chrome
   - 切tab cmd+alt+arrow
 
@@ -2104,7 +2128,7 @@ date: 2019-05-13 14:42:09
 
 # Tools
 - [正则可视化](https://jex.im/regulex/)
--
+
 
 # Test
 - UT
@@ -2120,4 +2144,6 @@ date: 2019-05-13 14:42:09
   - jmockit
 - IT
   - [JMeter](https://jmeter.apache.org/download_jmeter.cgi)
+  - [Selenium](https://www.selenium.dev/documentation/en/)
 - Performance Test
+
