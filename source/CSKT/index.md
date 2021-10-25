@@ -1499,9 +1499,9 @@ date: 2019-05-13 14:42:09
       - 当Master被 Sentinel 标记为客观下线时，Sentinel 向下线的 Master 的所有 Slave 发送 INFO 命令的频率会从 10 秒一次改为每秒一次
       - 若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。
       - 若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
-	- 应用
-	  - 存翻译
-	  - 存Session
+  - 应用
+    - 存翻译
+    - 存Session
   - memcached
     - 缓存击穿
 - mq
@@ -2171,4 +2171,3 @@ date: 2019-05-13 14:42:09
   - [JMeter](https://jmeter.apache.org/download_jmeter.cgi)
   - [Selenium](https://www.selenium.dev/documentation/en/)
 - Performance Test
-
