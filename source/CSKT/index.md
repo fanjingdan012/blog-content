@@ -3,20 +3,28 @@ title: 计算机知识树
 date: 2019-05-13 14:42:09
 ---
 [TOC]
-[课程资源](https://github.com/Developer-Y/cs-video-courses)
+- search for questions
+  - `*l1:` is easy questions
+  - `*l2:` is middle questions
+  - `*l3:` is hard questions
+- [课程资源](https://github.com/Developer-Y/cs-video-courses)
 # DS
 - Algorithm
   - Greedy
   - Divide and Conque：适用于子问题独立
   - Dynamic Programming：子问题不独立，把子问题解决放入table，然后综合最优解
-- [排序](https://github.com/fanjingdan012/JavaDetails/tree/master/sort)
+- [排序](https://github.com/fanjingdan012/JavaDetails/tree/master/sort) *l1:排序有几种,复杂度,稳定性（stable?)*
   - 内部排序
     - 冒泡Bubble
     - 选择Select
     - 插入Insert
     - 希尔Shell
-    - Quick sort
-    - Merge sort
+    - 快排Quick sort 是冒泡排序的一种改进
+      - 优点：快，数据移动少
+      - 缺点：稳定性不足
+    - 归并Merge sort 分治法排序，稳定的排序算法，一般用于对总体无序，但局部有序的数列
+      - 优点：效率高O(n)，稳定
+      - 缺点：比较占用内存
     - Heap sort
     - Binary sort
       - Bucket sort
@@ -49,7 +57,7 @@ date: 2019-05-13 14:42:09
     - `pop()`
   - Tree
     - 二叉树
-      - 术语
+      - 术语 *l1:完全二叉树和满二叉树的区别？*
         - Complete Binary Tree:变成Array无空白的
         - Full Binary Tree：最后一层全满的
       - 遍历(就是看Visit在中间叫中序，前面交前序，后面叫后序)见[BST code](https://github.com/fanjingdan012/ds/blob/master/data-structure/src/main/java/tree/binary/search/BinarySeatchTreeImpl.java)
@@ -158,15 +166,15 @@ date: 2019-05-13 14:42:09
           ```java
           int[] dist=new int[n];
           int[] pre=new int[n];
-
+          
           public void Bellman_Ford(){
             //初始化
             for(int i=1;i<n-1;i++){
               dist[i]=infinit; //TODO
             }//end for
-
+          
             dist[s]=0 //起始点的值
-
+          
             for (int i=1;i<=n-1;i++){
               for(int j=1;j<=edgenum; j++){
                 if(dist(i)+weight(i,j) <dist(j) ){
@@ -175,13 +183,13 @@ date: 2019-05-13 14:42:09
               }//end if
               }//end for
             }//end for
-
+          
             //
             for(int j=1;j<=edgenum;j++){
               if(dist(i)+weight(i,j)<dist()j )
                 return "有负权回路，不存在最短路径";
             }//end for
-
+          
           }//e
           ```
       - A星算法
@@ -199,7 +207,7 @@ date: 2019-05-13 14:42:09
     - index种类
       - Hash 等值查询
       - Linear index(memory or disk)就是一串key/pointer,key是顺序排列的，pointer指向具体记录
-      - tree
+      - tree *l1:B树和B+树有啥区别？*
         - B(Balance) tree
         - B+树
         - B星树
@@ -238,7 +246,7 @@ date: 2019-05-13 14:42:09
       - Before/After update
       - Before/After delete
 - 事务
-  - isolation级别
+  - isolation级别 *l2:数据库隔离级别有哪些*
     - read uncommitted（读取未提交数据）
       - 没有view概念，都是读最新的
     - read committed（可以读取其他事务提交的数据）---大多数数据库默认的隔离级别
@@ -252,12 +260,12 @@ date: 2019-05-13 14:42:09
   - rollback log
     - 没更早的read view删除
       - 5.5之前回滚段删了文件也不会变小
-- 特性：ACID
+- 特性：ACID *l1:数据库ACID特性指哪些？*
   - Atomicity原子性
   - Consistency一致性
   - Isolation隔离层
   - Durability持久性
-- 引擎
+- 引擎 *l2:你知道哪些数据库引擎？->聊聊各种引擎特性*
   - ISAM
     - 读取快，不占内存
     - 不支持Transaction，不能容错（磁盘崩溃），要经常备份
@@ -316,7 +324,7 @@ date: 2019-05-13 14:42:09
   - Postgres: MV-2PL/TO锁+Append-Only version管理+Vacuum GC+Physical Index
   - TUM Hyper
 - 缓存
-  - 缓存穿透
+  - 缓存穿透 *l2:什么叫缓存穿透？怎么解决？*
     - 就是attacker一直查询不存在的数据导致cache miss，就要一直去DB拿，导致DB压力太大挂掉
     - 解决
       - 布隆过滤器(所有数据hash到一个巨大的bitmap里，不存在就直接拦截)
@@ -359,11 +367,11 @@ date: 2019-05-13 14:42:09
     - 聚集索引中有两个隐藏列：trx_id roll_pointer
   - 序列化
     - 加锁
-  - Concurrency Control Protocol
+  - Concurrency Control Protocol *l3: 数据库MVCC有哪些Concurrency Control Protocol？*
     - Timestamping Ordering(MV-TO)
     - Optimistic Concurrency Control(MV-OCC)
     - Two-Phase Locking(MV-2PL)
-  - Version Storage
+  - Version Storage *l3: 数据库MVCC有哪些Version Storage方式？*
     - Append-Only Storage
       - 只有主表
     - Time-Travel Storage
@@ -403,7 +411,7 @@ date: 2019-05-13 14:42:09
     - Gap lock：对索引项间隙加锁
     - Next-Key：前两种组合，对记录和前面的间隙加锁
 
-- 范式
+- 范式 *l2: 数据库范式有哪些？*
   - 1NF：每column存一个值
   - 2NF：1NF+实体的属性完全依赖于主关键字（如果依赖一部分，就要分离开来）
   - 3NF：2NF+非键属性都只和候选键有相关性，也就是说非键属性之间应该是独立无关的
@@ -438,7 +446,7 @@ date: 2019-05-13 14:42:09
     - maven plugin in pom
     - run `mvn mybatis-generator:generate` will generate entity, mapper.java, mapper.xml
     - must first create schema and tables
-- sql调优
+- sql调优 *l2: 怎么做数据库调优？*
   - 预发跑sql explain
   - 排除缓存 sql nocache
   - 看一下行数对不对，不对用analyze table t矫正
@@ -478,6 +486,11 @@ date: 2019-05-13 14:42:09
   - 非对称多处理器（高端）
     - cpu有自己memory，没有bus
 - [内存](https://fanjingdan012.github.io/2018/04/11/Memory-Hierachy/)
+  - 全局区(静态区)
+    - 全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束释放
+
+
+
 - 线程
 - 汇编指令
   - CAS compare and swap
@@ -802,7 +815,7 @@ date: 2019-05-13 14:42:09
       - undo和redo信息记录到事务日志中
     - DoCommit
       - 提交释放transaction资源
-- CAP(下面三点只能同时保证两点）
+- CAP(下面三点只能同时保证两点）*l1: 分布式系统的CAP理论是什么？*  *l2: 怎么证明？*
   - 一致性(Consistency)
     - 强一致性：更新后，后续读取都得到新值
     - 弱一致性：更新后，可能读到老值。但经过“不一致时间窗口”期后，读取都是新值
@@ -848,11 +861,13 @@ date: 2019-05-13 14:42:09
   - pact
 - [Docker](https://www.docker.com/)
   - Docker命令
+    - `docker version`
     - `docker search ubuntu`
     - `docker pull ubuntu`
     - `docker images`
     - `docker ps`
     - `docker run -itd <image id>`
+      - docker run docker/whalesay cowsay boo
       - `docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined` 解决gdb不能run问题
     - `docker exec -it <container id> bash`
       - `exit`
@@ -860,6 +875,7 @@ date: 2019-05-13 14:42:09
     - `docker logs`
     - `docker cp ./a.txt <container id>:/root/`
     - `docker commit <container id> <a name for new image>`
+    - docker build -t docker-whale .
   - 镜像 容器 仓库
   - 四种网络模式
     - bridge 桥接模式
@@ -903,10 +919,15 @@ date: 2019-05-13 14:42:09
 
 
 # Java
-- 新特性
+- 特性
+  - 访问控制
+    - public
+    - protected
+    - default 子类也不能访问
+    - private
   - [Java 9 新特性概述](https://developer.ibm.com/zh/articles/the-new-features-of-java-9/)
 - JVM
-  - [GC](https://fanjingdan012.github.io/2019/04/10/GC/)
+  - [GC](https://fanjingdan012.github.io/2019/04/10/GC/) *l2: JVM GC分代？对象存货分析？GC有哪些算法？JVM的有哪些垃圾收集器？*
   - [JMM](https://fanjingdan012.github.io/2019/04/10/GC/Memory.png)
     - used
     - committed
@@ -937,7 +958,7 @@ date: 2019-05-13 14:42:09
       - Fields
       - Methods
       - Class attributes
-    - 过程
+    - 过程 *l2: java class加载过程？*
       - 加载 生成一个class对象
       - 验证
         - 文件格式
@@ -952,6 +973,7 @@ date: 2019-05-13 14:42:09
       - 初始化
         - 先加载父类
       - 使用
+        - 函数的static变量在执行此函数时进行初始化
       - 卸载
     - 加载方式
       - main
@@ -968,7 +990,7 @@ date: 2019-05-13 14:42:09
 - lambda表达式
   - stream API
   - stream 原理 TODO
-- HashMap
+- HashMap *l2: HashMap在7和8的区别？*
   - 7和8区别
     - 7用头插，8尾插
     - 7用链表，8红黑树+链表
@@ -977,7 +999,7 @@ date: 2019-05-13 14:42:09
 - cache
   - Guava： google cache
   - ehcache
-- [IO](https://fanjingdan012.github.io/2019/05/07/csapp-IO)
+- [IO](https://fanjingdan012.github.io/2019/05/07/csapp-IO) *l2: 有哪些IO方式？Netty为什么快？*
   - read/write
     - copy:硬盘—>内核buf—>用户buf—>socket相关缓冲区—>协议引擎
     - Zero-Copy
@@ -1020,7 +1042,7 @@ date: 2019-05-13 14:42:09
   - [maven](https://maven.apache.org/download.cgi)
   - [gradle](https://gradle.org/releases/)
   - [ant](https://ant.apache.org/)
-- OOM排查
+- OOM排查 *l2: OOM怎么排查？*
   - MAT
   - help dump
 - CPU 100% 排查
@@ -1067,16 +1089,56 @@ date: 2019-05-13 14:42:09
       finally {if(conn!=null){try{ conn.close();}catch(SQLException e){}}}
       ```
 
-# C
+# C/C++
 - 存储类
   - auto 默认
   - register 存在寄存器里
-  - static 在程序生命周期内一直不销毁，不创建
   - extern 对所有程序文件可见的全局变量的引用
 - 指针
   - 普通指针 `int *p`
   - 函数指针 `int (* p)(int, int) = & max; //max 是个函数`
     - 调用： `d=p(a,b);`
+  - *l1:指针和引用的区别？*
+    - 指针是一个变量，只不过这个变量存储的是一个地址，指向内存的一个存储单元；而引用仅是个别名；
+    - 引用使用时无需解引用`*`，指针需要解引用；
+    - 引用只能在定义时被初始化一次，之后不可变；指针可变；
+    - 引用没有 const，指针有 const
+    - 引用不能为空，指针可以为空；
+    - “sizeof 引用”得到的是所指向的变量(对象)的大小，而“sizeof 指针”得到的是指针本身的大小；
+    - 指针和引用的自增(++)运算意义不一样；
+    - 内存分配上看：程序为指针变量分配内存区域，而引用不需要分配内存区域。
+- C/C++ 区别
+  - c++在c的基础上增添类，
+  - C是一个结构化语言，它的重点在于算法和数据结构。C程序的设计首要考虑的是如何通过一个过程，对输入（或环境条件）进行运算处理得到输出（或实现过程（事务）控制），
+  - C++首要考虑的是如何构造一个对象模型，让这个模型能够契合与之对应的问题域，这样就可以通过获取对象的状态信息得到输出或实现过程（事务）控制。
+- *l1:STL库用过吗？常见的STL容器有哪些？算法用过哪几个*
+  - 容器
+    - 序列式容器:其中的元素不一定有序，但都可以被排序。
+      - vector、list、deque、stack、queue、heap、priority_queue、slist
+      - vector：它是一个动态分配存储空间的容器。区别于c++中的array，array分配的空间是静态的，分配之后不能被改变，而vector会自动重分配（扩展）空间。
+    - 关联式容器:内部结构基本上是一颗平衡二叉树。所谓关联，指每个元素都有一个键值和一个实值，元素按照一定的规则存放。
+      - RB-tree、set、map、multiset、multimap、hashtable、hash_set、hash_map、hash_multiset、hash_multimap。
+      - set：其内部元素会根据元素的键值自动被排序。区别于map，它的键值就是实值，而map可以同时拥有不同的键值和实值。
+  - 算法
+    - 如排序，复制……以及个容器特定的算法。这点不用过多介绍，主要看下面迭代器的内容。
+    - 迭代器是STL的精髓，我们这样描述它：迭代器提供了一种方法，使它能够按照顺序访问某个容器所含的各个元素，但无需暴露该容器的内部结构。它将容器和算法分开，好让这二者独立设计。
+- const
+  - 常量
+  - const修饰函数承诺在本函数内部不会修改类内的数据成员，不会调用其它非 const 成员函数。
+  - 如果 const 构成函数重载，const 对象只能调用 const 函数，非 const 对象优先调用非 const 函数。
+  - const 函数只能调用 const 函数。非 const 函数可以调用 const 函数。
+  - 类体外定义的 const 成员函数，在定义和声明处都需要 const 修饰符。
+- *l1:new和malloc的区别？*
+  - new/delete是是C++的运算符,=malloc/free+加构造/析构函数
+  - 由于malloc/free是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于malloc/free。因此C++语言需要一个能完成动态内存分配和初始化工作的运算符new，以一个能完成清理与释放内存工作的运算符delete。注意new/delete不是库函数。
+  - C++程序经常要调用C函数，而C程序只能用malloc/free管理动态内存。
+  - new可以认为是malloc加构造函数的执行。new出来的指针是直接带类型信息的。而malloc返回的都是void指针。
+- static
+  - static 成员类外存储，求类大小，并不包含在内。
+  - static 成员是命名空间属于类的全局变量，存储在 data 区的rw段。
+  - 在所有函数体外定义的static变量表示在该文件中有效，不能extern到别的文件用，在函数体内定义的static表示只在该函数体内有效。
+  - static 在程序生命周期内一直不销毁，不创建
+
 
 # Python
 - [anaconda](https://www.anaconda.com/products/individual)
@@ -1125,23 +1187,23 @@ date: 2019-05-13 14:42:09
     spanning multiple lines
     using nowdoc syntax.
     EOD;
-
+    
     /* 含有变量的更复杂的示例 */
     class foo
     {
         public $foo;
         public $bar;
-
+    
         function foo()
         {
             $this->foo = 'Foo';
             $this->bar = array('Bar1', 'Bar2', 'Bar3');
         }
     }
-
+    
     $foo = new foo();
     $name = 'MyName';
-
+    
     echo <<<'EOT'
     My name is "$name". I am printing some $foo->foo.
     Now, I am printing some {$foo->bar[1]}.
@@ -1171,10 +1233,24 @@ date: 2019-05-13 14:42:09
       - strcasecmp: case insensitive
 
 # Spring
+- annotations
+  - @Component
+  - @Controller
+  - @Service
+  - @Repository
+
+
 - Core
-  - IOC
-    - 控制的什么被反转了？就是：获得依赖对象的方式反转了。
-    - [Bean的生命周期](https://czwer.github.io/2018/05/27/%E8%BF%91%E7%9C%8BBean%E5%AE%9E%E4%BE%8B%E7%94%9F%E6%88%90/)
+  - IOC 控制的什么被反转了？就是：获得依赖对象的方式反转了。由对象关系图来决定的，该对象关系图由装配器负责实例化
+    - 注入方式：
+      - 构造器注入
+      - Setter方法注入
+      - 接口注入
+    - 配置 Bean 的方式
+      - XML
+      - annotation
+      - Java code
+    - [Bean的生命周期](https://czwer.github.io/2018/05/27/%E8%BF%91%E7%9C%8BBean%E5%AE%9E%E4%BE%8B%E7%94%9F%E6%88%90/) *l2:bean的生命周期*
       - 扫描类 invokeBeanFactoryPostProcessors
       - 封装beanDef
       - 放到map
@@ -1191,24 +1267,36 @@ date: 2019-05-13 14:42:09
       - 提前暴露bean工厂对象
       - 填充属性 自动注入
       - 执行部分aware接口
-        - 如果这个Bean实现 BeanNameAware 接口, 工厂将调用setBeanName() 传递Bean的ID。
+        - 如果这个Bean实现 BeanNameAware 接口, 工厂将调用setBeanName() 传递Bean的ID。
         - 如果bean实现BeanFactoryAware，工厂将调用 setBeanFactory(), 将自己的实例传给它。
       - 继续执行部分aware接口 生命周期回调方法
-        - 如果这个bean有 BeanPostProcessors 关联，他们的postProcessBeforeInitialization()方法将被调用。
+        - 如果这个bean有 BeanPostProcessors 关联，他们的postProcessBeforeInitialization()方法将被调用。
         - 如果这个Bean有一个初始init方法，它将被调用。
-        - 如果有关联对象 BeanPostProcessors ，postProcessAfterInitialization()方法将被调用。
+        - 如果有关联对象BeanPostProcessors ，postProcessAfterInitialization()方法将被调用。
       - 完成代理AOP
       - 实例化为bean
       - 放到单例池
       - 销毁
-    - Bean的作用域scope(内嵌作用域不同的bean：因为动态代理)
+    - 四种方式来管理 bean 的生命周期事件：
+      - InitializingBean 和 DisposableBean 回调接口
+      - 针对特殊行为的其他 Aware 接口
+      - Bean 配置文件中的 Custom init() 方法和 destroy() 方法
+      - @PostConstruct 和 @PreDestroy 注解方式
+    - *l1:Bean的作用域scope*(内嵌作用域不同的bean：因为动态代理) 
       - singleton(default)
       - prototype
       - session
       - request
       - application
       - websocket
-    - 循环依赖
+      - global-session ： global-session 和 Portlet 应用相关 。 当你的应用部署在 Portlet 容器中工作时，它包含很多 portlet。 如果你想要声明让所有的 portlet 共用全局的存储变量的话，那么这全局变量需要存储在 global-session 中 
+    - *l2:自动装配模式*
+      - no (default) 自动装配关闭，需自行在 bean 定义中用标签明确的设置依赖关系 。
+      - byName 找到就装配，没找到就报错 。
+      - byType
+      - constructor
+      - autodetect constructor->byType
+    - 循环依赖 *l3:spring怎么解决循环依赖问题的？*
       - 情况
         - 属性注入可以破解
         - 构造器不行 三级缓存没存自己 因二级缓存之后去加载B了
@@ -1243,31 +1331,48 @@ date: 2019-05-13 14:42:09
           ```java
           /** Cache of singleton objects: bean name --> bean instance 一级缓存 单例缓存池*/
           private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(256);
-
+          
           /** Cache of singleton factories: bean name --> ObjectFactory 三级缓存：单例对象工厂缓存*/
           private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<String, ObjectFactory<?>>(16);
-
+          
           /** Cache of early singleton objects: bean name --> bean instance 二级缓存 早期提前暴露的对象缓存*/
           //是一个不完整的对象，属性还没有值，没有被初始化。
           private final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>(16);
-
+          
           /** Names of beans that are currently in creation. */
           // 这个缓存也十分重要：它表示bean创建过程中都会在里面呆着~
           // 它在Bean开始创建时放值，创建完成时会将其移出~
           private final Set<String> singletonsCurrentlyInCreation = Collections.newSetFromMap(new ConcurrentHashMap<>(16));
-
+          
           /** Names of beans that have already been created at least once. */
           // 当这个Bean被创建完成后，会标记为这个 注意：这里是set集合 不会重复
           // 至少被创建了一次的  都会放进这里~~~~
           private final Set<String> alreadyCreated = Collections.newSetFromMap(new ConcurrentHashMap<>(256));
           ```
+    - 源码
+      - BeanFactory：产生一个新的实例，可以实现单例模式。
+      - BeanWrapper：提供统一的 get 及 set 方法。
+      - ApplicationContext：提供框架的实现，包括 BeanFactory 的所有功能。
   - AOP
+    - 使用场景
+      - Authentication 权限
+      - Caching 缓存
+      - Context passing 内容传递
+      - Error handling 错误处理
+      - Lazy loading 懒加载
+      - Debugging 调试
+      - logging, tracing, profiling and monitoring 记录跟踪优化校准
+      - Performance optimization 　性能优化
+      - Persistence 持久化
+      - Resource pooling 　资源池
+      - Synchronization 　同步
+      - Transactions 事务
     - 静态代理
       - AspectJ
       - 实现类
     - 动态代理
-      - CGLib
-        - [ASM](https://www.ibm.com/developerworks/cn/java/j-lo-asm30/index.html) 
+      - CGLib 若目标对象没有实现任何接口
+        - [ASM](https://www.ibm.com/developerworks/cn/java/j-lo-asm30/index.html)
       - JDK Proxy:实现interface java反射机制生成代理接口匿名类 调用具体方法的时候调用invokeHandler
       - SpringAOP=CGLib+JDK+AspectJ Annotations
         - 是interface就用JDK
@@ -1293,7 +1398,12 @@ date: 2019-05-13 14:42:09
     - ThreadLocal当前事务
     - 前提是关闭AutoCommit
     - 建立连接，开启事务，执行方法，提交or回滚
-    - Propogation
+    - 管理事务的方式有几种？
+      - 编程式事务，在代码中硬编码。(不推荐使用)
+      - 声明式事务，在配置文件中配置（推荐使用）
+        - XML
+        - annotation
+    - Propogation *l2: spring 事务传播有哪几种？*
       - Use Current Transaction
         - Currently No Transaction
           - just run without Transaction
@@ -1319,7 +1429,11 @@ date: 2019-05-13 14:42:09
   - [手写简化逻辑的代码](https://github.com/fanjingdan012/simple-spring-mvc)
 
 # 软件工程
-  - 软件设计原则
+  - OO三大基本特性 *l1:面向对象的三大基本特性是什么？*
+    - 封装
+    - 继承
+    - 多态
+  - 软件设计原则 *l1:软件设计原则有哪些？*
     - 单一职责原则SRP：一个类只负责一个领域的相应职责
     - 开闭原则：软件实体应对扩展开放，而对修改关闭
     - 里氏替换原则：所有引用基类的对象能够透明的使用其子类的对象
@@ -1327,10 +1441,12 @@ date: 2019-05-13 14:42:09
     - 接口隔离原则：使用多个专门的接口，而不是使用单一总接口
     - 合成复用原则Composite：尽量使用对象组合，而不是继承来达到复合目的
     - 迪米特法则Demeter：高内聚低耦合
-  - [设计模式23](https://github.com/fanjingdan012/design-pattern)
+    
+  - [设计模式23](https://github.com/fanjingdan012/design-pattern) *l1: 你知道哪些设计模式？* *l2: 细讲一二熟悉的*
     - 行为模式11
       - [策略模式](https://github.com/fanjingdan012/design-pattern/tree/master/strategy)
       - 模板方法
+        - 用来解决代码重复的问题 。 比如 RestTemplate, JmsTemplate, JpaTemplate。
       - 备忘录模式
       - [状态模式]()
       - [访问者模式](https://github.com/fanjingdan012/design-pattern/tree/master/visitor)
@@ -1342,6 +1458,7 @@ date: 2019-05-13 14:42:09
       - 中介者模式
       - 解释器模式
         - 编译器，运算表达式解析
+      
     - 结构模式7
       - [Adapter](https://github.com/fanjingdan012/design-pattern/tree/master/adapter)
       - Bridge
@@ -1349,13 +1466,39 @@ date: 2019-05-13 14:42:09
       - decoration
       - Facade
       - Flyweight
-      - Proxy
+      - Proxy 代理模式
+        - 在 AOP 和 remoting 中被用的比较多
+      
     - 创建模式5
       - [Factory](https://github.com/fanjingdan012/design-pattern/tree/master/factory)
-      - [Singleton](https://github.com/fanjingdan012/design-pattern/tree/master/singleton)
+        - 定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method 使一个类的实例化延迟到其子类。
+        - 适用于：当一个类不知道它所必须创建的对象的类的时候；当一个类希望由它的子类来指定它所创建的对象的时候；当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理者这一信息局部化的时候。      
+        - BeanFactory 用来创建对象的实例 。
+      - [Singleton](https://github.com/fanjingdan012/design-pattern/tree/master/singleton) *l1:写一个singleton*
+        - 在 spring 配置文件中定义的 bean 默认为单例模式
       - Abstract Factory
       - Builder
       - Prototype
+    - 其他
+      - 前端控制器 
+        - Spring 提供了 DispatcherServlet 来对请求进行分发 。
+      - 视图帮助 (View Helper )
+        - Spring 提供了一系列的 JSP 标签，高效宏来辅助将分散的代码整合在视图里
+      - 依赖注入 
+        - 贯穿于 BeanFactory / ApplicationContext 接口的核心理念 。
+      
+- 软件过程
+  - 瀑布
+  - Agile
+  - Scrum
+    - Backlog Refine
+    - Sprint Plan
+    - Daily Scrum
+    - In-Sprint Inspect
+    - Sprint Review
+    - Retro
+    - Scrum of scrums（TPO APO ...）
+  - XP极限编程
 
 # AI
 - 遗传算法
@@ -1409,43 +1552,61 @@ date: 2019-05-13 14:42:09
     - 可选：每一个分区有一串优先位置
 
 # [网络](https://fanjingdan012.github.io/2019/05/09/Net)
-- 五层协议
+- 五层协议 *l1: 网络五层、OSI七层协议是什么？*
   - 物理层
     - 中继器，集线器，双绞线
     - IEEE 802.1A IEEE 802.2~802.11
   - 数据链路层
     - 网桥，以太网交换机，网卡=1.5层
     - FDDI， Ethernet， Arpanet， PDN， SLP, PPP
-  - IP
+  - IP 网络层 
     - 路由器，三层交换机
     - ICMP， ARP， RARP， AKP， UUCP
-  - TCP/UDP
+  - TCP/UDP 传输层、会话层、表示层  *l2:TCP三次握手，四次挥手？* *l2: 拥堵控制法？AIMD*
+    - 会话层
+      - 将会话地址映射为运输地址
+      - 选择需要的运输服务质量参数(QOS)
+      - 对会话参数进行协商
+      - 识别各个会话连接
+      - 传送有限的透明用户数据
+    - *l1: TCP和UDP区别？* 
+      - TCP面向连接， UDP面向无连接的
+      - TCP是基于流的，UDP基于数据报文
+    - IOCP全称I/O Completion Port，I/O完成端口。
+      - IOCP是一个异步I/O的API，它可以高效地将I/O事件通知给应用程序。
+      - 与使用select()或是其它异步方法不同的是，一个socket与一个完成端口关联了起来，然后就可继续进行正常的Winsock操作了。然而，当一个事件发生的时候，此完成端口就将被操作系统加入一个队列中。然后应用程序可以对核心层进行查询以得到此完成端口
+    - 表示层：IBM主机使用EBCDIC编码，而大部分PC机使用的是ASCII码
   - 应用层
     - DNS等
-- web hook 就是个回调函数，允许在收到某消息时顺便做xx事
-- http2
-  - 支持multiplexing
-
-# 软件过程
-- 瀑布
-- Agile
-- Scrum
-  - Backlog Refine
-  - Sprint Plan
-  - Daily Scrum
-  - In-Sprint Inspect
-  - Sprint Review
-  - Retro
-  - Scrum of scrums（TPO APO ...）
-- XP极限编程
+    - web hook 就是个回调函数，允许在收到某消息时顺便做xx事
+    - http *l3 http1.0, 1.1, 2.0区别？*
+      - http1.0 
+        - client每一个请求必须重新连接 
+      - http1.1
+        - 长连接，一个连接多个请求+pipeline
+          - 队头阻塞：前面收不到会阻塞后面的请求
+            - 添加并行TCP连接
+        - http1.1流控制基于tcp连接。当连接建立时，两端通过系统默认机制建立缓冲区。 并通过ack报文来通知对方接收窗口大小。因为Http1.1 依靠传输层来避免流溢出，每个tcp连接需要一个独立的流控制机制。
+        - 不支持整个消息压缩, Gzip已经被用于压缩http消息很久了，特别是减少CSS和JS脚本的文件。然而消息头部分依然是纯文本发送。尽管每个头都很小，但随着请求越来越多，连接的负担就会越重，如果带了cookie. Header将变得更大
+      - http2
+        - 刚开始为了SPDY协议，google为了减少延迟
+          - 压缩
+            - http2 能把头从他们的数据中分离，并封城头帧和数据帧。 http2特定的压缩程序HPACK可以压缩头帧。 该算法用Huffman编码头metadata，可以很大程度上减少头大小。此外， HPACK可以跟踪先前传输的metadata字段，然后通过动态改变服务器端和客户端共享的索引来进一步压缩。
+          - 支持multiplexing，一个连接，多个流
+            - 解决队头阻塞问题
+            - 允许给流加权重，表示优先级从1-256 ，更高的数字代表更高的优先级。
+            - 此外，该客户端也通过特定的流ID指明每个流的依赖。如果id被忽略，说明这个流是根流
+              - 构建依赖树，类似拓扑排序，被依赖的先传
+            - 两端在传输层交换可用的缓冲区大小，来让他们在多路复用流上设置自己的接收窗口。
+        - 二进制流，包更小
 
 # 中间件
 - 内存数据库
   - [redis](https://redis.io/)
     - 连接：`redis-cli -a <password>`
-    - 数据结构
+    - 数据结构 *l2: redis 有哪些数据结构*
       - [cheat sheet](https://gist.github.com/LeCoupa/1596b8f359ad8812c7271b5322c30946)
-      - [底层数据结构](https://www.cnblogs.com/jaycekon/p/6227442.html)
+      - [底层数据结构](https://www.cnblogs.com/jaycekon/p/6227442.html) *l3: redis 数据结构底层实现*
       - String
       - Hash
         - hget,hset,hgetall
@@ -1490,7 +1651,7 @@ date: 2019-05-13 14:42:09
       - requirepass somepwd(in master)
       - masterauth somepwd(in slave)
       - bind 127.0.0.1/protected-mode yes(两个要配合，一般不要改，如果该一定要设置protected-mode yes不要在公网暴露)
-    - [哨兵Sentinel](https://redis.io/topics/sentinel)
+    - [哨兵Sentinel](https://redis.io/topics/sentinel) *l3: 讲一下哨兵模式*
       - 每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令
       - 如果一个实例（instance）距离最后一次有效回复 PING 命令的时间超过 down-after-milliseconds 选项所指定的值， 则这个实例会被 Sentinel 标记为主观下线。
       - 如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master的确进入了主观下线状态。
@@ -1611,7 +1772,7 @@ date: 2019-05-13 14:42:09
       - Row Transposition Ciphers
     - Enigma:Product
       - [code](https://github.com/fanjingdan012/JavaDetails/blob/master/security/src/main/java/crypt/Enigma.java)
-  - 对称Symmetric：加解密一个密钥
+  - 对称Symmetric：加解密一个密钥 *l1: 有哪些对称加密算法？*
     - DES（Data Encryption Standard）
       - Claude Shannon提出用Confusion和Deffusion来构造Substitution-Permutation network（SPN）
       - Feistel cipher实现了SPN
@@ -1624,7 +1785,7 @@ date: 2019-05-13 14:42:09
         - OFB (Output Feed Back)
         - [AES-GCM](https://www.jianshu.com/p/29b1ef3f84dc)
 
-  - 非对称Asymmetric
+  - 非对称Asymmetric *l1: 有哪些非对称加密算法？*
     - RSA
       - [原理解释](https://github.com/fanjingdan012/JavaDetails/blob/master/security/src/main/java/crypt/RSAImpl.java)
       - [数学原理解释](https://cnodejs.org/topic/5bb9c31e15e4fd1923f48d0b)
@@ -1815,7 +1976,7 @@ date: 2019-05-13 14:42:09
             wget -c http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/ucl-1.03-2.el7.rf.x86_64.rpm
             rpm -Uvh ucl-1.03-2.el7.rf.x86_64.rpm
             yum install ucl
-
+            
             wget -c http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/upx-3.91-1.el7.rf.x86_64.rpm
             rpm -Uvh upx-3.91-1.el7.rf.x86_64.rpm
             yum install upx
@@ -1923,6 +2084,7 @@ date: 2019-05-13 14:42:09
     - `egrep -r '@In|@Inject' . | cut -d: -f1 | uniq | grep '/src/main/java'`
     - `find files/ -name "*.json" | xargs grep "xxx`
     - `df -h` 磁盘空间
+      - `du -hs` 占用大小
     - /var/software/jvm_8/bin/keytool -list -v -keystore "/var/software/jvm_8/jre/lib/security/cacerts" -alias globalrootca
     - keytool -list -v -keystore "/var/software/jvm_8/jre/lib/security/cacerts" -alias globalrootca
   - 打包

@@ -75,7 +75,15 @@ categories: Life
 - 温域广 30-230
   - 发酵
   - 烘烤
-
+- 产品
+  - [东芝微蒸烤 VD7000、VD5000、RD7000](https://www.xiaohongshu.com/discovery/item/613f27310000000001028c4b)
+    - VD7000有7000不到入手的
+  - [东芝微蒸烤一体机a7-320d和vd5000还有rd7000比到底差在哪](https://www.zhihu.com/question/454254942)
+  - 美的X7-321B
+  - [评测说东芝rd7000和美的X7-321D区别很大吗，最好选择是哪个好呢？！](http://www.pinpailiu.com/haohuo/20200916104638.html)
+  - rd7000
+    - 蒸不太行
+    - 烤菜单少，只有上管
 # 洗碗机
 - [西门子](https://zhuanlan.zhihu.com/p/147357881)
 
