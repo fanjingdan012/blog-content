@@ -52,7 +52,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
     - git push -u origin master
 - bisect    Use binary search to find the commit that introduced a bug
 - diff      Show changes between commits, commit and working tree, etc
-  - git diff --cached 
+  - git diff --cached
     - see what you’ve staged that will go into your next commit
   - git diff --cached 或 $ git diff --staged 查看尚未提交的更新
 - grep      Print lines matching a pattern
@@ -61,13 +61,15 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
 - show      Show various types of objects
 - status    Show the working tree status
   - git status 查看当前状态
-- blame 
+- blame
   - git blame xx.java
     - git blame xx.xml -L 1 第一行开始
-## Stash <-> Workspace 
+## Stash <-> Workspace
 - git stash list
 - git stash push 将文件给push到一个临时空间中
 - git stash pop 将文件从临时空间pop下来
+- git stash drop 删掉上一个stash
+- git stahs clear
 
 ## Workspace -> Staged
 - git add [fileName | path]
@@ -102,7 +104,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
 - commit
   - git commit --amend
   - git commit -am "init" 提交并且加注释
-  - git commit -a 
+  - git commit -a
     - -a是代表all，把所有的change加到git index里然后再commit
     - -v 当你用－v参数的时候可以看commit的差异
     - -m "This is the message describing the commit" 添加commit信息
@@ -116,7 +118,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
     - git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0
     - git branch --set-upstream-to=origin/master feature1
   - 切换分支：$ git checkout [name]
-    - git checkout branch_1.0/master 切换到branch_1.0/master分支 
+    - git checkout branch_1.0/master 切换到branch_1.0/master分支
     - git checkout --track origin/dev 切换到远程dev分支
     - git checkout -b dev 建立一个新的本地分支dev
     - git checkout dev 切换到本地dev分支
@@ -142,7 +144,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
   - 不同分支提交冲突时
     - git add
     - git commit
-    - git merge master(master分支合并到本地分支) 
+    - git merge master(master分支合并到本地分支)
     - 修改本地文件
     - git add
     - git commit
@@ -159,23 +161,23 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
       - git rebase --continue
       - git commit --amend
   - 方案二
-    1. checout a new branch to latest 
-      - git checkout -b merge1 origin/master 
-      - git fetch origin 
-      - git pull 
-    2. update 冲突branch to the new branch 
-      - git rebase merge1 
-    3. 解决冲突后 
-      - git add --all 
-      - git rebase --continue 
+    1. checout a new branch to latest
+      - git checkout -b merge1 origin/master
+      - git fetch origin
+      - git pull
+    2. update 冲突branch to the new branch
+      - git rebase merge1
+    3. 解决冲突后
+      - git add --all
+      - git rebase --continue
       - git commit --amend
-  
+
 
 - [rebase Reapply commits on top of another base tip](https://blog.csdn.net/endlu/article/details/51605861)
   - git rebase -i HEAD~3
   - git rebase -i 3a4226b
   - git rebase -i origin/master
-  - git rebase origin/master 
+  - git rebase origin/master
   - git rebase origin/master branchname
   - git rebase --continue
   - git rebase --skip
@@ -205,7 +207,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
     - git push origin master 将本地项目给提交到服务器中
     - git push origin test:master    提交本地test分支作为远程的master分支
       - 删除远程分支：git push origin :heads/[name] 或 git push origin :[name]
-    - git push origin --delete feature/login 
+    - git push origin --delete feature/login
     - 删除远程版本：git push origin :refs/tags/[name]
     - 上传本地tag到远程仓库：git push origin --tags
 ## Remote Repo -> Local Repo
@@ -213,12 +215,12 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
 - fetch     Download objects and refs from another repository
   - git fetch origin
   - git fetch -p origin
-    - prune local "cache" of remote branches 
+    - prune local "cache" of remote branches
 - pull      Fetch from and integrate with another repository or a local branch
   - 拉取远程仓库：$ git pull [remoteName] [localBranchName]
   - 合并远程仓库的tag到本地：$ git pull origin --tags
   - git pull -t
-    - -t is pull tags 
+    - -t is pull tags
 ## Remote Repo
 - 查看远程仓库：$ git remote -v
 - 添加远程仓库：$ git remote add [name] [url]
