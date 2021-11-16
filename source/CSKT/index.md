@@ -166,15 +166,15 @@ date: 2019-05-13 14:42:09
           ```java
           int[] dist=new int[n];
           int[] pre=new int[n];
-          
+
           public void Bellman_Ford(){
             //初始化
             for(int i=1;i<n-1;i++){
               dist[i]=infinit; //TODO
             }//end for
-          
+
             dist[s]=0 //起始点的值
-          
+
             for (int i=1;i<=n-1;i++){
               for(int j=1;j<=edgenum; j++){
                 if(dist(i)+weight(i,j) <dist(j) ){
@@ -183,13 +183,13 @@ date: 2019-05-13 14:42:09
               }//end if
               }//end for
             }//end for
-          
+
             //
             for(int j=1;j<=edgenum;j++){
               if(dist(i)+weight(i,j)<dist()j )
                 return "有负权回路，不存在最短路径";
             }//end for
-          
+
           }//e
           ```
       - A星算法
@@ -860,12 +860,18 @@ date: 2019-05-13 14:42:09
   - montebank
   - pact
 - [Docker](https://www.docker.com/)
+  - /var/lib/docker
+  - systemctl stop docker
+  - systemctl status docker
+  - [迁移docker目录](https://blog.csdn.net/weixin_32820767/article/details/81196250)
   - Docker命令
     - `docker version`
     - `docker search ubuntu`
     - `docker pull ubuntu`
     - `docker images`
     - `docker ps`
+      - -a (all)
+      - -q (only container id)
     - `docker run -itd <image id>`
       - docker run docker/whalesay cowsay boo
       - `docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined` 解决gdb不能run问题
@@ -875,7 +881,14 @@ date: 2019-05-13 14:42:09
     - `docker logs`
     - `docker cp ./a.txt <container id>:/root/`
     - `docker commit <container id> <a name for new image>`
+    - docker rm <containerid>  delete container
+    - docker rmi <imageid> delete image
     - docker build -t docker-whale .
+    - clean up
+      - docker system df 类似于Linux上的df命令，用于查看Docker的磁盘使用情况
+      - docker system prune命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)。
+        - docker system prune -a命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉
+      - [log 清理](https://blog.csdn.net/edgar_t/article/details/110429095)
   - 镜像 容器 仓库
   - 四种网络模式
     - bridge 桥接模式
@@ -1138,7 +1151,11 @@ date: 2019-05-13 14:42:09
   - static 成员是命名空间属于类的全局变量，存储在 data 区的rw段。
   - 在所有函数体外定义的static变量表示在该文件中有效，不能extern到别的文件用，在函数体内定义的static表示只在该函数体内有效。
   - static 在程序生命周期内一直不销毁，不创建
+- C++多态实现的原理
+  - 编译器发现一个类中有虚函数，便会立即为此类生成虚函数表 vtable。虚函数表的各表项为指向对应虚函数的指针。编译器还会在此类中隐含插入一个指针vptr（对vc编译器来说，它插在类的第一个位置上）指向虚函数表。调用此类的构造函数时，在类的构造函数中，编译器会隐含执行vptr与vtable的关联代码，将vptr指向对应的vtable，将类与此类的vtable联系了起来。另外在调用类的构造函数时，指向基础类的指针此时已经变成指向具体的类的this指针，这样依靠此this指针即可得到正确的vtable。如此才能真正与函数体进行连接，这就是动态联编，实现多态的基本原理。
 
+- 虚函数，纯虚函数、虚拟继承的关系和区别
+-
 
 # Python
 - [anaconda](https://www.anaconda.com/products/individual)
@@ -1146,6 +1163,35 @@ date: 2019-05-13 14:42:09
 - python exit:
   - `exit()`
 - `pip install -r requirements.txt`
+- ipython
+  - `a.*pp*?` 模糊查询有啥函数
+  - `!+shell command`
+  - a.append?
+  - a.append?? 查询函数体
+  - `a__*__` 命名空间模糊搜索
+  - ls/pwd/cd xx
+  - `_69` 69的结果
+  - `_` 上一个结果
+  - `__+_` 上2个结果+上一个结果
+  - 快捷键
+    - ctrl+a 到行首
+    - ctrl+e 到行尾
+    - ctrl+k 删除光标到行尾
+    - ctrl+u 清楚当前行
+    - ctrl+f/b 前后移动
+    - ctrl+l 清屏
+  - 魔术命令
+    - %run test.py
+    - %paste
+    - %timeit li.sort()
+    - %pdb on/off
+      - `p a` print a
+    - %bookmark
+      - %bookmark -l 查看所有bookmarks
+- jupyter
+  - 调出: jupyter notebook
+- dateutil.parser.parse('2001-JAN-01')
+
 
 # PHP
 - [online editor](https://www.jdoodle.com/php-online-editor/)
@@ -1187,23 +1233,23 @@ date: 2019-05-13 14:42:09
     spanning multiple lines
     using nowdoc syntax.
     EOD;
-    
+
     /* 含有变量的更复杂的示例 */
     class foo
     {
         public $foo;
         public $bar;
-    
+
         function foo()
         {
             $this->foo = 'Foo';
             $this->bar = array('Bar1', 'Bar2', 'Bar3');
         }
     }
-    
+
     $foo = new foo();
     $name = 'MyName';
-    
+
     echo <<<'EOT'
     My name is "$name". I am printing some $foo->foo.
     Now, I am printing some {$foo->bar[1]}.
@@ -1282,14 +1328,14 @@ date: 2019-05-13 14:42:09
       - 针对特殊行为的其他 Aware 接口
       - Bean 配置文件中的 Custom init() 方法和 destroy() 方法
       - @PostConstruct 和 @PreDestroy 注解方式
-    - *l1:Bean的作用域scope*(内嵌作用域不同的bean：因为动态代理) 
+    - *l1:Bean的作用域scope*(内嵌作用域不同的bean：因为动态代理)
       - singleton(default)
       - prototype
       - session
       - request
       - application
       - websocket
-      - global-session ： global-session 和 Portlet 应用相关 。 当你的应用部署在 Portlet 容器中工作时，它包含很多 portlet。 如果你想要声明让所有的 portlet 共用全局的存储变量的话，那么这全局变量需要存储在 global-session 中 
+      - global-session ： global-session 和 Portlet 应用相关 。 当你的应用部署在 Portlet 容器中工作时，它包含很多 portlet。 如果你想要声明让所有的 portlet 共用全局的存储变量的话，那么这全局变量需要存储在 global-session 中
     - *l2:自动装配模式*
       - no (default) 自动装配关闭，需自行在 bean 定义中用标签明确的设置依赖关系 。
       - byName 找到就装配，没找到就报错 。
@@ -1331,19 +1377,19 @@ date: 2019-05-13 14:42:09
           ```java
           /** Cache of singleton objects: bean name --> bean instance 一级缓存 单例缓存池*/
           private final Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(256);
-          
+
           /** Cache of singleton factories: bean name --> ObjectFactory 三级缓存：单例对象工厂缓存*/
           private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<String, ObjectFactory<?>>(16);
-          
+
           /** Cache of early singleton objects: bean name --> bean instance 二级缓存 早期提前暴露的对象缓存*/
           //是一个不完整的对象，属性还没有值，没有被初始化。
           private final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>(16);
-          
+
           /** Names of beans that are currently in creation. */
           // 这个缓存也十分重要：它表示bean创建过程中都会在里面呆着~
           // 它在Bean开始创建时放值，创建完成时会将其移出~
           private final Set<String> singletonsCurrentlyInCreation = Collections.newSetFromMap(new ConcurrentHashMap<>(16));
-          
+
           /** Names of beans that have already been created at least once. */
           // 当这个Bean被创建完成后，会标记为这个 注意：这里是set集合 不会重复
           // 至少被创建了一次的  都会放进这里~~~~
@@ -1441,7 +1487,7 @@ date: 2019-05-13 14:42:09
     - 接口隔离原则：使用多个专门的接口，而不是使用单一总接口
     - 合成复用原则Composite：尽量使用对象组合，而不是继承来达到复合目的
     - 迪米特法则Demeter：高内聚低耦合
-    
+
   - [设计模式23](https://github.com/fanjingdan012/design-pattern) *l1: 你知道哪些设计模式？* *l2: 细讲一二熟悉的*
     - 行为模式11
       - [策略模式](https://github.com/fanjingdan012/design-pattern/tree/master/strategy)
@@ -1458,7 +1504,7 @@ date: 2019-05-13 14:42:09
       - 中介者模式
       - 解释器模式
         - 编译器，运算表达式解析
-      
+
     - 结构模式7
       - [Adapter](https://github.com/fanjingdan012/design-pattern/tree/master/adapter)
       - Bridge
@@ -1468,11 +1514,11 @@ date: 2019-05-13 14:42:09
       - Flyweight
       - Proxy 代理模式
         - 在 AOP 和 remoting 中被用的比较多
-      
+
     - 创建模式5
       - [Factory](https://github.com/fanjingdan012/design-pattern/tree/master/factory)
         - 定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method 使一个类的实例化延迟到其子类。
-        - 适用于：当一个类不知道它所必须创建的对象的类的时候；当一个类希望由它的子类来指定它所创建的对象的时候；当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理者这一信息局部化的时候。      
+        - 适用于：当一个类不知道它所必须创建的对象的类的时候；当一个类希望由它的子类来指定它所创建的对象的时候；当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理者这一信息局部化的时候。
         - BeanFactory 用来创建对象的实例 。
       - [Singleton](https://github.com/fanjingdan012/design-pattern/tree/master/singleton) *l1:写一个singleton*
         - 在 spring 配置文件中定义的 bean 默认为单例模式
@@ -1480,13 +1526,13 @@ date: 2019-05-13 14:42:09
       - Builder
       - Prototype
     - 其他
-      - 前端控制器 
+      - 前端控制器
         - Spring 提供了 DispatcherServlet 来对请求进行分发 。
       - 视图帮助 (View Helper )
         - Spring 提供了一系列的 JSP 标签，高效宏来辅助将分散的代码整合在视图里
-      - 依赖注入 
+      - 依赖注入
         - 贯穿于 BeanFactory / ApplicationContext 接口的核心理念 。
-      
+
 - 软件过程
   - 瀑布
   - Agile
@@ -1559,7 +1605,7 @@ date: 2019-05-13 14:42:09
   - 数据链路层
     - 网桥，以太网交换机，网卡=1.5层
     - FDDI， Ethernet， Arpanet， PDN， SLP, PPP
-  - IP 网络层 
+  - IP 网络层
     - 路由器，三层交换机
     - ICMP， ARP， RARP， AKP， UUCP
   - TCP/UDP 传输层、会话层、表示层  *l2:TCP三次握手，四次挥手？* *l2: 拥堵控制法？AIMD*
@@ -1569,7 +1615,7 @@ date: 2019-05-13 14:42:09
       - 对会话参数进行协商
       - 识别各个会话连接
       - 传送有限的透明用户数据
-    - *l1: TCP和UDP区别？* 
+    - *l1: TCP和UDP区别？*
       - TCP面向连接， UDP面向无连接的
       - TCP是基于流的，UDP基于数据报文
     - IOCP全称I/O Completion Port，I/O完成端口。
@@ -1580,8 +1626,8 @@ date: 2019-05-13 14:42:09
     - DNS等
     - web hook 就是个回调函数，允许在收到某消息时顺便做xx事
     - http *l3 http1.0, 1.1, 2.0区别？*
-      - http1.0 
-        - client每一个请求必须重新连接 
+      - http1.0
+        - client每一个请求必须重新连接
       - http1.1
         - 长连接，一个连接多个请求+pipeline
           - 队头阻塞：前面收不到会阻塞后面的请求
@@ -1826,7 +1872,7 @@ date: 2019-05-13 14:42:09
       - https://github.com/danielmiessler/SecLists/tree/master/Passwords/Common-Credentials
       - https://github.com/praetorian-inc/Hob0Rules.git
       - [rockyou2021](https://github.com/ohmybahgosh/RockYou2021.txt)
-        - contains all passwords cracked by 2021 
+        - contains all passwords cracked by 2021
 - 编码
   - [ascii](https://www.systutorials.com/f/2013/ascii.txt)
   - Base64
@@ -1976,7 +2022,7 @@ date: 2019-05-13 14:42:09
             wget -c http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/ucl-1.03-2.el7.rf.x86_64.rpm
             rpm -Uvh ucl-1.03-2.el7.rf.x86_64.rpm
             yum install ucl
-            
+
             wget -c http://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/upx-3.91-1.el7.rf.x86_64.rpm
             rpm -Uvh upx-3.91-1.el7.rf.x86_64.rpm
             yum install upx
@@ -2085,6 +2131,7 @@ date: 2019-05-13 14:42:09
     - `find files/ -name "*.json" | xargs grep "xxx`
     - `df -h` 磁盘空间
       - `du -hs` 占用大小
+    - du
     - /var/software/jvm_8/bin/keytool -list -v -keystore "/var/software/jvm_8/jre/lib/security/cacerts" -alias globalrootca
     - keytool -list -v -keystore "/var/software/jvm_8/jre/lib/security/cacerts" -alias globalrootca
   - 打包
@@ -2221,7 +2268,7 @@ date: 2019-05-13 14:42:09
   - `cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc`
   - theme
     - `vim ~/.zshrc`
-    - ZSH_THEME='risto' 
+    - ZSH_THEME='risto'
     - ZSH_THEME="powerlevel10k/powerlevel10k"
       - git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
     - `source ~/.zshrc`
