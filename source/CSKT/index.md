@@ -378,10 +378,114 @@ date: 2019-05-13 14:42:09
       - 主表+time-travel table(全量)
     - Delta Storage
       - 主表+Delta Storage Segment(只有Delta部分)
-  - GC
-    - Tuple-level
-    - Transaction-level
+  - GC: remove reclaimable physical versions
+    - **reclaimable**:
+      - No active txn in the DBMS can “see” that version (SI).
+      - The version was created by an aborted txn.
+    - PROBLEMS WITH OLD VERSIONS
+      - Increased Memory Usage
+      - Memory Allocator Contention
+      - Longer Version Chains
+      - Garbage Collector CPU Spikes
+      - Poor Time-based Version Locality
+    - physically delete: all versions of a logically deleted tuple are not visible
+      - 删了就无法再有新version
+      - 没写冲突 / 先写赢
+    - logically delete approaches
+      - Deleted Flag
+        - in tuple header or a separate column
+      - Tombstone Tuple 坟墓tuple
+        - Create an empty physical version
+        - Use a separate pool for tombstone tuples with special bit pattern to reduce storage.
+    - GC DESIGN DECISIONS
+      - Index Clean-up
+        - PELOTON MISTAKE
+          - If a txn writes to same tuple more than once, then it just overwrites its previous version.
+          - Upon rollback, the DBMS did not know what keys it added to the index in previous versions
+      - Version Tracking Level
+        - vacuum: 删old version（新的commit了，transaction 时间小于的删）
+        - Tuple-level
+          - Find old versions by examining tuples directly.
+          - Background Vacuuming vs. Cooperative Cleaning
+        - Transaction-level
+          - Txns keep track of their old versions so the DBMS does not have to scan tuples to determine visibility.
+        - Epochs 时代
+          - Group multiple txns togethers into an epoch and then
+      - Frequency
+        - Periodically
+          - fixed intervals
+          - threshold met (e.g., epoch, memory limits).
+          - adjust this interval based on load
+        - Continuously
+          - in txn processing
+      - Granularity
+        - Single Version
+          - More fine-grained control, but higher overhead.
+        - Group Version
+          - Less overhead but may delay reclamations
+        - Tables
+          - Special case for stored procedures and prepared statements since it requires the DBMS knowing what tables a txn will access in advance.
+      - Comparison Unit: Examining the list of active txns and reclaimable versions should be latch-free
+        - Timestamp
+          - Use a global minimum timestamp to determine whether versions are safe to reclaim.
+          - 最简单
+        - Interval
+          - Excise timestamp ranges that are not visible.
+          - 难
+      - papers
+        - [Scalable Garbage Collection for In-Memory MVCC Systems](https://15721.courses.cs.cmu.edu/spring2020/papers/05-mvcc3/p128-bottcher.pdf)
+        - [Hybrid Garbage Collection for Multi-Version Concurrency Control in SAP HANA](https://15721.courses.cs.cmu.edu/spring2020/papers/05-mvcc3/p1307-lee.pdf)
+
+  - Block Compaction
+    - deleted spaces
+      - resuse slot
+        - Obvious choice for append-only storage since there is no distinction between versions
+        - Destroys temporal locality of tuples in delta storage
+      - leave slot unoccupied
+        - Ensures that tuples in the same block were inserted into the database at around the same time.
+        - Need an extra mechanism to fill holes.
+    - Move data using DELETE + INSERT to ensure transactional guarantees during consolidation.
+    - Locality: more important when moving cold data out to disk.
+    - Targets
+      - Last Update
+        - 看BEGIN-TS
+      - Last Access
+        - 维护贵, 除非有READ-TS
+      - Application-level Semantics
+        - 同table relation, 比如person好友关系
+        - 难识别
+    - Truncate
+      - table里删光
+      - 最快法: drop table +create
+        - Do not need to track the visibility of individual tuples
+        - The GC will free all memory when there are no active txns that exist before the drop operation
+        - If the catalog is transactional, then this easy to do.
   - Index
+    - A "whole-key" order preserving data structure stores all the digits of a key together in nodes.
+      - A worker thread has to compare the entire search key with keys in the data structure during traversal.
+    - In-Memory T-Tree
+      - Based on AVL tree
+      - Instead of storing keys in nodes, store pointers to their original values.
+      - Proposed in 1986 from Univ. of Wisconsin
+      - Used in TimesTen and other early in-memory DBMSs during the 1990s.
+      - advantages
+        - Uses less memory because it does not store keys inside of each node.
+        - The DBMS evaluates all predicates on a table at the same time when accessing a tuple (i.e., not just the predicates on indexed attributes).
+      - disadvantages
+        - Difficult to rebalance
+        - Difficult to implement safe concurrent access
+        - Must chase pointers when scanning range or performing binary search inside of a node.
+          - hurts cache locality
+
+  - Latch-Free Bw-Tree: Latch-free B+Tree index built for the Microsoft Hekaton project.
+    - B+Tree Optimistic Latching
+      - CaS 一次只更新一个address, cannot split/merge on B+ tree
+      - add indirection layer
+    - Deltas
+      - No updates in place
+      - Reduce cache invalidation
+    - Mapping Table
+      - Allows for CaS of physical locations of pages
 
 - 锁
   - 全局锁
@@ -601,7 +705,13 @@ date: 2019-05-13 14:42:09
     - 丢失信号
     - 活锁
   - 性能
-    - amdahl定律:processors数对speed up的影响关系
+    - amdahl定律:部分对整体speed up的影响关系
+      - all speed up = 1/(p/s+(1-p))
+        - p=提升task的执行时间占比
+        - s=提升倍数
+        - 比如foo占60%，快2倍（时间减半），bar 40%， 则整体快了1/(0.6/2+0.4)=1.4倍
+      - 怎么测比例
+        - 随机暂停看stack trace
     - 开销
       - 上下文切换
       - 内存同步
@@ -617,6 +727,28 @@ date: 2019-05-13 14:42:09
           - readWriteLock（读取不加锁，写加锁）
         - 不要用对象池
           - 本来new Object（）不需要同步，用了对象池就要了
+    - profilng tool
+      - [Valgrind](https://valgrind.org/docs/manual/quick-start.html)
+        - Heavyweight binary instrumentation framework with different tools to measure different events.
+        - memcheck: a memory error detector
+        - [callgrind](https://valgrind.org/docs/manual/cl-manual.html): a call-graph generating profiler
+        - massif: memory usage tracking.
+        - [KCACHEGRIND](https://kcachegrind.github.io/html/Usage.html)
+          - https://kcachegrind.github.io/html/Tips.html
+          - export TERRIER_BENCHMARK_THREADS=16
+          - valgrind --tool=callgrind --trace-children=yes ./relwithdebinfo/slot_iterator_benchmark
+          - Profile data visualization tool:kcachegrind callgrind.out.12345
+      - [Perf](https://perf.wiki.kernel.org/index.php/Tutorial)
+        - https://www.brendangregg.com/perf.html
+        - https://github.com/brendangregg/perf-tools
+        - Lightweight tool that uses hardware counters to capture events during execution
+        - -e = sample the event cycles at the user level only
+        - -c = collect a sample every 2000 occurrences of event
+        -  perf record -e cycles:u -c 2000 ./relwithdebinfo/slot_iterator_benchmark
+        - Uses counters for tracking events
+        - perf report
+        - see a list of events: perf list
+        - perf record -e cycles,LLC-load-misses -c 2000 ./relwithdebinfo/slot_iterator_benchmark
   - 测试
   - 锁
     - 公平锁/非公平锁:先申请的先拿到/!
@@ -2335,6 +2467,30 @@ date: 2019-05-13 14:42:09
   - 删除
     - 1-10行`:1,10d`
     - 1-本行`:1,.d`
+  - macro
+    - record: 普通模式下使用 q + [a-z], 然后结束时再按一下 q
+    - 执行
+      - 10 次:`10@a`
+      - `@@` 快速再执行一遍上一次的命令
+    - edit
+      - `:let @a='（ctrl+r+a 输入内容）'`
+    - 查看
+      - ``:reg a``
+  - vim script.
+    - 在普通模式下
+      ```
+      :let i=1
+      qa 开启录制
+      I=i)
+      let i+=1
+      q 结束录制
+      然后对选中的文本
+      jVG
+      :'<,'>normal @a 对选中文本执行 a
+      ```
+- 列编辑模式
+    - ctrl + v
+
 - Chrome
   - 切tab cmd+alt+arrow
 - Shell

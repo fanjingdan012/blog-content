@@ -28,7 +28,6 @@ categories: Computer Science
 ## Delta Storage
       - 主表+Delta Storage Segment(只有Delta部分)
 # GC
-- 删掉aborted txn创建的版本
 
 ## Tuple-level
 ## Transaction-level
