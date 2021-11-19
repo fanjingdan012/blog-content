@@ -2350,6 +2350,7 @@ date: 2019-05-13 14:42:09
 
 
 # MAC
+- lock screen = Command + Ctrl + Q
 - use brew install
   - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
   - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"`

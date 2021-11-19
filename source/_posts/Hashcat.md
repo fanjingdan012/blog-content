@@ -1,7 +1,8 @@
 ---
 title: Hashcat
 date: 2020-09-25 11:35:53
-tags:
+tags: [Security]
+categories: Computer Science
 ---
 # Official Site
 - https://hashcat.net/
