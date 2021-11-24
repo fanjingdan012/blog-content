@@ -2516,7 +2516,7 @@ date: 2019-05-13 14:42:09
     - cmd+L for foucus on url
 - postman
   - [快捷键](https://www.cnblogs.com/qican/p/11699732.html)
-
+- [hack nerd font](https://nerdfonts.com/)
 # Tools
 - [正则可视化](https://jex.im/regulex/)
   - stacktrace类+方法：[a-zA-Z0-9$]+\.[a-zA-Z]+\n
