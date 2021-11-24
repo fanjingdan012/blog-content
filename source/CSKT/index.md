@@ -566,6 +566,17 @@ date: 2019-05-13 14:42:09
   - undo log
   - redo log
   - binlog
+    - mysql
+    - `show binlog events in 'binlogfile'`
+    - 三模式
+      - Row level：在slave端对相同的数据进行修改
+        - log太大
+      - Statement level（Default）：记sql，slave sql再解析执行一次
+        - 在主从同步中一般是不建议用statement模式的，因为会有些语句不支持，比如语句中包含UUID函数，以及LOAD DATA IN FILE语句等
+      - Mixed
+    - 结构
+      ![structure](https://upload-images.jianshu.io/upload_images/12619159-eea89551711c22be.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+      - [event](mysql-5.7.14/libbinlogevents/include/binlog_event.h)
   - 两段式提交redo准备binglog提交
 - count1星
   - mvcc影响
@@ -1847,11 +1858,45 @@ date: 2019-05-13 14:42:09
   - rabbitmq
   - rocketmq
   - [kafka](http://kafka.apache.org/quickstart)
+    - scala linkedin
     - 启动
       - `./kafka-server-start.sh ../config/server.properties`
     - 概念
       - producer
+        - KafkaProducer
+          - ProducerInterceptor
+          - 集群meta
+          - Serializer
+          - Partitioner
+        - RecordAccumulator
+        - Sender
+          - KSelector
       - consumer
+        - Delivery guarantee semantic
+        - Consumer Group Rebalance
+        - KafkaConsumer
+      - server端
+        - 网络层
+        - API层
+        - log
+        - DelayedOperationPurgatory
+        - 副本
+        - KafkaController
+        - GroupCoordinator
+        - permission
+        - 监控
+      - tool
+        - kafka-server-start
+        - kafka-topics
+        - kafka-preferred-replica-election
+        - kafka-reassign-partitions
+        - kafka-console-producer
+        - kafka-console-consumer
+        - kafka-consumer-groups
+        - DumpLogSegments
+        - kafka-producer-perf-test
+        - kafka-consumer-perf-test
+        - kafka-mirror-maker
       - topic: queue,目录,一个topic可有多个partition
       - partition:信道
       - broker:一个kafka server节点，集群有多个server

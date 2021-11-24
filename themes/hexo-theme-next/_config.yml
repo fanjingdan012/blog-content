@@ -120,7 +120,7 @@ menu:
   about: /about/ || fa fa-user
   计算机知识树: /CSKT/ || fa fa-sitemap
   会计学知识树: /AccountingKT/ || fa fa-sitemap
-  数学知识树: /MathKT/ ||fa fa-sitemap 
+  数学知识树: /MathKT/ ||fa fa-sitemap
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
@@ -503,9 +503,12 @@ math:
 
   # hexo-renderer-pandoc (or hexo-renderer-kramed) required for full MathJax support.
   mathjax:
-    enable: false
+    enable: true
     # See: https://mhchem.github.io/MathJax-mhchem/
     mhchem: false
+    per_page: true
+    cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+# Han Support docs: https://hanzi.pro/
 
   # hexo-renderer-markdown-it-plus (or hexo-renderer-markdown-it with markdown-it-katex plugin) required for full Katex support.
   katex:
