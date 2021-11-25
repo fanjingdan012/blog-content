@@ -4,10 +4,12 @@ date: 2020-11-13 18:58:07
 tags: Math
 mathjax: true
 ---
-
+# Mathjax
+- [LaTeX 数学语法](https://uinika.gitee.io/Zen/LaTex/)
+  - $a=x+y$
 # 微积分
-$a=x+y$
-《图解普林斯顿微积分读本》系列合集 https://zhuanlan.zhihu.com/p/31199228
+
+- [《图解普林斯顿微积分读本》系列合集](https://zhuanlan.zhihu.com/p/31199228)
 - 函数、图像和直线
 - 三角学回顾
 - 极限导论
@@ -18,6 +20,10 @@ $a=x+y$
 - 指数函数和对数函数
 - 反函数和反三角函数
 - 导数和图像
+  - $(tgx)'=sec^2x$
+  - $(ctgx)'=-csc^2x$
+  - $(ctgx)'=-csc^2x$
+  - $(ctgx)'=-csc^2x$
 - 最优化和线性化
 - 积分
 - 定积分
