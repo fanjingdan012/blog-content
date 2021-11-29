@@ -7,8 +7,46 @@ mathjax: true
 # Mathjax
 - [LaTeX 数学语法](https://uinika.gitee.io/Zen/LaTex/)
   - $a=x+y$
-# 微积分
+#
+- 毕达哥拉斯定理 a^2+b^2=c^2
 
+# 函数
+- 幂函数
+  - $y=x^n$
+- exponential指数函数
+  - $y=e^x$
+    - dy/dx=y
+    - 过(0,1)爆炸
+    - e^xe^deltax=e^(x+deltax)
+
+
+# 微积分
+- 一阶导数
+  - speed, slope
+  - 求极值(stationary point驻点)=导数为0
+    - max：二阶导<0
+    - min: 二阶导>0
+- y=x^2
+  - dy/dx = ((x+dx)^2-x^2)/(dx)=(x^2+2xdx+dx^2-x^2)/dx=2x+dx =2x
+  - $dy/dx=nx^(n-1)$
+- y=sinx
+  - x=0 slope = 1, x=Π/2 slope=0
+  - $dy/dx=cosx$
+- y=e^x
+  - $dy/dx=e^x$
+- 二阶导数
+  - Accelerating, Bending 凹凸
+  - d^2y/dx^2=2>0 : Bending up (convex凸)
+  - <0 Bending down (concave凹)
+  - =0 拐点 (inflection point)
+
+
+- 极值点、拐点
+- 乘法法则
+- 除法法则
+- Chain Rule链式法则
+  -
+  1
 - [《图解普林斯顿微积分读本》系列合集](https://zhuanlan.zhihu.com/p/31199228)
 - 函数、图像和直线
 - 三角学回顾
