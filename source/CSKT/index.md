@@ -2448,7 +2448,8 @@ date: 2019-05-13 14:42:09
     - `vim ~/.zshrc`
     - ZSH_THEME='risto'
     - ZSH_THEME="powerlevel10k/powerlevel10k"
-      - git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+      - `git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k`
+      - brew install --cask font-hack-nerd-font
     - `source ~/.zshrc`
 - autojump
   - `brew install autojump`
@@ -2460,6 +2461,10 @@ date: 2019-05-13 14:42:09
 - terminal 分屏复用
   - [tmux](https://github.com/tmux/tmux/wiki)
     - `brew install tmux`
+    - [oh-my-tmux](https://github.com/gpakosz/.tmux)
+      - git clone git://github.com/gpakosz/.tmux.git ~/oh-my-tmux
+      - ln -s -f ~/oh-my-tmux/.tmux.conf ~/.tmux.conf
+      - cp ~/oh-my-tmux/.tmux.conf.local ~/.tmux.conf.local
     - `vi ~/.tmux.conf`
     - [dyld: Library not loaded: /usr/local/opt/libevent/lib/libevent-2.1.6.dylib](https://blog.csdn.net/arkzheng/article/details/79576652)
     - Sessions
@@ -2500,7 +2505,7 @@ date: 2019-05-13 14:42:09
   - `brew install neovim`
   - ~/.config/nvim/init.vim
   - highlight current word 用vim时，想高亮显示一个单词并查找的方发，将光标移动到所找单词
-    - shift + "*"  向下查找并高亮显示
+    - `shift + "*"`  向下查找并高亮显示
     - shift + "#"  向上查找并高亮显示
     - "g" + "d"    高亮显示光标所属单词，"n" 查找！
   - ctrl-A increase number
