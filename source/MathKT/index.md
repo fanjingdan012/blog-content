@@ -24,10 +24,11 @@ mathjax: true
     ![幂函数](https://iknow-pic.cdn.bcebos.com/0ff41bd5ad6eddc4e8af90fb34dbb6fd52663361?x-bce-process%3Dimage%2Fresize%2Cm_lfit%2Cw_600%2Ch_800%2Climit_1%2Fquality%2Cq_85%2Fformat%2Cf_jpg)
     - $y=x^n$
       - 微积分
-        - $x^n'=nx^{n-1}$
+        - $(x^n)'=nx^{n-1}$
     - 抛物线
     - 双曲线
 - exponential指数函数
+  ![指数函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdoc.100lw.com%2Fpic%2Fdc9546940d38581fe517e443%2F1-509-png_6_0_0_462_84_329_230_892.979_1262.879-720-0-1530-720.jpg&refer=http%3A%2F%2Fdoc.100lw.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640960606&t=a1421330a167398c24d3da616bcd8430)
   ![过(0,1)爆炸](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile1.renrendoc.com%2Ffileroot_temp2%2F2020-12%2F4%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d0%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d01.gif&refer=http%3A%2F%2Ffile1.renrendoc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640850738&t=13d07d665da6c0dde1c8a0138902ef59)
   - $幂=base底数^{exponent指数}$ 底数>0且$\ne \pm 1$
   - $y=a^x$
@@ -37,15 +38,15 @@ mathjax: true
   - $y=e^x$
     - e怎么来的：满足$dy/dx=y$的
       - $\therefore y=1+x+\cfrac{x^2}{2!}+\cfrac{x^3}{3!}+...+\cfrac{x^n}{n!}$ (Tylor series泰勒级数)
-        - $1+x+x^2+x^3+...+x^n$ Geographical series几何级数
+        - $\cfrac{1}{1-x}=1+x+x^2+x^3+...+x^n$ Geographical series几何级数
       - x=1时 $\therefore e=1+1+1/2+1/6+...\approx 2.71828$ Euler's number
-        - $(1+1/N)^N \rightarrow e$ 
+        - $(1+1/N)^N \rightarrow e$
           - 连续复利
       - $dy/dx=cy$ 则$y=e^ cx$
     - $e^xe^\Delta x=e^(x+\Delta x)$
       - $1+(x+\Delta x)+1/2(x+\Delta x)^2+1/6(x+\Delta x)^3$
   - 微积分
-    - $a^x'=a^x\ln a$
+    - $(a^x)'=a^x\ln a$
     - 双曲函数
       - $shx=\cfrac{e^x-e^{-x}}{2}$
         - $sh'x=chx$
@@ -60,6 +61,8 @@ mathjax: true
         - $arthx=1/2\ln (\cfrac{1+x}{1-x})$
         - $arth'x=\cfrac{1}{1-x^2}$
 - 对数函数
+  ![对数函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.wassk.cn%2FMyftp%2Fupload%2Fjlsj%2Ffile%2FcodeTempMain%2F201401%2FC20131206112713952%2F20140829154206624.jpg&refer=http%3A%2F%2Fwww.wassk.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640960683&t=2496dc2dea09ce69b40b6a43877f4862)
+
   - $\log_{n底数} x真数$
   - $\log_{n} x$
   - $\lg a+\lg b=\lg ab$
@@ -73,6 +76,8 @@ mathjax: true
   - 微积分
     - $\log_{a}' x = \cfrac{1}{x \ln a}$
     - $\ln'x = \cfrac{1}{x}$
+    - Tylor
+      - $\ln(1-x)=x+\cfrac{x^2}{2}+\cfrac{x^3}{3}+\cfrac{x^4}{4}+...$
 
 # 三角
 ![图像](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile1.renrendoc.com%2Ffileroot_temp2%2F2020-12%2F4%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d0%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d03.gif&refer=http%3A%2F%2Ffile1.renrendoc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640927932&t=0b46dabd561e152c6fd50dfb4a7b6fe9)
@@ -80,7 +85,7 @@ mathjax: true
 - 定义
   ![三角函数定义](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffe%2FUnit-circle_sin_cos_tan_cot_exsec_excsc_versin_cvs.svg%2F380px-Unit-circle_sin_cos_tan_cot_exsec_excsc_versin_cvs.svg.png&refer=http%3A%2F%2Fupload.wikimedia.org&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640799665&t=5e27fd30870513af811713e86d8285d2)
   - $secx={1 \over cosx}=\cfrac{斜边}{邻边}$
-  - $cscx={1 \over sinx}=\cfrac{斜边}{对边}$ 
+  - $cscx={1 \over sinx}=\cfrac{斜边}{对边}$
 - 诱导公式
   - 奇变偶不变，符号看象限
   - $sin(x+\pi/2)=cos(x)$
@@ -93,10 +98,10 @@ mathjax: true
     - 1,1,$\sqrt{2}$
 - 和角公式
   - (1) $sin(a+b)=sinacosb+sinbcosa$
-    - (2) $b\rightarrow-b \therefore sin(a-b)=sinacosb-sinbcosa$ 
+    - (2) $b\rightarrow-b \therefore sin(a-b)=sinacosb-sinbcosa$
     - 倍角 $b\rightarrow a \therefore sin(2a)=2sinacosa$
   - (3) $cos(a+b)=cosacosb-sinasinb$
-    - (4) $b\rightarrow-b\therefore cos(a-b)=cosacosb+sinasinb$ 
+    - (4) $b\rightarrow-b\therefore cos(a-b)=cosacosb+sinasinb$
     - 倍角 $b\rightarrow a \therefore cos(2a)=cos^2a-sin^2a=2cos^2a-1=1-2sin^2a$
   - $tan(a+b)=\cfrac{tana+tanb}{1-tanatanb}$
   - 证明
@@ -117,14 +122,16 @@ mathjax: true
   - $\cfrac{a}{sinA}=\cfrac{b}{sinB}=\cfrac{c}{sinC}=2R$
     - R是外接圆半径
 - 余弦定理
-  - $a^2=b^2+c^2-2bccosA$ 
-  - $b^2=a^2+c^2-2accosB$ 
-  - $c^2=a^2+b^2-2abcosC$ 
+  - $a^2=b^2+c^2-2bccosA$
+  - $b^2=a^2+c^2-2accosB$
+  - $c^2=a^2+b^2-2abcosC$
 - 正切定理
   - $\cfrac{a+b}{a-b}=\cfrac{tan\cfrac{A+B}{2}}{tan\cfrac{A-B}{2}}$
 - 微积分
+  ![三角函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fgss0.baidu.com%2F94o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Dbffbc791bd8f8c54e386cd2b0f1901c3%2F8644ebf81a4c510fc953e3656959252dd42aa53d.jpg&refer=http%3A%2F%2Fgss0.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640961032&t=b608adfc38e69017a601918f6c2ff9b1)
+
   - $sin \theta<\theta$ $\because$高<弧长
-  - $tan\theta>\theta$ 
+  - $tan\theta>\theta$
     - $\because$弧长<外面的高
     - $\because$扇形面积<三角形面积,$1/2\theta<1/2tan\theta$
   - $sin'x=cosx$
@@ -163,27 +170,72 @@ mathjax: true
 
 ## 抛物线
 - $y=a(x+b)^2+c$
+  - 焦点$(p/2,0)$
+  - 离心率e=1
+  - 准线$x=-p/2$
   - a开合 大->合
   - b左右
   - c上下
   - 方程$ax^2+bx+x=0$
+    - 判别式$\Delta = b^2-4ac$ >0 有解
     - 根=$\cfrac{-b \pm \sqrt{b^2-4ac}}{2a}$
+    - 韦达定理：两个根的关系
+      - $x_1+x_2=-\cfrac{b}{a}$
+      - $x_1x_2=\cfrac{c}{a}$
+      - 推广$a_nx^n+a_{n-1}x^{n-1}+...+a_1x+a_0=0$的根$x_1,x_2,...x_n$
+        - $x_1+x_2+...+x_n=\sum_{i=1}^n x_i=-\cfrac{a_n-1}{a_n}$
+        - $x_1x_2...x_n=\prod_{i=1}^n x_i=(-1)^n\cfrac{a_0}{a_n}$
+
 ## 圆
 - 周长=$2\pi r$
-  - $\therefore 2\pi = 360^\circ$
+  - > $2\pi = 360^\circ$
 - 面积=$\pi r^2$
   - 扇形面积=$r^2\theta/2$
     - 单位圆: $\theta/2$
 
-## 椭圆
+## Ellipse椭圆
+![椭圆](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.mianfeiwendang.com%2Fpic%2F0f4b011fbf078559d1534e83675a68915a52b173%2F1-945-png_6_0_0_82_669_230_168_837.36_1161.36-992-0-259-992.jpg&refer=http%3A%2F%2Fimg.mianfeiwendang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640956916&t=1608dc06225373d1ee82c078cbc19df8)
+
+- > 满足|PF1|+|PF2|=2a（2a>|F1F2|）的P点集合
+  - F1、F2焦点,焦距=2c
+  - 长轴=2a
+  - 短轴=2b
+  - 准线$x=\pm \cfrac{a^2}{c}$
+  - $c^2=a^2-b^2$
+- 标准方程$\cfrac{x^2}{a^2}+\cfrac{y^2}{b^2}=1$
+- 面积=$\pi ab$
+- 在（x0，y0）点的切线就是 ：$\cfrac{xx0}{a^2}+\cfrac{yy0}{b^2}=1$
+  - 切线的斜率是：$\cfrac{-b^2x0}{a^2y0}$
+- 离心率$e=\cfrac{c}{a}=\sqrt{1-\cfrac{b^2}{a^2}}$ 圆`0<e<1`扁
+- 周长T(b+a)
+  - T为椭圆系数，可以由b/a的值，查表找出系数T值；
+- 定理1：若直线AB切椭圆C于点P，且A和B在直线上位于P的两侧，则∠APF1=∠BPF2。（也就是说，椭圆在点P处的切线即为∠F1PF2的外角平分线所在的直线）。
+- 定理2：若直线AB为C在P点的法线，则AB平分∠F1PF2。
 
 ## 双曲线
+![双曲线](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fgss1.bdstatic.com%2F9vo3dSag_xI4khGkpoWK1HF6hhy%2Fbaike%2Fs%3D220%2Fsign%3D01f245a9bc3eb13540c7b0b9961fa8cb%2F38dbb6fd5266d01688dcf769972bd40734fa35ad.jpg&refer=http%3A%2F%2Fgss1.bdstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640959823&t=8f713c4d2d1a19f599c6c5e7d2236aa1)
+
+- > 满足||PF1|-|PF2||=2a的P点集合
+  - F1 F2焦点，焦距=2c
+  - 实轴=2a
+  - 虚轴=2b
+  - 两条准线$x=\pm \cfrac{a^2}{c}$
+  - 两条渐近线$y=\pm \cfrac{b}{a}x$
+    - 设双曲线的右准线和一条渐近线交于P，A是右支的端点，F是右焦点，那么OP=OA，OP⊥PF。左边同理。根据这个性质，过焦点作渐近线的垂线，垂足一定在准线上，并且Rt△OPF的三边恰好为a、b、c。
+    - 过双曲线上任意一点P作某条渐近线的平行线，交准线于Q，则PQ=PF。
+    - 过双曲线上一点P作x（y）轴的平行线，交渐近线于A、B，则$PAPB=a²（b²）$。
+    - 过双曲线上一点P作两条渐近线的垂线PM、PN，则$PMPN=\cfrac{a^2b^2(b^2-a^2)}{c^4}$
+- 标准方程$\cfrac{x^2}{a^2}-\cfrac{y^2}{b^2}=1 a>0 b>0$
+  - 定点叫双曲线的焦点，两焦点之间的距离称为焦距，用2c表示
+
+- 离心率$e=\cfrac{c}{a}>1$
 
 ## 图像旋转
 
 # 立体几何
 ## 球
 - 体积$V=\cfrac{4}{3}\pi r^3$
+
 # 复数
 - $i=\sqrt{-1}$
 - 欧拉公式
@@ -259,6 +311,10 @@ mathjax: true
   - $\cfrac{dx}{dy}=\cfrac{1}{\cfrac{dy}{dx}}$
 - Squeeze theorem夹逼定理
 - 隐函数求导
+- Linear Approximation
+  - $f(x)\approx f(a)+(x-a)f'(a)$
+- Newton's Method
+  - $x-a\approx -\cfrac{F(a)}{F'(a)}$
 
 ## Integral积分
 
