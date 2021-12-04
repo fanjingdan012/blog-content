@@ -18,18 +18,32 @@ mathjax: true
 - 拉伸
   - 无论x，y，wx=x轴方向压缩图像，Ay=y轴方向压缩图像
   ![拉伸y，拉伸x，平移](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0808%2Fb22510f2g00qxhcdb01brc000d500a0g.gif&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640851390&t=2bd7eaf4a8e09ac211771d0c05950c01)
+- Inverse function逆函数，反函数
+  - $f^{-1}(x)$ f逆x
+  - 微积分
+    - 单调增、减，且有限次f'x=0的函数有反函数
+    - $\cfrac{dx}{dy}=\cfrac{1}{\cfrac{dy}{dx}}$
+   
+
 - 多项式
-  - 二项式定理 $(a+b)^n$ = 杨辉三角系数$a^nb^0+....$
+  - 二项式定理Binnominal theorem $(a+b)^n$ = 杨辉三角系数Pascal Triangle$a^nb^0+....$
+    - $f(x)=(1+x)^a=1+ax+\cfrac{a(a-1)}{2!}x^2+...\cfrac{a(a-1)...(a-n+1)}{n!}x^n+o(x^n)$
+      - $\cfrac{a(a-1)}{2!}...$ 二项式系数
   - 幂函数
     ![幂函数](https://iknow-pic.cdn.bcebos.com/0ff41bd5ad6eddc4e8af90fb34dbb6fd52663361?x-bce-process%3Dimage%2Fresize%2Cm_lfit%2Cw_600%2Ch_800%2Climit_1%2Fquality%2Cq_85%2Fformat%2Cf_jpg)
+
     - $y=x^n$
       - 微积分
         - $(x^n)'=nx^{n-1}$
+          - e.g. $(x^2)'=2x$
+            ![x^2导数的几何意义](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fd1b873f785b87f54cc3bb9a06951c045.png&refer=http%3A%2F%2Fimg-blog.csdnimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641047700&t=4b7f717780ad17eef5ebe815f4f99ca4)
+
+            - 同理立方体看$(x^3)'=3x^2$
     - 抛物线
     - 双曲线
 - exponential指数函数
-  ![指数函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdoc.100lw.com%2Fpic%2Fdc9546940d38581fe517e443%2F1-509-png_6_0_0_462_84_329_230_892.979_1262.879-720-0-1530-720.jpg&refer=http%3A%2F%2Fdoc.100lw.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640960606&t=a1421330a167398c24d3da616bcd8430)
-  ![过(0,1)爆炸](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile1.renrendoc.com%2Ffileroot_temp2%2F2020-12%2F4%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d0%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d01.gif&refer=http%3A%2F%2Ffile1.renrendoc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640850738&t=13d07d665da6c0dde1c8a0138902ef59)
+  ![过(0,1)爆炸](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdoc.100lw.com%2Fpic%2Fdc9546940d38581fe517e443%2F1-509-png_6_0_0_462_84_329_230_892.979_1262.879-720-0-1530-720.jpg&refer=http%3A%2F%2Fdoc.100lw.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640960606&t=a1421330a167398c24d3da616bcd8430)
+
   - $幂=base底数^{exponent指数}$ 底数>0且$\ne \pm 1$
   - $y=a^x$
   - $a^{x+y}=a^xa^y$
@@ -38,7 +52,8 @@ mathjax: true
   - $y=e^x$
     - e怎么来的：满足$dy/dx=y$的
       - $\therefore y=1+x+\cfrac{x^2}{2!}+\cfrac{x^3}{3!}+...+\cfrac{x^n}{n!}$ (Tylor series泰勒级数)
-        - $\cfrac{1}{1-x}=1+x+x^2+x^3+...+x^n$ Geographical series几何级数
+        - $\cfrac{1}{1-x}=1+x+x^2+x^3+...+x^n$ |x|<1 Geographical series几何级数
+        - $-\ln (1-x)=x+\cfrac{x^2}{2}+\cfrac{x^3}{3}+...$ 调和级数：对几何级数逐项积分
       - x=1时 $\therefore e=1+1+1/2+1/6+...\approx 2.71828$ Euler's number
         - $(1+1/N)^N \rightarrow e$
           - 连续复利
@@ -47,21 +62,9 @@ mathjax: true
       - $1+(x+\Delta x)+1/2(x+\Delta x)^2+1/6(x+\Delta x)^3$
   - 微积分
     - $(a^x)'=a^x\ln a$
-    - 双曲函数
-      - $shx=\cfrac{e^x-e^{-x}}{2}$
-        - $sh'x=chx$
-        - $arshx=\ln (x+\sqrt{x^2+1})$
-        - $arsh'x=\cfrac{1}{\sqrt{x^2+1}}$
-      - $chx=\cfrac{e^x+e^{-x}}{2}$
-        - $ch'x=shx$
-        - $archx=\ln (x+\sqrt{x^2-1})$
-        - $arch'x=\cfrac{1}{\sqrt{x^2-1}}$
-      - $thx=\cfrac{e^x-e^{-x}}{e^x+e^{-x}}=\cfrac{shx}{chx}$
-        - $th'x=\cfrac{1}{ch^2x}$
-        - $arthx=1/2\ln (\cfrac{1+x}{1-x})$
-        - $arth'x=\cfrac{1}{1-x^2}$
+
 - 对数函数
-  ![对数函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.wassk.cn%2FMyftp%2Fupload%2Fjlsj%2Ffile%2FcodeTempMain%2F201401%2FC20131206112713952%2F20140829154206624.jpg&refer=http%3A%2F%2Fwww.wassk.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640960683&t=2496dc2dea09ce69b40b6a43877f4862)
+  ![过(1,0)缓增](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.wassk.cn%2FMyftp%2Fupload%2Fjlsj%2Ffile%2FcodeTempMain%2F201401%2FC20131206112713952%2F20140829154206624.jpg&refer=http%3A%2F%2Fwww.wassk.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640960683&t=2496dc2dea09ce69b40b6a43877f4862)
 
   - $\log_{n底数} x真数$
   - $\log_{n} x$
@@ -76,6 +79,7 @@ mathjax: true
   - 微积分
     - $\log_{a}' x = \cfrac{1}{x \ln a}$
     - $\ln'x = \cfrac{1}{x}$
+    - $\int \ln x=x\ln x-x$
     - Tylor
       - $\ln(1-x)=x+\cfrac{x^2}{2}+\cfrac{x^3}{3}+\cfrac{x^4}{4}+...$
 
@@ -84,6 +88,8 @@ mathjax: true
 
 - 定义
   ![三角函数定义](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffe%2FUnit-circle_sin_cos_tan_cot_exsec_excsc_versin_cvs.svg%2F380px-Unit-circle_sin_cos_tan_cot_exsec_excsc_versin_cvs.svg.png&refer=http%3A%2F%2Fupload.wikimedia.org&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640799665&t=5e27fd30870513af811713e86d8285d2)
+  ![三角函数定义](/MathKT/tri.png)
+
   - $secx={1 \over cosx}=\cfrac{斜边}{邻边}$
   - $cscx={1 \over sinx}=\cfrac{斜边}{对边}$
 - 诱导公式
@@ -138,15 +144,17 @@ mathjax: true
     - 证明: $\cfrac{sin(x+\Delta x)-sinx} {\Delta x}=\cfrac{sinx(cos\Delta x-1)+cosxsin\Delta x} {\Delta x}=cosx$
       - $\because \cfrac{(cos\Delta x-1)}{\Delta x} \rightarrow 0$
       - $\because =\cfrac{cos\Delta x-cos0}{\Delta x-0}=cos'x=-sinx=0$
+      ![sin prime](/MathKT/sinp.png)
+
     - $arcsin'x=\cfrac{1}{\sqrt{1-x^2}}$
       - 证明: $\sin(arcsinx)=x \therefore cos(arcsinx)arcsin'x=1 \therefore arcsin'x=\cfrac{1}{\sqrt{1-x^2}}$
-    - Tylor
+    - 麦克劳林
       - $sinx=x-\cfrac{x^3}{3!}+\cfrac{x^5}{5!}-\cfrac{x^7}{7!}+...$
   - $cos'x=-sinx$
     - 证明: $\cfrac{cos(x+\Delta x)-cosx} {\Delta x}=\cfrac{cosx(cos\Delta x-1)-sinxsin\Delta x} {\Delta x}=-sinx$
     - $arccos'x=-\cfrac{1}{\sqrt{1-x^2}}$
       - 证明: $\cos(arccosx)=x \therefore -sin(arccosx)arccos'x=1 \therefore so$
-    - Tylor
+    - 麦克劳林
       - $cosx=1-\cfrac{x^2}{2!}+\cfrac{x^4}{4!}-\cfrac{x^6}{6!}+...$
   - $tan'x=\cfrac{1}{cos^2x}=sec^2x$
     - 证明: $(\cfrac{sinx}{cosx})'=\cfrac{sin'xcosx-cos'xsinx}{cos^2x}$
@@ -162,6 +170,25 @@ mathjax: true
       - 证明: $\sec(arcsecx)=x \therefore sec(arctanx)tan(arctanx)arctan'x=1 \therefore so$
   - $csc'x=-cscxcotx$
     - $arccsc'x=-\cfrac{1}{x\sqrt{x^2-1}}$
+- 双曲函数
+  ![双曲函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhealth.eduboo.com%2Fuploads%2Fprojects%2F574%2F8730.jpg&refer=http%3A%2F%2Fhealth.eduboo.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641015337&t=5d814febe17d3898749bf1dd75f60e25)
+
+  - $shx=\cfrac{e^x-e^{-x}}{2}$
+    - $sh'x=chx$
+    - $arshx=\ln (x+\sqrt{x^2+1})$
+    - $arsh'x=\cfrac{1}{\sqrt{x^2+1}}$
+  - $chx=\cfrac{e^x+e^{-x}}{2}$
+    - $ch'x=shx$
+    - $archx=\ln (x+\sqrt{x^2-1})$
+    - $arch'x=\cfrac{1}{\sqrt{x^2-1}}$
+  - $thx=\cfrac{e^x-e^{-x}}{e^x+e^{-x}}=\cfrac{shx}{chx}$
+    - $th'x=\cfrac{1}{ch^2x}$
+    - $arthx=1/2\ln (\cfrac{1+x}{1-x})$
+    - $arth'x=\cfrac{1}{1-x^2}$
+- step 函数
+  - $y=0 (x<0), y=1 (x>=0)$
+  - $\int y=0 (x<0), =x (x>0)$
+  - $y'=0 x\ne 0,=\infty x=0$ spike尖刺
 
 # 几何
 
@@ -234,7 +261,15 @@ mathjax: true
 
 # 立体几何
 ## 球
+
+
 - 体积$V=\cfrac{4}{3}\pi r^3$
+  ![切成无数片圆积分](https://img1.baidu.com/it/u=1060714743,4198444281&fm=26&fmt=auto)
+
+  - $\because V=\int_{-r}^{r}\pi (r^2-x^2) dx=(\pi r^2x-\cfrac{x^3}{3})|_{-r}^r$
+- 表面积$S=4\pi r^2$
+  - 体积剥洋葱微分
+  - $\because S=\cfrac{dV}{dr}$
 
 # 复数
 - $i=\sqrt{-1}$
@@ -245,8 +280,10 @@ mathjax: true
     - $e^{i\pi}=-1$
     - 证明：用Tylor展开
   - 乘i就是逆时针转90°
+
 # 微积分
 - [《图解普林斯顿微积分读本》系列合集](https://zhuanlan.zhihu.com/p/31199228)
+
 ## 极限
 - $\infty - \infty$
 - $0 * \infty$
@@ -271,17 +308,36 @@ mathjax: true
       - 零点定理：f在[a,b]连续，且f(a)<0,f(b)>0,则$\exists c$ s.t. f(c)=0
     - 最大值最小值定理：f在[a,b]连续，则$\exists max min$
     - $\forall \epsilon \exists \delta s.t. if |x-a|< \delta , then |f(x)-f(a)| < \epsilon$
-  - 可导：左右导数都存在且相等：光滑
+  - 可导=可微：左右导数都存在且相等：光滑
     - y=|x|在x=0处不可导，但连续
     - 魏尔斯特拉斯函数：连续但处处不可导
 
 
 ## 微分
+![微分的几何意义](https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/baike/g=0;w=268/sign=4e4a60d9b07eca8002053cece61ea5eb/ac4bd11373f08202a6f457c54bfbfbedaa641be2.jpg)
+
+- The differential微分
 - 一阶导数 Derivative
   - Speed, Slope
-  - 求极值(stationary point驻点)=导数为0
-    - max: 二阶导<0
-    - min: 二阶导>0
+  - 求极值
+    - > stationary point驻点=critical point临界点:f'=0或不存在
+      - f'=0的情况，可以算f'左右和f''分辨
+        - f的局部极值
+          - max: f''<0
+          - min: f''>0
+        - f的水平拐点
+  - 求[a,b] max,min
+    - 求驻点值，和f(a),f(b)一起比大小
+- 三个中值定理：假设函数 f，g 在闭区间 [a,b] 内连续, 在开区间 (a,b) 内可导, 
+  - Rolle's Theorem 罗尔定理： $if f(a) = f(b) \exists c in (a,b) s.t. f'(c) = 0$
+    ![罗尔定理](https://ss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/baike/w%3D245/sign=9e0d5c1778ec54e741ec1d1a8c389bfd/574e9258d109b3de23b03541cfbf6c81800a4c88.jpg)
+
+  - 拉格朗日中值定理: $\exists c in (a,b) s.t. \cfrac{f(b)-f(a)}{b-a}=f'(c)$
+    ![拉格朗日中值定理](https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/f11f3a292df5e0fea9ceda1c5e6034a85fdf72dc.jpg)
+    
+  - 柯西中值定理: $if g' \ne 0 then \exists c in (a,b) s.t. \cfrac{f(b)-f(a)}{g(b)-g(a)}=\cfrac{f'(c)}{g'(c)}$
+    - $\because \cfrac{\cfrac{f(b)-f(a)}{b-a}}{\cfrac{g(b)-g(a)}{b-a}}=\cfrac{f'(c)}{g'(c)}$
+
 - $y=x^2$
   - $dy/dx = ((x+dx)^2-x^2)/(dx)=(x^2+2xdx+dx^2-x^2)/dx=2x+dx =2x$
   - $dy/dx=nx^(n-1)$
@@ -292,9 +348,13 @@ mathjax: true
   - $dy/dx=e^x$
 - 二阶导数
   - Accelerating, Bending 凹凸
-  - $d^2y/dx^2=2>0$ : Bending up (convex)
-  - <0 Bending down (concave)
-  - =0 拐点 (inflection point)
+  - $d^2y/dx^2=2$
+    - >0 Bending up (convex)凸
+    - <0 Bending down (concave)凹
+    - =0
+      - 是f'的局部极值
+        - 这点是f的inflection point拐点
+      - 是f'的水平拐点，比如$y=x^4$ x=0,不是f的拐点
 - Product Rule乘法法则
   - $(fg)'=f'g+fg'$
     ![证明](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.pianshen.com%2Fimages%2F711%2F69ec7832392b723e36a1e217315e3b8f.png&refer=http%3A%2F%2Fwww.pianshen.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640944053&t=b7ddf5cb57014be6880e25f88ee5fec7)
@@ -305,28 +365,107 @@ mathjax: true
   - $(f(g))'=f'g'$
   - $\because \cfrac{dz}{dx}=\cfrac{dz}{dy}\cfrac{dy}{dx}$
   - e.g. $((\sqrt{x})^2)'=2\sqrt{x}(\sqrt{x})'=1 \therefore (\sqrt{x})'=1/(2\sqrt{x})=1/2x^{-1/2}$
-  - e.g. $z=e^{-x^2/2} \therefore z'=-xe^{-x^2/2} \therefore z''=(x^2-1)e^{-x^2/2}$ 钟形曲线
-- Inverse function逆函数
-  - $f^{-1}(x)$ f逆x
-  - $\cfrac{dx}{dy}=\cfrac{1}{\cfrac{dy}{dx}}$
-- Squeeze theorem夹逼定理
+  - e.g. $z=e^{-x^2/2} \therefore z'=-xe^{-x^2/2} \therefore z''=(x^2-1)e^{-x^2/2}$ 钟形曲线，概率论
+
+- Squeeze theorem夹逼定理：若有两个函数在某点的极限相同，且有第三个函数的值在这两个函数之间，则第三个函数在该点的极限也相同
 - 隐函数求导
-- Linear Approximation
-  - $f(x)\approx f(a)+(x-a)f'(a)$
+- Linear Approximation 
+  - $f(x)\approx L(x)=f(a)+(x-a)f'(a)$
+  - 误差 $r(x)=f(x)-L(x)=1/2f''(c)(x-a)^2$
 - Newton's Method
   - $x-a\approx -\cfrac{F(a)}{F'(a)}$
+  ![牛顿法](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.wendangwang.com%2Fpic%2F263b304ef32b37fcbfb6077c%2F16-810-jpg_6-1080-0-0-1080.jpg&refer=http%3A%2F%2Fwww.wendangwang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641031573&t=4069eeb76ae499cd6f9e64e9ba18673e)
+  
+  - 失效
+    - f'(a)接近0
+    - f(x)=0不止一个解
+    - 近似可能变糟
+    - 陷入循环
+
+- Differential Equations微分方程
+  - $m\cfrac{d^2y}{dt^2}+2r\cfrac{dy}{dt}+ky=0$ 弹簧震子运动，m质量，r是阻尼，k是弹簧系数
+    - $y'=cy$的是$y(t)=y(0)+Ae^{ct}$
+    - $y''=0的是C和y$
+    - r=0 则 $-ky=m\cfrac{d^2y}{dt^2}$ 这是sin和cos
+    - key: try $y=e^{\lambda t}$
+    - $m\lambda^2 e^{\lambda t}+2r\lambda e^{\lambda t}+ke^{\lambda t}=0$
+    - $m\lambda^2+2r\lambda+k=0$
+    - $\lambda=\cfrac{-r \pm \sqrt{r^2-mk}}{m}$
+    - e.g.$y''+6y'+ay=0$
+      - a=8 判别式>0：$y=Ce^{-2t}+Dte^{-4t}$
+      - a=10 判别式<0：根据欧拉公式会变cos和sin$y=Ce^{-3t}cost+Dte^{-3t}sint$
+      - a=9 判别式=0：$y=Ce^{-3t}+Dte^{-3t}$
+  - $y'=cy+s(source)$
+    - $(y+s/c)'=c(y+s/c)$换元
+    - $y(t)=Ae^{ct}-s/c$
+    - 令t=0，$A=y(0)-s/c$
+  - Linear Solution: $y(t)=y{particular function}(t)+y_{right side 0}(t)$
+  - Growth
+    - Population p(t)
+      - $p'=cp-sp^2$
+        - p'=0,then p=s/c, population is not changing
+        - 令$y=1/p then \cfrac{dy}{dt}=p^{-2}p'=-\cfrac{cp-sp^2}{p^2}=-\cfrac{c-sp}{p}=s-cy$
+        - $y(t)=(y(0)-s/c)e^{-ct}$ 代回去得p，p(0)人口普查得到
+    - Predator-Prey Equation捕食猎物
+      - $du/dt=-cu+suv, dv/dt=cv-suv$
 
 ## Integral积分
-
-  - 指数函数和对数函数
-  - 反函数和反三角函数
-  - 最优化和线性化
-  - 积分
-  - 定积分
-  - 微积分基本定理
+- 积分
+  - 积分的中值定理(Mean Value Theorem for integrals): 连续函数在一段区间内至少一次达到它的平均值.
+    - 函数 f 在区间 [a,b] 上连续, 那么在开区间 (a,b) 内总有一点 c, 满足$f(x)=\cfrac{1}{b-a}\int\limits_{a}^{b}f(x)\, dx$
+  - 可积：f 为有界函数并在区间 [a, b] 上有限个不连续点
+    - 函数 f(x) 的值在高度1 和2 之间来回跳跃, 任何一点都不连续
+      - 勒贝格积分(Lebesgue integration)
+  - 定积分：有端点
+    - $\int\limits_{a}^{b}f(x)\, dx=F(b)-F(a)$
+  - 不定积分
+    - 收敛,发散
   - 反常积分
-  - 数列和级数
-  - 泰勒多项式
+    - > improper反常积分: $f(垂直渐近线附近)=\infty$
+      - >problem spot瑕点
+  - Convergence tests审敛法
+    - 看$\lim_{\epsilon \to 0}\int\limits_{a+\epsilon}^{b}f(x)\, dx$存在不
+      - >收敛Convergence
+        - e.g. 在x=0 $\cfrac{1}{\sqrt{x}}$
+      - >发散Divergence
+        - e.g. 在x=0 $\cfrac{1}{x}$
+      - 比较判别法(理论)The Comparison Test：比发散大的也发散
+      - 极限比较判别法(理论)The Limit Comparison Test：如两个函数在 x=a 是非常接近, 那么它们收敛或发散的行为是相同的.
+        - 函数互为渐近线$x\rightarrow a$
+          - 做差: $f(x)-g(x)=0$
+          - 做商: $\cfrac{f(x)}{g(x)}=1$
+          - 常用的g是$x^{-p}$
+            - 上限$\infty$
+              - p>1收敛
+              - p<=1发散
+            - 下限0
+              - p<1收敛
+              - p>=1发散
+          - 记住$\cfrac{1}{x^2}$靠近x轴，$\cfrac{1}{x^1/2}$靠近y轴
+        - 可以对渐近等价函数做相乘, 相除, 幂运算或变量替换都是适用的. 但加减关系并不适用!
+        - e.g. $\int\limits_{0}^{1}\cfrac{1}{sin(\sqrt{x})}\, dx$收不收敛看$\int\limits_{0}^{1}\cfrac{1}{\sqrt{x}}\, dx$
+      - 绝对收敛判别法：绝对值积分收敛，则去绝对值也收敛
+
+## 数列和级数
+- > 级数Series：数列各项和
+  - 若数列极限不存在或$\ne 0$，级数肯定发散
+- 重要数列
+  - $a_n=r^n$
+    - r=1 直线
+    - r=2 指数函数
+      - r=1/2 级数收敛
+    - r=-1 上下反复
+    - r=-2 右边上下发散震荡
+      - r=-1/2 左边上下发散震荡 级数收敛
+  - $a_n=(1+\cfrac{k}{n})^n$
+    - $n \rightarrow \infty =e^k$
+- 无穷级数
+  - Tylor Series泰勒多项式
+    ![tylor](/MathKT/tylor.png)  - $f(x)=f(a)+f'(a)(x-a)+\cfrac{1}{2!}f''(a)(x-a)^2+...$
+    - 麦克劳林:a=0
+    - Radius of convergence收敛半径
+  - Lagrange error bounds拉格朗日项余型
+
   - 参数方程和极坐标
   - 复数
   - 体积、弧长和表面积
@@ -357,7 +496,7 @@ mathjax: true
 
 
 
-$\left                --左边的竖线
+$\left|                --左边的竖线
 \begin{array}{lcr}     --一个array的开始, l/c/r表示列的对齐方式左/中/右
 a & b & c \\           --&分隔列 \\换行
 d & e & f
@@ -368,3 +507,17 @@ d & e & f
 
 ## 排列组合
 
+# Discrete mathematics离散数学
+## 逻辑学
+## 集合论（包括函数）
+- > 幂集：所有子集的集合
+- 康托尔定理
+## 数论基础
+## 算法设计
+## 组合分析
+## 离散概率
+## 关系理论
+## 图论与树
+## 抽象代数（包括代数系统 群、环、域等）
+## 布尔代数
+## 计算模型（语言与自动机）

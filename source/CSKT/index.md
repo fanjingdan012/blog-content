@@ -2,12 +2,13 @@
 title: 计算机知识树
 date: 2019-05-13 14:42:09
 ---
-[TOC]
+# 说明
 - search for questions
   - `*l1:` is easy questions
   - `*l2:` is middle questions
   - `*l3:` is hard questions
 - [课程资源](https://github.com/Developer-Y/cs-video-courses)
+
 # DS
 - Algorithm
   - Greedy
@@ -105,7 +106,7 @@ date: 2019-05-13 14:42:09
           - double rotation
             - zigzag
             - zigzig(弄完还是不平衡的)
-        - [AVL Tree](https://fanjingdan012.github.io/2019/05/21/Splay-Tree-and-AVL-Tree/)(Adelson-Velskii-Landis):平衡树
+        - [AVL Tree (Adelson-Velskii-Landis)](https://fanjingdan012.github.io/2019/05/21/Splay-Tree-and-AVL-Tree/) 平衡树
           - balance factor BF(node) = 左孩子高度-右孩子高度=-1,0,1
           - rotation：就是看长出来的树是右孩子的右孩子就是RR，依次类推，
             - single rotation
@@ -203,29 +204,6 @@ date: 2019-05-13 14:42:09
 
 # 数据库
 - SQL
-  - [index](https://fanjingdan012.github.io/2019/05/21/B-Tree-B-plus-Tree-and-B-star-Tree/)
-    - index种类
-      - Hash 等值查询
-      - Linear index(memory or disk)就是一串key/pointer,key是顺序排列的，pointer指向具体记录
-      - tree *l1:B树和B+树有啥区别？*
-        - B(Balance) tree
-        - B+树
-        - B星树
-    - 分类
-      - 唯一索引
-      - 主键索引
-      - 聚集索引
-      - 非聚集索引
-        - 多扫描一次 减少回表
-      - 联合索引：将多个列组合在一起创建索引，可以覆盖多个列。（也叫复合索引，组合索引）, 需遵循最左匹配原则
-      - 外键索引：只有InnoDB类型的表才可以使用外键索引，保证数据的一致性、完整性、和实现级联操作（基本不用）。
-      - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
-      - 覆盖索引 包含主键索引值
-    - In-Memory
-      - In-Memory T-Tree
-        -
-      - Latch-Free Bw-Tree
-      - B+ Tree Optimistic Latching
   - truncate删除表中数据，再插入时自增长id又从1开始
   - [MySQL](https://dev.mysql.com/downloads/)
     - `mysql -h localhost -u root -p123`
@@ -245,6 +223,76 @@ date: 2019-05-13 14:42:09
       - Before/After intert
       - Before/After update
       - Before/After delete
+  - sql调优 *l2: 怎么做数据库调优？*
+    - 预发跑sql explain
+    - 排除缓存 sql nocache
+    - 看一下行数对不对，不对用analyze table t矫正
+    - 添加索引，（索引也不一定是最优的） force index强制走索引，不推荐用
+    - 存在回表的情况
+    - 覆盖索引避免回表，不要*
+      - 主键索引
+    - 联合索引 不能无限建 高频场景
+    - 最左前缀原则，按照索引定义的字段顺序写sql
+    - 合理安排联合索引的顺序
+    - mysql 5.6之后索引下推 减少回表次数 不需要多个回表 一边遍历，一边判断
+- index
+  - index种类
+    - 磁盘
+      - Hash 等值查询
+      - Linear index(memory or disk)就是一串key/pointer,key是顺序排列的，pointer指向具体记录
+      - [tree](https://fanjingdan012.github.io/2019/05/21/B-Tree-B-plus-Tree-and-B-star-Tree/) *l1:B树和B+树有啥区别？*
+        - B(Balance) tree
+        - B+树
+        - B星树
+    - In-Memory
+      - A "whole-key" order preserving data structure stores all the digits of a key together in nodes.
+        - A worker thread has to compare the entire search key with keys in the data structure during traversal.
+      - T-Tree
+        - [A Study of Index Structures for Main Memory Database Management Systems ](http://www.vldb.org/conf/1986/P294.PDF)
+        - Based on AVL tree
+        - Instead of storing keys in nodes, store pointers to their original values.
+        - Proposed in 1986 from Univ. of Wisconsin
+        - Used in TimesTen and other early in-memory DBMSs during the 1990s.
+        - advantages
+          - Uses less memory because it does not store keys inside of each node.
+          - The DBMS evaluates all predicates on a table at the same time when accessing a tuple (i.e., not just the predicates on indexed attributes).
+        - disadvantages
+          - Difficult to rebalance
+          - Difficult to implement safe concurrent access
+          - Must chase pointers when scanning range or performing binary search inside of a node.
+            - hurts cache locality
+      - Latch-Free Bw-Tree: Latch-free B+Tree index built for the Microsoft Hekaton project.
+        - CaS 一次只更新一个address, cannot split/merge on B+ tree: add indirection layer
+          - Deltas
+            - No updates in place
+            - Reduce cache invalidation
+            - Old page + deltas are marked as garbage.
+              - Reference Counting
+              - Epoch-based Reclamation
+              - Hazard Pointers
+              - Many others…
+          - Mapping Table
+            - Allows for CaS of physical locations of pages
+        - GC
+          - Maintain a global epoch counter that is periodically updated (e.g., every 10 ms).
+            - Keep track of what threads enter the index during an epoch and when they leave.
+          - Mark the current epoch of a node when it is marked for deletion.
+          - The node can be reclaimed once all threads have left that epoch (and all preceding epochs).
+Also known as Read-Copy-Update (RCU) in Linux
+      - B+Tree Optimistic Latching
+
+
+  - 分类
+    - 唯一索引
+    - 主键索引
+    - 聚集索引
+    - 非聚集索引
+      - 多扫描一次 减少回表
+    - 联合索引：将多个列组合在一起创建索引，可以覆盖多个列。（也叫复合索引，组合索引）, 需遵循最左匹配原则
+    - 外键索引：只有InnoDB类型的表才可以使用外键索引，保证数据的一致性、完整性、和实现级联操作（基本不用）。
+    - 全文索引：MySQL自带的全文索引只能用于MyISAM，并且只能对英文进行全文检索 （基本不用）
+    - 覆盖索引 包含主键索引值
+
 - 事务
   - isolation级别 *l2:数据库隔离级别有哪些*
     - read uncommitted（读取未提交数据）
@@ -460,32 +508,7 @@ date: 2019-05-13 14:42:09
         - Do not need to track the visibility of individual tuples
         - The GC will free all memory when there are no active txns that exist before the drop operation
         - If the catalog is transactional, then this easy to do.
-  - Index
-    - A "whole-key" order preserving data structure stores all the digits of a key together in nodes.
-      - A worker thread has to compare the entire search key with keys in the data structure during traversal.
-    - In-Memory T-Tree
-      - Based on AVL tree
-      - Instead of storing keys in nodes, store pointers to their original values.
-      - Proposed in 1986 from Univ. of Wisconsin
-      - Used in TimesTen and other early in-memory DBMSs during the 1990s.
-      - advantages
-        - Uses less memory because it does not store keys inside of each node.
-        - The DBMS evaluates all predicates on a table at the same time when accessing a tuple (i.e., not just the predicates on indexed attributes).
-      - disadvantages
-        - Difficult to rebalance
-        - Difficult to implement safe concurrent access
-        - Must chase pointers when scanning range or performing binary search inside of a node.
-          - hurts cache locality
 
-  - Latch-Free Bw-Tree: Latch-free B+Tree index built for the Microsoft Hekaton project.
-    - B+Tree Optimistic Latching
-      - CaS 一次只更新一个address, cannot split/merge on B+ tree
-      - add indirection layer
-    - Deltas
-      - No updates in place
-      - Reduce cache invalidation
-    - Mapping Table
-      - Allows for CaS of physical locations of pages
 
 - 锁
   - 全局锁
@@ -550,18 +573,7 @@ date: 2019-05-13 14:42:09
     - maven plugin in pom
     - run `mvn mybatis-generator:generate` will generate entity, mapper.java, mapper.xml
     - must first create schema and tables
-- sql调优 *l2: 怎么做数据库调优？*
-  - 预发跑sql explain
-  - 排除缓存 sql nocache
-  - 看一下行数对不对，不对用analyze table t矫正
-  - 添加索引，（索引也不一定是最优的） force index强制走索引，不推荐用
-  - 存在回表的情况
-  - 覆盖索引避免回表，不要*
-    - 主键索引
-  - 联合索引 不能无限建 高频场景
-  - 最左前缀原则，按照索引定义的字段顺序写sql
-  - 合理安排联合索引的顺序
-  - mysql 5.6之后索引下推 减少回表次数 不需要多个回表 一边遍历，一边判断
+
 - log
   - undo log
   - redo log
@@ -2013,6 +2025,8 @@ date: 2019-05-13 14:42:09
       - [原理解释](https://github.com/fanjingdan012/JavaDetails/blob/master/security/src/main/java/crypt/RSAImpl.java)
       - [数学原理解释](https://cnodejs.org/topic/5bb9c31e15e4fd1923f48d0b)
       - [密钥存储格式](http://github.tiankonguse.com/blog/2017/07/01/ASN1-SRA.html)
+      - Shell
+        - `ssh-keygen -t rsa -C "username@domain.com"` 用于生成rsa pair，放github
       - 攻击方式
         - 暴力头尾+中间
         - 共模攻击：不同public key加密同一个plainText，因为`C=plainMsg^e mod n`，根据"中国剩余定理"可以算出plainText，但不能得到private key，[CTF sample](https://github.com/fanjingdan012/JavaDetails/blob/master/security/src/test/java/crypt/RSAImplTest.java)

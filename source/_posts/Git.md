@@ -12,7 +12,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
   - git help revisions
 - chmod -R u+w .git
 
-# Config
+# [Config](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
 - [global ignore](https://gist.github.com/subfuzion/db7f57fff2fb6998a16c)
   - `git config --global core.excludesfile ~/.gitignore`
   - e.g.
@@ -22,6 +22,8 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
     *.db
     ```
 - git config --list 看所有用户
+  - `git config --global user.name "John Doe"`
+  - `git config --global user.email johndoe@example.com`
 - proxy
   - git config --global --unset https.proxy
   - git config --global --unset http.proxy
@@ -30,6 +32,7 @@ Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个�
   - git config --global http.proxy http://proxy.example.com:8080
   - git config --global https.proxy http://proxy.example.com:8080
 - `git config --global commit.template ~/commit_template.txt`
+- `ssh-keygen -t rsa -C "username@domain.com"`
 
 
 # Git命令状态图
