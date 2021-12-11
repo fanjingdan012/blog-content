@@ -6,6 +6,8 @@ mathjax: true
 ---
 # Mathjax
 - [LaTeX 数学语法](https://uinika.gitee.io/Zen/LaTex/)
+- 知乎equation
+  ![](https://www.zhihu.com/equation?tex=%5C%5B%5CDelta+x%3Db-a+cd%5C%5D)
 
 # 函数
 - [图像](https://zuotu.91maths.com/)
@@ -80,8 +82,39 @@ mathjax: true
     - $\log_{a}' x = \cfrac{1}{x \ln a}$
     - $\ln'x = \cfrac{1}{x}$
     - $\int \ln x=x\ln x-x$
-    - Tylor
-      - $\ln(1-x)=x+\cfrac{x^2}{2}+\cfrac{x^3}{3}+\cfrac{x^4}{4}+...$
+    - 麦克劳林： $\ln(1-x)=x+\cfrac{x^2}{2}+\cfrac{x^3}{3}+\cfrac{x^4}{4}+...$
+
+- step 函数
+  $$
+  \begin{equation}
+    y=\begin{cases}
+      0 & \text{if $x<0$},\\
+      1 & \text{if $x>=0$.}
+      \end{cases}
+  \end{equation}
+  $$
+  $$
+  \int y=\begin{cases}
+      0 & \text{if $x<0$},\\
+      x & \text{if $x>=0$}.
+      \end{cases}
+  $$
+  $$
+  y'=\begin{cases}
+      0      & \text{if $x \ne 0$},\\
+      \infty & \text{if $x=0$}. spike尖刺
+      \end{cases}
+  $$
+- sign 函数
+  $$
+  \begin{equation}
+    sign(x)=\begin{cases}
+          -1 & \text{if $x<0$},\\
+          0 & \text{if $x=0$},\\
+          1 & \text{if $x>0$}.
+         \end{cases}
+  \end{equation}
+  $$
 
 # 三角
 ![图像](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile1.renrendoc.com%2Ffileroot_temp2%2F2020-12%2F4%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d0%2Fa9a1e77a-e13b-4f04-9513-4e4b6fda31d03.gif&refer=http%3A%2F%2Ffile1.renrendoc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1640927932&t=0b46dabd561e152c6fd50dfb4a7b6fe9)
@@ -170,7 +203,7 @@ mathjax: true
       - 证明: $\sec(arcsecx)=x \therefore sec(arctanx)tan(arctanx)arctan'x=1 \therefore so$
   - $csc'x=-cscxcotx$
     - $arccsc'x=-\cfrac{1}{x\sqrt{x^2-1}}$
-- 双曲函数
+## 双曲函数
   ![双曲函数](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhealth.eduboo.com%2Fuploads%2Fprojects%2F574%2F8730.jpg&refer=http%3A%2F%2Fhealth.eduboo.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641015337&t=5d814febe17d3898749bf1dd75f60e25)
 
   - $shx=\cfrac{e^x-e^{-x}}{2}$
@@ -185,10 +218,11 @@ mathjax: true
     - $th'x=\cfrac{1}{ch^2x}$
     - $arthx=1/2\ln (\cfrac{1+x}{1-x})$
     - $arth'x=\cfrac{1}{1-x^2}$
-- step 函数
-  - $y=0 (x<0), y=1 (x>=0)$
-  - $\int y=0 (x<0), =x (x>0)$
-  - $y'=0 x\ne 0,=\infty x=0$ spike尖刺
+
+
+## polar coordinate极坐标
+- $P(r,\theta)$
+
 
 # 几何
 
@@ -290,6 +324,7 @@ mathjax: true
 - $A/B$
   - $0/0$
     - 法国人l'Hopital 洛必达 $f/g=f'/g'$
+      - $\because \cfrac{df}{dg}=\cfrac{df/dx}{dg/dx}$
       - 如果f'或g'$\rightarrow \infty$ 失效
   - $\infty / \infty$
 - $A^B$
@@ -446,6 +481,8 @@ mathjax: true
         - e.g. $\int\limits_{0}^{1}\cfrac{1}{sin(\sqrt{x})}\, dx$收不收敛看$\int\limits_{0}^{1}\cfrac{1}{\sqrt{x}}\, dx$
       - 绝对收敛判别法：绝对值积分收敛，则去绝对值也收敛
 
+### 重积分
+
 ## 数列和级数
 - > 级数Series：数列各项和
   - 若数列极限不存在或$\ne 0$，级数肯定发散
@@ -461,7 +498,13 @@ mathjax: true
     - $n \rightarrow \infty =e^k$
 - 无穷级数
   - Tylor Series泰勒多项式
-    ![tylor](/MathKT/tylor.png)  - $f(x)=f(a)+f'(a)(x-a)+\cfrac{1}{2!}f''(a)(x-a)^2+...$
+    ![tylor](/MathKT/tylor.png)  
+
+    - $f(x)=f(a)+f'(a)(x-a)+\cfrac{1}{2!}f''(a)(x-a)^2+...$
+      - Tylor近似定理：最近似的是Tylor展开到N: $P_{N(x)}$
+        - Tylor定理： 误差 $R_{N(x)}=f(x)-P_{N(x)}=\cfrac{f^{N+1}(c)}{(N+1)!}(x-a)^{N+1}$
+          - c是介于x与a之间的数
+ 
     - 麦克劳林:a=0
     - Radius of convergence收敛半径
   - Lagrange error bounds拉格朗日项余型
@@ -469,6 +512,10 @@ mathjax: true
   - 参数方程和极坐标
   - 复数
   - 体积、弧长和表面积
+
+# 多元微积分
+## 多元函数微分法
+
 
 # 线性代数
 - [图解高等数学|线性代数](https://mp.weixin.qq.com/s?__biz=MzAxNzg3MTE3Ng==&mid=2247488295&idx=1&sn=9f83afda8442d877a3615b832401fb8b&chksm=9bdfab00aca822162f0c1014fcd6155dbcfa0565f664d7c04632e910e4ca5c3b7cbbcc9d3915&scene=21#wechat_redirect)
@@ -494,7 +541,31 @@ mathjax: true
 - 极坐标
 - 第二类曲面积分
 
+$$
+  \begin{split}
+  \frac{\partial{\mathcal{E}}}{\partial{x_l}} & = 
+  \frac{\partial{\mathcal{E}}}{\partial{x_L}}\frac{\partial{x_L}}{\partial{x_l}}\\\\
+  & = \frac{\partial{\mathcal{E}}}{\partial{x_L}}\Big(1+\frac{\partial{}}{\partial{x_l}}\sum_{i=l}^{L-1}   
+  \mathcal{F}(x_i,\mathcal{W}_i)\Big)
+  \end{split}
+$$
 
+
+$$
+A = \begin{bmatrix}
+        a_{11}    & a_{12}    & ...    & a_{1n}\\
+        a_{21}    & a_{22}    & ...    & a_{2n}\\
+        a_{31}    & a_{22}    & ...    & a_{3n}\\
+        \vdots    & \vdots    & \ddots & \vdots\\
+        a_{n1}    & a_{n2}    & ... & a_{nn}\\
+    \end{bmatrix} , b = \begin{bmatrix}
+        b_{1}  \\
+        b_{2}  \\
+        b_{3}  \\
+        \vdots \\
+        b_{n}  \\
+    \end{bmatrix}
+$$
 
 $\left|                --左边的竖线
 \begin{array}{lcr}     --一个array的开始, l/c/r表示列的对齐方式左/中/右
@@ -504,6 +575,10 @@ d & e & f
 \right|$               --右边的竖线
 
 # 概率论
+- 贝叶斯公式
+$$
+P(A_i \mid B) = \frac{P(B\mid A)P(A_i)}{\sum_{j=1}^{n}P(A_j)P(B \mid A_j)}
+$$
 
 ## 排列组合
 
@@ -512,6 +587,8 @@ d & e & f
 ## 集合论（包括函数）
 - > 幂集：所有子集的集合
 - 康托尔定理
+
+
 ## 数论基础
 ## 算法设计
 ## 组合分析

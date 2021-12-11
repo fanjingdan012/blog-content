@@ -247,7 +247,7 @@ date: 2019-05-13 14:42:09
     - In-Memory
       - A "whole-key" order preserving data structure stores all the digits of a key together in nodes.
         - A worker thread has to compare the entire search key with keys in the data structure during traversal.
-      - T-Tree
+      - [T-Tree](https://segmentfault.com/a/1190000018502294?utm_source=tag-newest)
         - [A Study of Index Structures for Main Memory Database Management Systems ](http://www.vldb.org/conf/1986/P294.PDF)
         - Based on AVL tree
         - Instead of storing keys in nodes, store pointers to their original values.
@@ -2465,6 +2465,11 @@ Also known as Read-Copy-Update (RCU) in Linux
       - `git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k`
       - brew install --cask font-hack-nerd-font
     - `source ~/.zshrc`
+  - plugins
+    - zsh-syntax-highlight
+      - `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting`
+    - zsh-autosuggestions
+      - `git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions`
 - autojump
   - `brew install autojump`
   - `j <dirName>`
@@ -2476,7 +2481,7 @@ Also known as Read-Copy-Update (RCU) in Linux
   - [tmux](https://github.com/tmux/tmux/wiki)
     - `brew install tmux`
     - [oh-my-tmux](https://github.com/gpakosz/.tmux)
-      - git clone git://github.com/gpakosz/.tmux.git ~/oh-my-tmux
+      - `git clone git://github.com/gpakosz/.tmux.git ~/oh-my-tmux`
       - ln -s -f ~/oh-my-tmux/.tmux.conf ~/.tmux.conf
       - cp ~/oh-my-tmux/.tmux.conf.local ~/.tmux.conf.local
     - `vi ~/.tmux.conf`
