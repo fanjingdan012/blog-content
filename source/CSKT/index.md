@@ -2438,6 +2438,7 @@ Also known as Read-Copy-Update (RCU) in Linux
   - 删掉所在行 command + shift + k
   - 删掉此行光标后的 ctrl+k+k
   - 选中左边到行首 command—+shift+←
+  - snippet path: `~/Library/Application Support/Sublime Text 3/Packages/User`
 
 - intellij idea
   - jump to line = Command + L
