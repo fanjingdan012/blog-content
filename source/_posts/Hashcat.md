@@ -54,7 +54,7 @@ categories: Computer Science
 - `combinator3 color1.dict country1.dict fruit1.dict >all.dict`
 - `hashcat.exe -a 0 -m 13600 a.hash   all.dict  --force`
 - combine
-  - hashcat -a 1 -m 0 example0.hash example.dict example.dict
+  - `hashcat -a 1 -m 0 example0.hash example.dict example.dict`
 
 ## WPA
 - 题目:We were monitoring the wifis from outside the building and were able to run a death attack to sniff a wpa 4-way handshake on reconnection. Cracking wpa is tediously slow and an only wordlist attack didn't work, So we are trying to apply rules and everyone is taking a part of it. Your part of the wordlist is attached. The robokracy guys are lacking creativity so choose your ruleset accordingly.
