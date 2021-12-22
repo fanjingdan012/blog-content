@@ -2565,6 +2565,11 @@ Also known as Read-Copy-Update (RCU) in Linux
   - 切tab cmd+alt+arrow
 - Shell
   - pbcopy/pbpaste
+- search engine in command line
+  - [tuxi](https://github.com/Bugswriter/tuxi)
+  - [googler](https://github.com/jarun/googler)
+  - [BinGoo](https://www.geeksforgeeks.org/bingoo-linux-bash-based-bing-and-google-dorking-tool/)
+  - [Wikit](https://www.tecmint.com/wikipedia-commandline-tool/)
 
 # Windows
 - 查看pid `wmic process get name, processid|findstr 27284`
