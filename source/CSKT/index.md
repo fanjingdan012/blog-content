@@ -2042,6 +2042,7 @@ Also known as Read-Copy-Update (RCU) in Linux
         - SHA-256: 256bit=64hex (n/4)
         - SHA-384: 384bit=96hex
         - SHA-512: 512bit=128hex
+        - `shasum -a256 a.png`
       - RIPEMD-160
       - win zip hash
         - [structure](https://hashcat.net/forum/thread-7968.html)
@@ -2062,6 +2063,7 @@ Also known as Read-Copy-Update (RCU) in Linux
       - https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt
       - https://github.com/danielmiessler/SecLists/tree/master/Passwords/Common-Credentials
       - https://github.com/praetorian-inc/Hob0Rules.git
+      - https://github.com/OWASP/passfault.git
       - [rockyou2021](https://github.com/ohmybahgosh/RockYou2021.txt)
         - contains all passwords cracked by 2021
 - 编码
@@ -2179,6 +2181,11 @@ Also known as Read-Copy-Update (RCU) in Linux
     - tools
       - [mac](http://www.manongjc.com/detail/10-bzbhjtiwftgkvgh.html)
       - [subdomain scan](https://subdomainfinder.c99.nl/index.php)
+      - 密码爆破
+        - [hydra](https://www.cnblogs.com/shook/p/12218176.html)
+          - `hydra -V -I -P pws.txt -l "b@a.com http://xxx.com pwd.txt`
+        - ffuf
+          - `ffuf -w pwd.txt -u http://xxx.com`
       - 抓包工具
         - [wireshark](https://www.wireshark.org/download.html)
           - [从http数据包获取用户登陆信息](https://blog.csdn.net/wangqingchuan92/article/details/81095871)
@@ -2532,12 +2539,22 @@ Also known as Read-Copy-Update (RCU) in Linux
   - ctrl-X decrease number
   - generate series number `:put =range(11,15)`
   - ctrl-v 列编辑模式
+    - 光标向下选中
+    - shift + i(insert)
+    - esc
   - [vim 文本行逆序化](https://blog.csdn.net/cwcmcw/article/details/44876267)
     - `:g/.*/mo0`
     - `:g/^/mo0`
+  - replace
+    - 行首添加:`:%s/^/要添加的内容`
+      - 行尾:用$
+    - 删除行号:`:%s/^\s*[0-9]*\s*//gc`
   - 删除
     - 1-10行`:1,10d`
     - 1-本行`:1,.d`
+  - 复制黏贴
+    - [0-9a-z\+]y 复制到有名字的寄存器，+是剪贴板
+    - [0-9a-z\+]p 黏贴
   - macro
     - record: 普通模式下使用 q + [a-z], 然后结束时再按一下 q
     - 执行
@@ -2559,8 +2576,6 @@ Also known as Read-Copy-Update (RCU) in Linux
       jVG
       :'<,'>normal @a 对选中文本执行 a
       ```
-- 列编辑模式
-    - ctrl + v
 
 - Chrome
   - 切tab cmd+alt+arrow
@@ -2579,6 +2594,7 @@ Also known as Read-Copy-Update (RCU) in Linux
   - Ctrl+Q  列编辑
 - sublime
   - [多光标编辑快捷键](https://blog.csdn.net/lbx_15887055073/article/details/84560785)
+    - [sublime text常用快捷键及多行列模式批量操作教程](https://www.cnblogs.com/jpfss/p/10214295.html)
     - Ctrl+X：删除当前行
     - Ctrl+K+K 从光标处开始删除代码至行尾。
     - Ctrl+Shift+← 向左单位性地选中文本。
@@ -2592,6 +2608,10 @@ Also known as Read-Copy-Update (RCU) in Linux
 - postman
   - [快捷键](https://www.cnblogs.com/qican/p/11699732.html)
 - [hack nerd font](https://nerdfonts.com/)
+- [ffmpeg](https://www.ffmpeg.org/download.html)
+  - https://zhuanlan.zhihu.com/p/117523405
+  - https://ruanyifeng.com/blog/2020/01/ffmpeg.html
+  - https://github.com/koki-nakamura22/mp4_divider/blob/main/mp4_divider.py
 # Tools
 - [正则可视化](https://jex.im/regulex/)
   - stacktrace类+方法：[a-zA-Z0-9$]+\.[a-zA-Z]+\n
@@ -2611,4 +2631,6 @@ Also known as Read-Copy-Update (RCU) in Linux
 - IT
   - [JMeter](https://jmeter.apache.org/download_jmeter.cgi)
   - [Selenium](https://www.selenium.dev/documentation/en/)
+  - BDD/Cucumber
+
 - Performance Test
