@@ -2643,6 +2643,16 @@ Also known as Read-Copy-Update (RCU) in Linux
   - https://zhuanlan.zhihu.com/p/117523405
   - https://ruanyifeng.com/blog/2020/01/ffmpeg.html
   - https://github.com/koki-nakamura22/mp4_divider/blob/main/mp4_divider.py
+  - ffmpeg -i input.mp4 -ss 00:02:00 -t 00:01:00 -codec copy output.mp4
+    - cut从2分开始的1分
+  - ffmpeg -f concat -i list.txt output.mp4 粘合视频
+    > 1.mp4
+    > 2.mp4
+  - ffmpeg -i input.mkv -map 0 -c copy output.mp4
+  - ffmpeg -i f.mp4 -filter:v "setpts=0.5*PTS" f2.mp4
+  - ffmpeg -i f.mp4 -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" f3.mp4 加速两倍
+  - ffmpeg -i f.mp4 -filter_complex "[0:v]setpts=0.33*PTS[v];[0:a]atempo=3.0[a]" -map "[v]" -map "[a]" f4.mp4 加速三倍
+
 # Tools
 - [正则可视化](https://jex.im/regulex/)
   - stacktrace类+方法：[a-zA-Z0-9$]+\.[a-zA-Z]+\n
