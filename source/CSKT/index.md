@@ -1738,6 +1738,23 @@ Also known as Read-Copy-Update (RCU) in Linux
     - Client
   - Map/Reduce
   - Hive
+  - 生态圈
+    - Lucene
+    - nutch
+    - mahout
+    - Solr
+    - Apache Pig
+    - Zookeeper
+    - cassandra
+    - scribe
+    - sqoop
+    - WHIRR
+    - AVRO
+    - chuhwa
+    - FLUME
+    - oozie
+    - BIGTOP
+    - Thrift
 - [Spark](https://spark.apache.org/downloads.html)
   - components
     - core
@@ -2196,6 +2213,7 @@ Also known as Read-Copy-Update (RCU) in Linux
         - [Git Hack](https://github.com/lijiejie/GitHack)
           - `python GitHack.py https://robokracy.com/.git `
       - [xss平台](https://xss8.cc/xss.php)
+      - cyberchef
     - reverse engineering
       - binwalk
         - install
@@ -2203,6 +2221,14 @@ Also known as Read-Copy-Update (RCU) in Linux
         - binwalk xx.ov
         - binwalk -e xx.ov
           - jffs2 file system: https://github.com/sviehb/jefferson.git
+      - [binary ninja](https://binary.ninja)
+        - learning asm
+          - [The Definitive Guide to ARM® Cortex®-M3 and Cortex®-M4 Processors]()
+          - use arduino(8 bit CPU)
+          - hardware debugger to cpu
+      - xxd binary.o
+      - ld -m elf_i386 -s -o demo *.o
+  - memory manipulate
   - C语言
     - buffer overflow
       - 命令行输入0x0：Ctrl+Shift+2
@@ -2247,6 +2273,12 @@ Also known as Read-Copy-Update (RCU) in Linux
   - Python
     - python 沙箱逃逸
   - PHP
+    - 安装：[phpstudy](https://www.xp.cn/download.html)
+    - 漏洞：
+      - [include](https://wooyun.js.org/drops/PHP%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93.html)
+        - reverse shell for php inclusion
+      - apache server logs
+
     - eval
       - `https://bugacademy.xsec.sap.corp/web/code_injection/1.php?cmd=echo%28file_get_contents%28%271bflag.txt%27%29%29%3B&level=1`
 
@@ -2464,7 +2496,6 @@ Also known as Read-Copy-Update (RCU) in Linux
   - `brew install zsh`
   - `chsh -s /bin/zsh root`
   - `$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-  - `git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh`
   - `cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc`
   - theme
     - `vim ~/.zshrc`
@@ -2615,6 +2646,9 @@ Also known as Read-Copy-Update (RCU) in Linux
 # Tools
 - [正则可视化](https://jex.im/regulex/)
   - stacktrace类+方法：[a-zA-Z0-9$]+\.[a-zA-Z]+\n
+- [reveal-md](https://revealjs.com/)
+  - npm install -g reveal-md
+  - reveal-md example.md --port 8888
 
 # Test
 - UT
