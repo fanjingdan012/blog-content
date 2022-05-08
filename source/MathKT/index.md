@@ -25,7 +25,7 @@ mathjax: true
   - 微积分
     - 单调增、减，且有限次f'x=0的函数有反函数
     - $\cfrac{dx}{dy}=\cfrac{1}{\cfrac{dy}{dx}}$
-   
+
 
 - 多项式
   - 二项式定理Binnominal theorem $(a+b)^n$ = 杨辉三角系数Pascal Triangle$a^nb^0+....$
@@ -363,13 +363,13 @@ mathjax: true
         - f的水平拐点
   - 求[a,b] max,min
     - 求驻点值，和f(a),f(b)一起比大小
-- 三个中值定理：假设函数 f，g 在闭区间 [a,b] 内连续, 在开区间 (a,b) 内可导, 
+- 三个中值定理：假设函数 f，g 在闭区间 [a,b] 内连续, 在开区间 (a,b) 内可导,
   - Rolle's Theorem 罗尔定理： $if f(a) = f(b) \exists c in (a,b) s.t. f'(c) = 0$
     ![罗尔定理](https://ss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/baike/w%3D245/sign=9e0d5c1778ec54e741ec1d1a8c389bfd/574e9258d109b3de23b03541cfbf6c81800a4c88.jpg)
 
   - 拉格朗日中值定理: $\exists c in (a,b) s.t. \cfrac{f(b)-f(a)}{b-a}=f'(c)$
     ![拉格朗日中值定理](https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/f11f3a292df5e0fea9ceda1c5e6034a85fdf72dc.jpg)
-    
+
   - 柯西中值定理: $if g' \ne 0 then \exists c in (a,b) s.t. \cfrac{f(b)-f(a)}{g(b)-g(a)}=\cfrac{f'(c)}{g'(c)}$
     - $\because \cfrac{\cfrac{f(b)-f(a)}{b-a}}{\cfrac{g(b)-g(a)}{b-a}}=\cfrac{f'(c)}{g'(c)}$
 
@@ -404,13 +404,13 @@ mathjax: true
 
 - Squeeze theorem夹逼定理：若有两个函数在某点的极限相同，且有第三个函数的值在这两个函数之间，则第三个函数在该点的极限也相同
 - 隐函数求导
-- Linear Approximation 
+- Linear Approximation
   - $f(x)\approx L(x)=f(a)+(x-a)f'(a)$
   - 误差 $r(x)=f(x)-L(x)=1/2f''(c)(x-a)^2$
 - Newton's Method
   - $x-a\approx -\cfrac{F(a)}{F'(a)}$
   ![牛顿法](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.wendangwang.com%2Fpic%2F263b304ef32b37fcbfb6077c%2F16-810-jpg_6-1080-0-0-1080.jpg&refer=http%3A%2F%2Fwww.wendangwang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641031573&t=4069eeb76ae499cd6f9e64e9ba18673e)
-  
+
   - 失效
     - f'(a)接近0
     - f(x)=0不止一个解
@@ -498,13 +498,13 @@ mathjax: true
     - $n \rightarrow \infty =e^k$
 - 无穷级数
   - Tylor Series泰勒多项式
-    ![tylor](/MathKT/tylor.png)  
+    ![tylor](/MathKT/tylor.png)
 
     - $f(x)=f(a)+f'(a)(x-a)+\cfrac{1}{2!}f''(a)(x-a)^2+...$
       - Tylor近似定理：最近似的是Tylor展开到N: $P_{N(x)}$
         - Tylor定理： 误差 $R_{N(x)}=f(x)-P_{N(x)}=\cfrac{f^{N+1}(c)}{(N+1)!}(x-a)^{N+1}$
           - c是介于x与a之间的数
- 
+
     - 麦克劳林:a=0
     - Radius of convergence收敛半径
   - Lagrange error bounds拉格朗日项余型
@@ -520,6 +520,75 @@ mathjax: true
 # 线性代数
 - [图解高等数学|线性代数](https://mp.weixin.qq.com/s?__biz=MzAxNzg3MTE3Ng==&mid=2247488295&idx=1&sn=9f83afda8442d877a3615b832401fb8b&chksm=9bdfab00aca822162f0c1014fcd6155dbcfa0565f664d7c04632e910e4ca5c3b7cbbcc9d3915&scene=21#wechat_redirect)
 - 向量
+  - 加法
+  - 伸缩scale/乘数scalar
+  - 二维
+    - 两个基向量basis能张成span整个二维坐标系
+  - 三维
+    - 两个向量张成平面
+    - 三个向量张成整个空间
+    - 除非线性相关
+      - 线性相关：表示其中一个向量可以被其他两个ax+by算得
+      - 线性无关
+  - 线性变换Linear transformation
+    - 直线变完还是直线
+    - 原点不动
+
+
+    $$
+    \begin{pmatrix}
+    a & b \\
+    c & d
+    \end{pmatrix}
+    变换后\hat i=\begin{pmatrix}
+    a\\
+    c
+    \end{pmatrix}
+    变换后\hat j =\begin{pmatrix}
+    b\\
+    d
+    \end{pmatrix}
+
+    \begin{pmatrix}
+    a & b \\
+    c & d
+    \end{pmatrix}
+    \begin{pmatrix}
+    x \\
+    y
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    ax+by \\
+    cx+dy
+    \end{pmatrix}
+    $$
+
+    - 线性变换就是代表拿 $\hat i, \hat j$ 左乘
+      - 如果ij线性相关就会把整个二维空间挤成一条直线
+    - examples
+      - 逆时针转90°
+
+
+      $$
+      \begin{pmatrix}
+      0 & -1\\
+      1 & 0
+      \end{pmatrix}
+      $$
+
+
+      - 剪切Shear
+
+
+      $$
+      \begin{pmatrix}
+      1 & 1\\
+      0 & 1
+      \end{pmatrix}
+      $$
+
+
 - 内积/外积/混合积
 - 一元/二元泰勒展开
 - 偏导/方向导数/梯度
@@ -543,9 +612,9 @@ mathjax: true
 
 $$
   \begin{split}
-  \frac{\partial{\mathcal{E}}}{\partial{x_l}} & = 
+  \frac{\partial{\mathcal{E}}}{\partial{x_l}} & =
   \frac{\partial{\mathcal{E}}}{\partial{x_L}}\frac{\partial{x_L}}{\partial{x_l}}\\\\
-  & = \frac{\partial{\mathcal{E}}}{\partial{x_L}}\Big(1+\frac{\partial{}}{\partial{x_l}}\sum_{i=l}^{L-1}   
+  & = \frac{\partial{\mathcal{E}}}{\partial{x_L}}\Big(1+\frac{\partial{}}{\partial{x_l}}\sum_{i=l}^{L-1}
   \mathcal{F}(x_i,\mathcal{W}_i)\Big)
   \end{split}
 $$
