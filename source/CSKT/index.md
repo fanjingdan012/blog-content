@@ -1644,6 +1644,7 @@ Also known as Read-Copy-Update (RCU) in Linux
 - Spring boot
 - MVC
   - [手写简化逻辑的代码](https://github.com/fanjingdan012/simple-spring-mvc)
+  - [request mapping](https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-requestmapping.html)
 
 # 前端
 - HTML
@@ -1946,6 +1947,7 @@ Also known as Read-Copy-Update (RCU) in Linux
   - [kafka](http://kafka.apache.org/quickstart)
     - scala linkedin
     - 启动
+      - https://kafka.apache.org/quickstart
       - `./kafka-server-start.sh ../config/server.properties`
     - 概念
       - producer

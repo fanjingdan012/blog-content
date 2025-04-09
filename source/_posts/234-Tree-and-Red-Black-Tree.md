@@ -32,8 +32,8 @@ delete 24，27提上去补位
 - 叶子是黑的：强行加个null叶子
 
 ## CRUD
-动画:[https://www.cs.usfca.edu/~galles/visualization/RedBlack.html](https://www.cs.usfca.edu/~galles/visualization/RedBlack.html)
-[怎么rotate见Splay和AVL Tree](https://fanjingdan012.github.io/2019/05/21/Splay-Tree-and-AVL-Tree/)
+- [动画](https://www.cs.usfca.edu/~galles/visualization/RedBlack.html)
+- [怎么rotate见Splay和AVL Tree](https://fanjingdan012.github.io/2019/05/21/Splay-Tree-and-AVL-Tree/)
 ### C
 1. 正常BST插入，涂成红色（也就是默认是偏门的key）
 2. 递归解决双红冲突：
